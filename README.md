@@ -1,4 +1,4 @@
-# vue-ts-lib-starter
+# dap-ui
 
 ## Project setup
 ```
