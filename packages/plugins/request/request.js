@@ -6,13 +6,12 @@
  * @LastEditors  : Please set LastEditors
  * @Description:
  */
-import Vue from 'vue'
 import axios from 'axios'
 import fileDownload from 'js-file-download'
 import {HttpError , HTTP_ERROR_CONSTANT } from './request.constant'
 
 export default {
-  install (vue, opts) {
+  install (Vue, opts) {
     const requestInterceptorMap = new Map()
     const responseInterceptorMap = new Map()
 
@@ -182,6 +181,7 @@ export default {
       const config = {
         url: urlConfig.url,
         method: urlConfig.method,
+        params: urlConfig.params,
         data: urlConfig.params,
         headers: {
           ...options.headers,

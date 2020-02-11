@@ -12,8 +12,8 @@ function resolve(dir) {
 const MarkdownItContainer = require("markdown-it-container");
 const MarkdownItCheckBox = require("markdown-it-task-checkbox");
 const MarkdownItDec = require("markdown-it-decorate");
-const ConcatPlugin = require("webpack-concat-plugin");
-const CompressionPlugin = require("compression-webpack-plugin");
+// const ConcatPlugin = require("webpack-concat-plugin");
+// const CompressionPlugin = require("compression-webpack-plugin");
 
 /**
  * 增加 hljs 的 classname
@@ -190,19 +190,19 @@ module.exports = {
   //webpack 配置
   configureWebpack: config => {
     config.plugins = [
-      ...config.plugins,
-      new ConcatPlugin({
-        // examples
-        uglify: false,
-        sourceMap: false,
-        name: "dap-ui",
-        outputPath: "./",
-        fileName: "[name].less",
-        filesToConcat: ["./packages/**/*.less"],
-        attributes: {
-          async: true
-        }
-      })
+      ...config.plugins
+      // new ConcatPlugin({
+      //   // examples
+      //   uglify: false,
+      //   sourceMap: false,
+      //   name: "dap-ui",
+      //   outputPath: "./",
+      //   fileName: "[name].less",
+      //   filesToConcat: ["./packages/**/*.less"],
+      //   attributes: {
+      //     async: true
+      //   }
+      // })
     ];
     if (devNeedCdn) {
       config.externals = cdn.externals;
