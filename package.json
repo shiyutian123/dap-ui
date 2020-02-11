@@ -11,7 +11,8 @@
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint",
     "lib": "vue-cli-service build --target lib --name dap-ui --dest lib packages/index.js --report",
-    "cm": "git-cz"
+    "cm": "git-cz",
+    "fix-memory-limit": "cross-env LIMIT=2048 increase-memory-limit"
   },
   "dependencies": {
     "ant-design-vue": "^1.4.10",
