@@ -41,6 +41,12 @@
             "name": "button",
             "isMobile": "1",
             "path": "/button"
+          },
+          {
+            "desc": "Table 表格",
+            "name": "table",
+            "isMobile": "1",
+            "path": "/table"
           }
         ]
       },
