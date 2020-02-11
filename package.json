@@ -10,7 +10,8 @@
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint",
-    "lib": "vue-cli-service build --target lib --name dap-ui --dest lib packages/index.js --report"
+    "lib": "vue-cli-service build --target lib --name dap-ui --dest lib packages/index.js --report",
+    "cm": "git-cz"
   },
   "dependencies": {
     "ant-design-vue": "^1.4.10",
@@ -27,6 +28,13 @@
     "vuex": "^3.1.2"
   },
   "devDependencies": {
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^7.1.2",
+    "commitizen": "^3.0.4",
+    "commitlint-config-cz": "^0.12.1",
+    "cz-conventional-changelog": "^2.1.0",
+    "cz-customizable": "^6.2.0",
+    "husky": "^4.2.1",
     "@types/jest": "^24.0.19",
     "@vue/cli-plugin-babel": "^4.1.0",
     "@vue/cli-plugin-e2e-cypress": "^4.1.0",
