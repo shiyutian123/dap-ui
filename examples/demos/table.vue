@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-02-11 14:46:57
- * @LastEditTime : 2020-02-11 19:22:55
+ * @LastEditTime : 2020-02-12 17:07:06
  * @LastEditors  : Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /lerna-dap/packages/dap-vue-ui/examples/demos/table.vue
@@ -13,6 +13,9 @@
     :table-data="tableData"
     @page-change="handlePageChange"
     @select-change="handleSelectChange">
+      <template v-slot:name="{ row, rowIndex }">
+        <span style="color:blue">{{ row.name }} {{ row.id }}</span>
+      </template>
     </sdf-ui-table>
   </div>
 </template>
@@ -25,6 +28,7 @@ export default {
       tableBaseConfig: {
         loading: false,
         rowId: 'id',
+        frontPaging: true,
         selectMode: 'multipart',
         checkboxConfig: {
           checkRowKeys: ['1', '2']
@@ -34,7 +38,8 @@ export default {
         columns: [
           {
             field: 'name',
-            title: '姓名'
+            title: '姓名',
+            slotName: 'name'
           },
           {
             field: 'sex',

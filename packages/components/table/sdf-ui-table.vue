@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-02-11 14:36:56
- * @LastEditTime : 2020-02-11 19:05:53
+ * @LastEditTime : 2020-02-12 16:54:40
  * @LastEditors  : Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /lerna-dap/packages/dap-vue-ui/packages/components/table/sdf-ui-table.vue
@@ -17,7 +17,7 @@
       :size="tableBaseConfig.size || 'medium'"
       :height="tableBaseConfig.height"
       :z-index="tableBaseConfig.zIndex"
-      :data="tableData"
+      :data="computTableData"
       :row-id="tableBaseConfig.rowId"
       :radio-config="computRadioConfig"
       :checkbox-config="computCheckboxConfig"
@@ -27,7 +27,18 @@
       <vxe-table-column v-if="tableBaseConfig.selectMode === 'single'" type="radio" title="" width="60"></vxe-table-column>
       <vxe-table-column v-if="tableBaseConfig.selectMode === 'multipart'" type="checkbox" width="60"></vxe-table-column>
       <vxe-table-column v-if="!tableBaseConfig.hideSeq" type="seq" width="60"></vxe-table-column>
-      <vxe-table-column v-for="(config, index) in tableBaseConfig.columns" :key="index" v-bind="config"></vxe-table-column>
+      <template v-for="(config, index) in tableBaseConfig.columns">
+        <vxe-table-column v-if="!config.slotName" :key="index" v-bind="config"></vxe-table-column>
+        <vxe-table-column v-if="config.slotName" :key="index" v-bind="config">
+          <template v-slot="{ row,rowIndex }">
+            <slot
+            :name="config.slotName"
+            :row="row"
+            :rowIndex="rowIndex">
+            </slot>
+          </template>
+        </vxe-table-column>
+      </template>
     </vxe-table>
     <vxe-pager
       v-if="tableBaseConfig.tablePage"
@@ -80,6 +91,15 @@ export default {
     }
   },
   computed: {
+    computTableData: function () {
+      if (this.tableBaseConfig.frontPaging) {
+        const start = (this.tableBaseConfig.tablePage.currentPage - 1) * this.tableBaseConfig.tablePage.pageSize;
+        const end = start + this.tableBaseConfig.tablePage.pageSize;
+        return this.tableData.slice(start, end);
+      } else {
+        return this.tableData;
+      }
+    },
     computRadioConfig: function() {
       if (
         this.tableBaseConfig &&
@@ -121,6 +141,16 @@ export default {
       return this.tableBaseConfig && this.tableBaseConfig.showHeaderOverflow;
     }
   },
+  watch: {
+    tableData: {
+      handler (newValue, oldValue) {
+        if (this.tableBaseConfig.frontPaging && newValue) {
+          this.tableBaseConfig.tablePage.totalResult = newValue.length;
+        }
+      },
+      immediate: true
+    }
+  },
   created() {
   },
   methods: {
@@ -133,7 +163,12 @@ export default {
      * @return: 
      */
     handlePageChange(e) {
-      this.$emit('page-change', e);
+      if (this.tableBaseConfig.frontPaging) {
+        this.tableBaseConfig.tablePage.currentPage = e.currentPage;
+        this.tableBaseConfig.tablePage.pageSize = e.pageSize;
+      } else {
+        this.$emit('page-change', e);
+      }
     },
     /**
      * @description: 单选选中事件

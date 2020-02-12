@@ -24,6 +24,9 @@
     :table-data="tableData"
     @page-change="handlePageChange"
     @select-change="handleSelectChange">
+      <template v-slot:name="{ row, rowIndex }">
+        <span style="color:blue">{{ row.name }} {{ row.id }}</span>
+      </template>
     </sdf-ui-table>
   </div>
 ```
@@ -37,6 +40,7 @@ export default {
       tableBaseConfig: {
         loading: false,
         rowId: 'id',
+        frontPaging: true,
         selectMode: 'multipart',
         checkboxConfig: {
           checkRowKeys: ['1', '2']
@@ -46,7 +50,8 @@ export default {
         columns: [
           {
             field: 'name',
-            title: '姓名'
+            title: '姓名',
+            slotName: 'name'
           },
           {
             field: 'sex',
@@ -86,6 +91,7 @@ export default {
       setTimeout(() => {
         this.tableBaseConfig.loading = false;
         this.tableBaseConfig.tablePage.currentPage = e.currentPage;
+        this.tableBaseConfig.tablePage.pageSize = e.pageSize;
       }, 1000);
     },
     /**
@@ -133,6 +139,7 @@ export default {
 | rowId    |  自定义主键名称       |  String   |        |         | 
 | height    |  表格的高度；支持铺满父容器或者固定宽高，如果设置 auto 为铺满父容器（如果设置自适应时，必须确保存在父节点且不允许存在相邻元素）       |  Number, String   |  auto, %, px      |         | 
 | tablePage    |  分页器，如果为undefined或者false则不渲染       | TablePage   |        |         | 
+| frontPaging    |  是否需要前端分页，注：如果启用，tablePage仍需要传入       | Boolean   |        |         | 
 | hideSeq    |  隐藏序列       | Boolean   |        |    false     | 
 | loading    |  表格是否显示加载中（若是table-base-config中初始化的时候没有这个属性，则之后再使用loading不起作用）       | Boolean   |        |         | 
 | size    |  表格的尺寸       | String   |  `medium` `small` `mini`      |  medium       | 
@@ -168,6 +175,9 @@ export default {
 | indexMethod    |  只对 type=index 有效，自定义索引方法 Function({row, rowIndex, column, columnIndex})      | Function |        |        | 
 | sortable    |  是否允许列排序      | Boolean |        |   false     | 
 | remoteSort    |  是否使用服务端排序，如果设置为 true 则不会对数据进行处理      | Boolean |        |        | 
+| slotName    |  自定义模版名称，如果需要使用自定义模版的话，请在此字段中指定模版名称，与插槽名称相匹配      | String |        |        | 
+
+
 
 ## TablePage
 
