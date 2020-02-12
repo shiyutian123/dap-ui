@@ -59,6 +59,12 @@
             "name": "input",
             "isMobile": "1",
             "path": "/input"
+          },
+          {
+            "desc": "Table 表格",
+            "name": "table",
+            "isMobile": "1",
+            "path": "/table"
           }
         ]
       },

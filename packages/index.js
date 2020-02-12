@@ -1,6 +1,7 @@
 /*
  * @Author: DevinShi
  * @Date: 2020-02-06 03:27:31
+<<<<<<< HEAD
  * @LastEditors: DevinShi
  * @LastEditTime: 2020-02-12 01:35:09
  * @Description: file content description
@@ -10,7 +11,7 @@ import DapUiButton from "./components/form/button/dap-ui-button.vue";
 import DapUiInput from "./components/form/input/dap-ui-input.vue";
 import DapUiBasicForm from "./components/form/form/dap-ui-basic-form.vue";
 import DapUiBasicFormItem from "./components/form/form-item/dap-ui-basic-form-item.vue";
-
+import SdfUiTable from "./components/table/sdf-ui-table.vue";
 
 import * as REQ_CONSTANT from './plugins/request/request.constant.js'
 
@@ -20,7 +21,7 @@ import RequestPlugin from './plugins/request/request.js'
 
 
 // 存储组件列表
-const components = [ DapUiButton, DapUiInput, DapUiBasicForm, DapUiBasicFormItem];
+const components = [ DapUiButton, DapUiInput, DapUiBasicForm, DapUiBasicFormItem, SdfUiTable];
 // 定义 install 方法，接收 Vue 作为参数。如果使用 use 注册插件，则所有的组件都将被注册
 const install = function(Vue) {
   // 判断是否安装
@@ -49,7 +50,9 @@ export default {
 
   DapUiBasicForm,
 
-  DapUiBasicFormItem
+  DapUiBasicFormItem,
+
+  SdfUiTable,
 };
 
 export {
