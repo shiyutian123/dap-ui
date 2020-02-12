@@ -181,7 +181,7 @@ export default {
       const config = {
         url: urlConfig.url,
         method: urlConfig.method,
-        data: urlConfig.params,
+        params: urlConfig.params,
         headers: {
           ...options.headers,
           ...urlConfig.headers

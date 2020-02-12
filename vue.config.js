@@ -2,18 +2,19 @@
  * @Author: DevinShi
  * @Date: 2020-02-06 03:24:53
  * @LastEditors: DevinShi
- * @LastEditTime: 2020-02-07 03:21:13
+ * @LastEditTime: 2020-02-11 10:24:29
  * @Description: file content description
  */
 const path = require("path");
+const os = require("os");
 function resolve(dir) {
   return path.join(__dirname, dir);
 }
 const MarkdownItContainer = require("markdown-it-container");
 const MarkdownItCheckBox = require("markdown-it-task-checkbox");
 const MarkdownItDec = require("markdown-it-decorate");
-// const ConcatPlugin = require("webpack-concat-plugin");
-// const CompressionPlugin = require("compression-webpack-plugin");
+const ConcatPlugin = require("webpack-concat-plugin");
+const CompressionPlugin = require("compression-webpack-plugin");
 
 /**
  * 增加 hljs 的 classname
@@ -135,9 +136,9 @@ const cdn = {
   css: [],
   // cdn的js链接
   js: [
-    "https://cdn.staticfile.org/vue/2.6.10/vue.min.js",
-    "https://cdn.staticfile.org/vuex/3.0.1/vuex.min.js",
-    "https://cdn.staticfile.org/vue-router/3.0.3/vue-router.min.js"
+    // "https://cdn.staticfile.org/vue/2.6.10/vue.min.js",
+    // "https://cdn.staticfile.org/vuex/3.0.1/vuex.min.js",
+    // "https://cdn.staticfile.org/vue-router/3.0.3/vue-router.min.js"
   ]
 };
 
@@ -187,23 +188,31 @@ module.exports = {
       .loader("vue-markdown-loader/lib/markdown-compiler")
       .options(vueMarkdown);
   },
-  //webpack 配置
+  // //webpack 配置
   configureWebpack: config => {
-    config.plugins = [
-      ...config.plugins,
-      // new ConcatPlugin({
-      //   // examples
-      //   uglify: false,
-      //   sourceMap: false,
-      //   name: "dap-ui",
-      //   outputPath: "./",
-      //   fileName: "[name].less",
-      //   filesToConcat: ["./packages/**/*.less"],
-      //   attributes: {
-      //     async: true
-      //   }
-      // })
-    ];
+    // 多核启动编译及内存提升
+    // ForkTsCheckerWebpackPlugin
+    // const data = config.plugins[9];
+    // // 进程数量
+    // data.workersNumber = os.cpus().length > 2 ? 2 : 1; // 会占用额外内存不释放，不建议开发阶段使用
+    // // 单个进程最大使用内存
+    // data.memoryLimit = 4096;
+
+  //   config.plugins = [
+  //     ...config.plugins,
+  //     new ConcatPlugin({
+  //       // examples
+  //       uglify: false,
+  //       sourceMap: false,
+  //       name: "dap-ui",
+  //       outputPath: "./",
+  //       fileName: "[name].less",
+  //       filesToConcat: ["./packages/**/*.less"],
+  //       attributes: {
+  //         async: true
+  //       }
+  //     })
+  //   ];
     if (devNeedCdn) {
       config.externals = cdn.externals;
     }
@@ -213,7 +222,7 @@ module.exports = {
       preProcessor: "less",
       patterns: ["node_modules/ant-design-vue/dist/antd.less"]
     },
-    lintStyleOnBuild: true,
+    lintStyleOnBuild: false,
     stylelint: {}
   }
 };
