@@ -8,7 +8,7 @@
  -->
 <template>
   <div class="demo-block">
-    <sdf-ui-table
+    <dap-ui-table
     :table-base-config="tableBaseConfig"
     :table-data="tableData"
     @page-change="handlePageChange"
@@ -16,7 +16,7 @@
       <template v-slot:name="{ row, rowIndex }">
         <span style="color:blue">{{ row.name }} {{ row.id }}</span>
       </template>
-    </sdf-ui-table>
+    </dap-ui-table>
   </div>
 </template>
 
