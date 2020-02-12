@@ -198,21 +198,21 @@ module.exports = {
     // // 单个进程最大使用内存
     // data.memoryLimit = 4096;
 
-  //   config.plugins = [
-  //     ...config.plugins,
-  //     new ConcatPlugin({
-  //       // examples
-  //       uglify: false,
-  //       sourceMap: false,
-  //       name: "dap-ui",
-  //       outputPath: "./",
-  //       fileName: "[name].less",
-  //       filesToConcat: ["./packages/**/*.less"],
-  //       attributes: {
-  //         async: true
-  //       }
-  //     })
-  //   ];
+    //   config.plugins = [
+    //     ...config.plugins,
+    //     new ConcatPlugin({
+    //       // examples
+    //       uglify: false,
+    //       sourceMap: false,
+    //       name: "dap-ui",
+    //       outputPath: "./",
+    //       fileName: "[name].less",
+    //       filesToConcat: ["./packages/**/*.less"],
+    //       attributes: {
+    //         async: true
+    //       }
+    //     })
+    //   ];
     if (devNeedCdn) {
       config.externals = cdn.externals;
     }
