@@ -33,6 +33,18 @@
     ],
     "组件": [
       {
+        "desc": "表单组件",
+        "isMobile": "1",
+        "items": [
+          {
+            "desc": "Basic Form 基础表单",
+            "name": "basic-form",
+            "isMobile": "1",
+            "path": "/basic-form"
+          }
+        ]
+      },
+      {
         "desc": "基础组件",
         "isMobile": "1",
         "items": [
@@ -41,6 +53,12 @@
             "name": "button",
             "isMobile": "1",
             "path": "/button"
+          },
+          {
+            "desc": "Input 输入框",
+            "name": "input",
+            "isMobile": "1",
+            "path": "/input"
           },
           {
             "desc": "Table 表格",

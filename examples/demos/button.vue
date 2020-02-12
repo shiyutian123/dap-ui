@@ -2,7 +2,7 @@
  * @Author: DevinShi
  * @Date: 2020-02-06 08:13:20
  * @LastEditors: DevinShi
- * @LastEditTime: 2020-02-06 14:42:49
+ * @LastEditTime: 2020-02-12 01:22:26
  * @Description: file content description
  -->
 <style lang="less">
@@ -15,6 +15,6 @@ export default {
 
 <template>
   <div class="demo-block">
-    <sdf-ui-button msg="This is Button Demo"></sdf-ui-button>
+    <dap-ui-button msg="This is Button Demo"></dap-ui-button>
   </div>
 </template>

@@ -5,7 +5,7 @@
   "main": "packages/index.js",
   "private": false,
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "serve": "node --max_old_space_size=4096 node_modules/@vue/cli-service/bin/vue-cli-service.js serve --modern",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
@@ -20,12 +20,14 @@
     "core-js": "^3.4.4",
     "js-file-download": "^0.4.9",
     "link": "^0.1.5",
+    "lint-staged": "^10.0.7",
     "register-service-worker": "^1.6.2",
     "vue": "^2.6.10",
     "vue-ant-design": "0.0.1",
     "vue-class-component": "^7.0.2",
     "vue-property-decorator": "^8.3.0",
     "vue-router": "^3.1.3",
+    "vuelidate": "^0.7.5",
     "vuex": "^3.1.2",
     "vxe-table": "^2.7.24",
     "xe-utils": "^2.3.1"
@@ -33,11 +35,6 @@
   "devDependencies": {
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^7.1.2",
-    "commitizen": "^3.0.4",
-    "commitlint-config-cz": "^0.12.1",
-    "cz-conventional-changelog": "^2.1.0",
-    "cz-customizable": "^6.2.0",
-    "husky": "^4.2.1",
     "@types/jest": "^24.0.19",
     "@vue/cli-plugin-babel": "^4.1.0",
     "@vue/cli-plugin-e2e-cypress": "^4.1.0",
@@ -51,18 +48,22 @@
     "@vue/eslint-config-prettier": "^5.0.0",
     "@vue/eslint-config-typescript": "^4.0.0",
     "@vue/test-utils": "1.0.0-beta.29",
+    "commitizen": "^3.0.4",
+    "commitlint-config-cz": "^0.12.1",
     "compression-webpack-plugin": "^3.1.0",
-    "cross-env": "^7.0.0",
+    "cz-conventional-changelog": "^2.1.0",
+    "cz-customizable": "^6.2.0",
     "eslint": "^5.16.0",
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-vue": "^5.0.0",
-    "increase-memory-limit": "^1.0.7",
+    "husky": "^4.2.1",
     "less": "^3.0.4",
     "less-loader": "^5.0.0",
     "markdown-it-container": "^2.0.0",
     "markdown-it-decorate": "^1.2.2",
     "markdown-it-task-checkbox": "^1.0.6",
     "mini-css-extract-plugin": "^0.9.0",
+    "os": "^0.1.1",
     "prettier": "^1.19.1",
     "style-resources-loader": "^1.3.2",
     "typescript": "~3.5.3",
@@ -81,13 +82,57 @@
       "@vue/prettier",
       "@vue/typescript"
     ],
-    "rules": {},
+    "rules": {
+      "no-console": [
+        "warn",
+        {
+          "allow": [
+            "warn",
+            "error"
+          ]
+        }
+      ],
+      "eqeqeq": [
+        "warn",
+        "always"
+      ],
+      "prefer-const": [
+        "error",
+        {
+          "destructuring": "all",
+          "ignoreReadBeforeAssign": true
+        }
+      ],
+      "@typescript-eslint/no-unused-vars": 0,
+      "@typescript-eslint/interface-name-prefix": 0,
+      "@typescript-eslint/explicit-member-accessibility": 0,
+      "@typescript-eslint/no-triple-slash-reference": 0,
+      "@typescript-eslint/ban-ts-ignore": 0,
+      "@typescript-eslint/no-this-alias": 0,
+      "@typescript-eslint/triple-slash-reference": [
+        "error",
+        {
+          "path": "always",
+          "types": "never",
+          "lib": "never"
+        }
+      ],
+      "@typescript-eslint/no-explicit-any": 0,
+      "@typescript-eslint/explicit-function-return-type": 0,
+      "@typescript-eslint/no-non-null-assertion": 0,
+      "@typescript-eslint/consistent-type-assertions": 0,
+      "@typescript-eslint/no-empty-function": 0,
+      "prefer-rest-params": 0,
+      "prefer-spread": 0,
+      "@typescript-eslint/no-use-before-define": 1
+    },
     "parserOptions": {
       "parser": "@typescript-eslint/parser"
     },
     "overrides": [
       {
         "files": [
+          "**/packages/*.{j,t}s?(x)",
           "**/__tests__/*.{j,t}s?(x)",
           "**/tests/unit/**/*.spec.{j,t}s?(x)"
         ],
