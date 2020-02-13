@@ -1,0 +1,31 @@
+.dap-ui-modal {
+    .ant-modal-content {
+        display: flex;
+        flex-flow: column;
+        .ant-modal-body {
+            flex: 1;
+            overflow: auto;
+        }
+    }
+
+    &.large {
+        width: 96% !important;
+        .ant-modal-content {
+            height: 88vh;
+        }
+    }
+
+    &.medium {
+        width: 60% !important;
+        .ant-modal-content {
+            height: 48vh;
+        }
+    }
+
+    &.small {
+        width: 30% !important;
+        .ant-modal-content {
+            height: 20vh;
+        }
+    }
+}

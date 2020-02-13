@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-02-11 14:46:57
- * @LastEditTime : 2020-02-12 17:07:06
+ * @LastEditTime : 2020-02-13 16:13:53
  * @LastEditors  : Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /lerna-dap/packages/dap-vue-ui/examples/demos/table.vue
@@ -39,11 +39,15 @@ export default {
           {
             field: 'name',
             title: '姓名',
-            slotName: 'name'
+            slotName: 'name',
+            sortable: true,
+            remoteSort: true
           },
           {
             field: 'sex',
-            title: '性别'
+            title: '性别',
+            sortable: true,
+            remoteSort: true
           },
           {
             field: 'age',

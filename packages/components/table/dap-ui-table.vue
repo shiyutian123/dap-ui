@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-02-11 14:36:56
- * @LastEditTime : 2020-02-13 11:57:47
+ * @LastEditTime : 2020-02-13 16:17:47
  * @LastEditors  : Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /lerna-dap/packages/dap-vue-ui/packages/components/table/dap-ui-table.vue
@@ -26,7 +26,8 @@
       @checkbox-change="handleCheckboxChange"
       @select-change="handleCheckboxChange"
       @select-all="handleCheckboxChange"
-      @checkbox-all="handleCheckboxChange">
+      @checkbox-all="handleCheckboxChange"
+      @sort-change="handleSortChange">
       <vxe-table-column v-if="tableBaseConfig.selectMode === 'single'" type="radio" align="center" title="" width="40"></vxe-table-column>
       <vxe-table-column v-if="tableBaseConfig.selectMode === 'multipart'" type="checkbox" align="center" width="40"></vxe-table-column>
       <vxe-table-column v-if="!tableBaseConfig.hideSeq" type="seq" align="center" width="45"></vxe-table-column>
@@ -48,6 +49,7 @@
       size="medium"
       :loading="tableBaseConfig.loading"
       :current-page="tableBaseConfig.tablePage.currentPage"
+      :page-sizes="tableBaseConfig.tablePage.pageSizes"
       :page-size="tableBaseConfig.tablePage.pageSize"
       :total="tableBaseConfig.tablePage.totalResult"
       :layouts="['PrevPage', 'JumpNumber', 'NextPage', 'FullJump', 'Sizes', 'Total']"
@@ -81,7 +83,7 @@ export default {
       }
     },
     tableData: {
-      type: Object,
+      type: Array,
       required: true,
       default: () => {
         return [];
@@ -168,9 +170,16 @@ export default {
         selection: e.selection
       };
       this.$emit('select-change', data);
+    },
+    /**
+     * @description: 排序改变事件
+     * @param {Object} e - 排序改变时的回调参数
+     * @return: 
+     */
+    handleSortChange(e) {
+      this.$emit('sort-change', e);
     }
   }
 }
 </script>
-<style src="./index.less" lang="less">
-</style>
+<style src="./index.less" lang="less"></style>
