@@ -138,11 +138,12 @@ export default {
 | columns    |  列       | Array\<Column\>   |        |    \[\]     | 
 | rowId    |  自定义主键名称       |  String   |        |         | 
 | height    |  表格的高度；支持铺满父容器或者固定宽高，如果设置 auto 为铺满父容器（如果设置自适应时，必须确保存在父节点且不允许存在相邻元素）       |  Number, String   |  auto, %, px      |         | 
+| border    |  是否带有边框（如果为 true 则显示横向边框、纵向边框、外边框，如果为 false 则显示横向边框、外边框，如果为 none 则显示横向边框）       |  Boolean, String   |        |  true       | 
 | tablePage    |  分页器，如果为undefined或者false则不渲染       | TablePage   |        |         | 
 | frontPaging    |  是否需要前端分页，注：如果启用，tablePage仍需要传入       | Boolean   |        |         | 
 | hideSeq    |  隐藏序列       | Boolean   |        |    false     | 
 | loading    |  表格是否显示加载中（若是table-base-config中初始化的时候没有这个属性，则之后再使用loading不起作用）       | Boolean   |        |         | 
-| size    |  表格的尺寸       | String   |  `medium` `small` `mini`      |  medium       | 
+| size    |  表格的尺寸       | String   |  `medium` `small` `mini`      |  mini       | 
 | zIndex    |  自定义堆叠顺序（对于某些特殊场景，比如被遮挡时可能会用到）       | Number   |  `medium` `small` `mini`      |         | 
 | showOverflow    |  设置所有内容过长时显示为省略号（如果是固定列建议设置该值，提升渲染速度）       | Boolean, String   |  `ellipsis（只显示省略号）` `title（并且显示为原生 title）` `tooltip（并且显示为 tooltip 提示）`      |         | 
 | showHeaderOverflow    |  设置表头所有内容过长时显示为省略号       | Boolean, String   |  `ellipsis（只显示省略号）` `title（并且显示为原生 title）` `tooltip（并且显示为 tooltip 提示）`      |         | 

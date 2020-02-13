@@ -1,8 +1,8 @@
 /*
  * @Author: DevinShi
  * @Date: 2020-02-06 03:27:31
- * @LastEditors: DevinShi
- * @LastEditTime: 2020-02-12 01:35:09
+ * @LastEditors  : Please set LastEditors
+ * @LastEditTime : 2020-02-13 10:00:08
  * @Description: file content description
  */
 import DapUiButton from "./components/form/button/dap-ui-button.vue";
@@ -17,6 +17,8 @@ import * as REQ_CONSTANT from './plugins/request/request.constant.js'
 import LodashPlugin from './plugins/lodash/lodash.js'
 
 import RequestPlugin from './plugins/request/request.js'
+
+import Vuelidate from 'vuelidate';
 
 
 // 存储组件列表

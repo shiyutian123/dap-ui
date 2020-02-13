@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-02-11 14:36:56
- * @LastEditTime : 2020-02-12 21:00:26
+ * @LastEditTime : 2020-02-13 11:57:47
  * @LastEditors  : Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /lerna-dap/packages/dap-vue-ui/packages/components/table/dap-ui-table.vue
@@ -9,24 +9,27 @@
 <template>
   <div class="dap-ui-table">
     <vxe-table
+      :border="typeof(tableBaseConfig.border) === 'undefined' ? true : tableBaseConfig.border"
       stripe
       highlight-hover-row
       :show-overflow="computShowOverflow"
       :show-header-overflow="computShowHeaderOverflow"
       :loading="tableBaseConfig.loading"
-      :size="tableBaseConfig.size || 'medium'"
+      :size="tableBaseConfig.size || 'mini'"
       :height="tableBaseConfig.height"
       :z-index="tableBaseConfig.zIndex"
       :data="computTableData"
       :row-id="tableBaseConfig.rowId"
-      :radio-config="computRadioConfig"
-      :checkbox-config="computCheckboxConfig"
+      :radio-config="tableBaseConfig.radioConfig"
+      :checkbox-config="tableBaseConfig.checkboxConfig"
       @radio-change="handleRadioChange"
       @checkbox-change="handleCheckboxChange"
-      @select-change="handleCheckboxChange">
-      <vxe-table-column v-if="tableBaseConfig.selectMode === 'single'" type="radio" title="" width="60"></vxe-table-column>
-      <vxe-table-column v-if="tableBaseConfig.selectMode === 'multipart'" type="checkbox" width="60"></vxe-table-column>
-      <vxe-table-column v-if="!tableBaseConfig.hideSeq" type="seq" width="60"></vxe-table-column>
+      @select-change="handleCheckboxChange"
+      @select-all="handleCheckboxChange"
+      @checkbox-all="handleCheckboxChange">
+      <vxe-table-column v-if="tableBaseConfig.selectMode === 'single'" type="radio" align="center" title="" width="40"></vxe-table-column>
+      <vxe-table-column v-if="tableBaseConfig.selectMode === 'multipart'" type="checkbox" align="center" width="40"></vxe-table-column>
+      <vxe-table-column v-if="!tableBaseConfig.hideSeq" type="seq" align="center" width="45"></vxe-table-column>
       <template v-for="(config, index) in tableBaseConfig.columns">
         <vxe-table-column v-if="!config.slotName" :key="index" v-bind="config"></vxe-table-column>
         <vxe-table-column v-if="config.slotName" :key="index" v-bind="config">
@@ -42,7 +45,6 @@
     </vxe-table>
     <vxe-pager
       v-if="tableBaseConfig.tablePage"
-      border
       size="medium"
       :loading="tableBaseConfig.loading"
       :current-page="tableBaseConfig.tablePage.currentPage"
@@ -99,34 +101,6 @@ export default {
       } else {
         return this.tableData;
       }
-    },
-    computRadioConfig: function() {
-      if (
-        this.tableBaseConfig &&
-        this.tableBaseConfig.selectMode === 'single') {
-        let temp = this.tableBaseConfig && this.tableBaseConfig.radioConfig;
-        if (temp) {
-          temp.trigger = 'row';
-        } else {
-          temp = {trigger: 'row'};
-        }
-        return temp;
-      }
-      return this.tableBaseConfig && this.tableBaseConfig.radioConfig;
-    },
-    computCheckboxConfig: function () {
-      if (
-        this.tableBaseConfig &&
-        this.tableBaseConfig.selectMode === 'multipart') {
-        let temp = this.tableBaseConfig && this.tableBaseConfig.checkboxConfig;
-        if (temp) {
-          temp.trigger = 'row';
-        } else {
-          temp = { trigger: 'row' };
-        }
-        return temp;
-      }
-      return this.tableBaseConfig && this.tableBaseConfig.checkboxConfig;
     },
     computShowOverflow: function () {
       if (this.tableBaseConfig && this.tableBaseConfig.virtualList) {
@@ -198,3 +172,5 @@ export default {
   }
 }
 </script>
+<style src="./index.less" lang="less">
+</style>
