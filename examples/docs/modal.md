@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-02-13 15:02:48
- * @LastEditTime : 2020-02-13 17:11:59
+ * @LastEditTime : 2020-02-15 14:26:52
  * @LastEditors  : Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dap-vue-ui/examples/docs/modal.md
@@ -104,6 +104,7 @@ export default {
 | ok-button-props    |  ok 按钮 props, 遵循 jsx规范       | 	{props: ButtonProps, on: {}}   |        |           | 
 | cancel-button-props    |  cancel 按钮 props, 遵循 jsx规范       | 	{props: ButtonProps, on: {}}   |        |           | 
 | destroy-on-close    |  关闭时销毁 Modal 里的子元素       | 	Boolean   |        |  false         | 
+| content-adaption    |  内容高度自适应，此属性将忽略size属性，请谨慎使用       | 	Boolean   |        |  false         | 
 
 ## Events
 

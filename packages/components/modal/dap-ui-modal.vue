@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-02-13 14:50:42
- * @LastEditTime : 2020-02-13 16:59:58
+ * @LastEditTime : 2020-02-15 14:24:02
  * @LastEditors  : Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dap-vue-ui/packages/components/modal/dap-ui-modal.vue
@@ -92,11 +92,17 @@ export default {
       default: function () {
         return false;
       }
+    },
+    contentAdaption: {
+      type: Boolean,
+      default: function () {
+        return false;
+      }
     }
   },
   computed: {
     computClassName: function () {
-      return `dap-ui-modal ${this.size}`;
+      return `dap-ui-modal ${this.contentAdaption ? 'content-adaption' : ''} ${this.size}`;
     }
   },
   methods: {
