@@ -49,6 +49,12 @@
         "isMobile": "1",
         "items": [
           {
+            "desc": "StaticText 静态文本",
+            "name": "static-text",
+            "isMobile": "1",
+            "path": "/static-text"
+          },
+          {
             "desc": "Button 按钮",
             "name": "button",
             "isMobile": "1",
@@ -59,6 +65,12 @@
             "name": "input",
             "isMobile": "1",
             "path": "/input"
+          },
+          {
+            "desc": "CollapseLayout布局",
+            "name": "collapse-layout",
+            "isMobile": "1",
+            "path": "/collapse-layout"
           },
           {
             "desc": "Table 表格",
