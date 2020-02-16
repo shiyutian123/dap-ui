@@ -1,8 +1,13 @@
 /*
  * @Author: DevinShi
  * @Date: 2020-02-06 03:27:31
+<<<<<<< HEAD
  * @LastEditors: DevinShi
- * @LastEditTime: 2020-02-16 13:17:01
+ * @LastEditTime: 2020-02-16 15:43:19
+=======
+ * @LastEditors  : Please set LastEditors
+ * @LastEditTime : 2020-02-13 15:01:09
+>>>>>>> 8b5c533b43ffbc7202769549dcd1c13507fbc510
  * @Description: file content description
  */
 import Vuelidate from 'vuelidate'
@@ -17,6 +22,8 @@ import DapUiCollapseLayout from "./components/form/collapse-layout/dap-ui-collap
 
 // 表格组件
 import DapUiTable from "./components/table/dap-ui-table.vue";
+// 弹窗组件
+import DapUiModal from './components/modal/dap-ui-modal.vue';
 
 import * as REQ_CONSTANT from './plugins/request/request.constant.js'
 
@@ -24,13 +31,14 @@ import LodashPlugin from './plugins/lodash/lodash.js'
 
 import RequestPlugin from './plugins/request/request.js'
 
+import Vuelidate from 'vuelidate';
 import BasicFormRegisterPlugin from './plugins/form/basic-form.plugin.js'
 
 // 表单组件列表
 const formComponents = [ DapUiInput, DapUiStaticText, DapUiCollapseLayout];
 
 // 所有组件列表
-const components = [...formComponents, DapUiButton, DapUiBasicForm, DapUiBasicFormItem, DapUiTable];
+const components = [...formComponents, DapUiButton, DapUiBasicForm, DapUiBasicFormItem, DapUiTable, DapUiModal];
 // 定义 install 方法，接收 Vue 作为参数。如果使用 use 注册插件，则所有的组件都将被注册
 const install = function(Vue) {
   // 判断是否安装
@@ -76,6 +84,7 @@ export default {
   DapUiCollapseLayout,
 
   DapUiTable,
+  DapUiModal,
 };
 
 export {
