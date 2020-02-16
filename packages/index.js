@@ -1,13 +1,8 @@
 /*
  * @Author: DevinShi
  * @Date: 2020-02-06 03:27:31
-<<<<<<< HEAD
  * @LastEditors: DevinShi
- * @LastEditTime: 2020-02-16 15:43:19
-=======
- * @LastEditors  : Please set LastEditors
- * @LastEditTime : 2020-02-13 15:01:09
->>>>>>> 8b5c533b43ffbc7202769549dcd1c13507fbc510
+ * @LastEditTime: 2020-02-16 15:47:44
  * @Description: file content description
  */
 import Vuelidate from 'vuelidate'
@@ -31,7 +26,6 @@ import LodashPlugin from './plugins/lodash/lodash.js'
 
 import RequestPlugin from './plugins/request/request.js'
 
-import Vuelidate from 'vuelidate';
 import BasicFormRegisterPlugin from './plugins/form/basic-form.plugin.js'
 
 // 表单组件列表
