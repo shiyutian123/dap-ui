@@ -1,4 +1,42 @@
 .dap-ui-basic-form {
+    padding-top: 8px;
+
+    .dap-ui-form-input {
+        // display: flex;
+        // align-items: center;
+        .ant-form-item {
+            display: flex;
+            flex-wrap: nowrap;
+            margin: 0;
+            margin-left: 8px;
+            padding: 0 8px;
+
+            .ant-form-item-label {
+                width: 120px;
+            }
+        
+            .ant-form-item-control-wrapper {
+                flex: 1;
+                margin-left: 8px;
+            }
+        }
+    }
+
+    .ant-empty {
+        width: 100%;
+        .ant-empty-image {
+            display: none;
+        }
+    }
+    
+    .dap-ui-basic-form-item {
+        display: flex;
+        align-items: center;
+        .dap-ui-form-item {
+            width: 100%
+        }
+    }
+
     .dap-ui-basic-form-item.dap-ui-form-item-x1 {
         width: 25%;
         min-width: 25%;
@@ -41,5 +79,21 @@
 
     .dap-ui-basic-form-item.dap-ui-form-item-y4 {
         min-height: 240px;
+    }
+
+    .dap-ui-basic-form-item.dap-ui-form-item-y5 {
+        min-height: 300px;
+    }
+
+    .dap-ui-basic-form-item.dap-ui-form-item-y6 {
+        min-height: 360px;
+    }
+
+    .dap-ui-basic-form-item.dap-ui-form-item-y7 {
+        min-height: 420px;
+    }
+
+    .dap-ui-basic-form-item.dap-ui-form-item-y8 {
+        min-height: 480px;
     }
 }
