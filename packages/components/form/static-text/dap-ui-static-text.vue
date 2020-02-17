@@ -2,7 +2,7 @@
  * @Author: DevinShi
  * @Date: 2020-02-06 10:37:47
  * @LastEditors: DevinShi
- * @LastEditTime: 2020-02-16 14:39:43
+ * @LastEditTime: 2020-02-17 08:47:50
  * @Description: file content description
  -->
 <template>
@@ -18,9 +18,6 @@ export default {
   type: 'FORM_STATIC_RENDER',
   mixins: [BasicComponentMixin],
   props: {
-    'label': {
-      type: String
-    }
   }
 }
 </script>
