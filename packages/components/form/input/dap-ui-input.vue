@@ -2,7 +2,7 @@
  * @Author: DevinShi
  * @Date: 2020-02-06 10:37:47
  * @LastEditors: DevinShi
- * @LastEditTime: 2020-02-16 14:36:33
+ * @LastEditTime: 2020-02-17 10:56:47
  * @Description: file content description
  -->
 <template>
@@ -35,19 +35,9 @@ import BasicComponentMixin from '../../../mixins/basic-component-mixin.js';
 
 export default {
   name: "DapUiInput",
-  model: {
-    prop: 'value',
-    event: 'change'
-  },
   type: 'FORM_INPUT',
   mixins: [InputComponentMixin, BasicComponentMixin],
   props: {
-    'value': {
-      type: String
-    },
-    'placeholder': {
-      type: String
-    },
     'defaultValue': {
       type: String
     },

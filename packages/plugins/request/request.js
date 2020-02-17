@@ -182,6 +182,7 @@ export default {
         url: urlConfig.url,
         method: urlConfig.method,
         params: urlConfig.params,
+        data: urlConfig.params,
         headers: {
           ...options.headers,
           ...urlConfig.headers

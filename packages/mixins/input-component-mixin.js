@@ -2,10 +2,14 @@
  * @Author: DevinShi
  * @Date: 2020-02-11 06:49:10
  * @LastEditors: DevinShi
- * @LastEditTime: 2020-02-11 11:19:28
+ * @LastEditTime: 2020-02-17 10:57:16
  * @Description: file content description
  */
 export default {
+    model: {
+        prop: 'value',
+        event: 'change'
+    },
     props: {
         labelCol: {
             type: Object,
@@ -39,18 +43,18 @@ export default {
             type: Boolean,
             default: false,
         },
-        label: {
-            type: Object, // String | slot
-        },
-        labelColor: {
-            type: String, // String 
-        },
         required: {
             type: Boolean,
             default: false,
         },
         validateStatus: {
             type: String,  // 'success' 'warning' 'error' 'validating'
+        },
+        placeholder: {
+            type: String
+        },
+        value: {
+            type: String
         }
     }
 }
