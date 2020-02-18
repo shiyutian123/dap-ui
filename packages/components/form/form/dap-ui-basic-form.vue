@@ -2,7 +2,7 @@
  * @Author: DevinShi
  * @Date: 2020-02-06 10:37:47
  * @LastEditors: DevinShi
- * @LastEditTime: 2020-02-16 14:55:42
+ * @LastEditTime: 2020-02-17 07:46:10
  * @Description: file content description
  -->
 <template>
@@ -43,7 +43,7 @@
             <a-empty 
                 image=""
                 v-if="!$baseFormRegister.getComponentType(itemConfig.componentName) || !$baseFormRegister.hasComponent(itemConfig.componentName)">
-                <span slot="description"> `{{itemConfig.componentName}}` 组件未定义 </span>
+                <span slot="description"> `{{itemConfig.componentName}}` 组件未注册 </span>
             </a-empty>
       </dap-ui-basic-form-item>
   </div>

@@ -2,7 +2,7 @@
  * @Author: DevinShi
  * @Date: 2020-02-06 09:53:06
  * @LastEditors: DevinShi
- * @LastEditTime: 2020-02-16 14:48:18
+ * @LastEditTime: 2020-02-17 12:36:37
  * @Description: file content description
  -->
 # Basic Form 基础表单
@@ -122,7 +122,6 @@ export default {
 |  formConfig   |    表单配置    |  Array<ItemConfig>  |   -   |     -     | 
 |  formData   |    表单数据    |  Object  |   -    |      -   | 
 
-
 ### FormConfig.ItemConfig <compTpe = 'FORM_STATIC_RENDER'>
 | 参数    | 说明        | 类型     | 可选值  |  默认值    |
 | -------| -----------| -------- | ------ | -------- |
@@ -151,6 +150,7 @@ export default {
 |  visiable   |   是否可见    |  Boolean  |   -    |      -   | 
 |  labelColor   |   颜色    |  Color  |   -    |      -   | 
 |  extraProp   |   额外参数    |  Object  |   -    |      -   | 
+| disabled    |  禁用       | Boolean   |        |           | 
 
 
 ### FormConfig.ItemConfig <compTpe = 'FORM_LAYOUT'>
@@ -177,14 +177,132 @@ export default {
 |  labelColor   |   颜色    |  Color  |   -    |      -   | 
 |  chlidren   |   表单配置，布局中子表单    |  Array<ItemConfig>  |   -    |      -   | 
 
-## 组件库使用
+## Method
+| 参数    | 说明        | 类型     | 可选值  |  默认值    |
+| -------| -----------| -------- | ------ | -------- |
+|  validateTouch   |    触发验证    |  Function  |   -   |     -     | 
+|  reset   |    重置表单    |  Function  |   -   |     -     | 
+|  getValidateError   |    获取验证信息    |  Function  |   -   |     -     | 
+
+
+## 表单使用
+
+表单组件接收2个参数`FormData`和`FormConfig`，`FormData`的数据，
+> `FormConfig`为表单配置项，主要用来配置表单显示组件
+> `FormData`为表单输入数据，支持多种类型的数据，支持在单个组件中绑定多个表单数据，若需要此操作，则需要自定义设置`dataCode`
+
+1. `FormConfig`表单格式如下：
+```js
+[{
+  label: '苹果名称',
+  placeholder: '请输入苹果名称',
+  type: 'string',
+  uuid: '54d0d1c7-8465-4600-82b1-1d327d97c427',
+  dataCode: 'rule_apple.apple_name',
+  componentName: 'dap-ui-input',
+  rowSpan: 2,
+  colSpan: 1,
+  labelColor: '#666',
+  visiable: true,
+}, {
+  label: '苹果类型',
+  placeholder: '请输入苹果类型',
+  type: 'string',
+  uuid: '53f14f71-8100-4d66-b89f-b30168c26d6f',
+  dataCode: 'rule_apple.app_type',
+  componentName: 'dap-ui-input',
+  rowSpan: 2,
+  colSpan: 1,
+  required: true,
+  labelColor: '#000',
+  visiable: true,
+  disabled: true,
+}, {
+  label: '苹果类型描述',
+  uuid: '53f14f71-8100-4d66-b89f-b30168c26d61',
+  componentName: 'dap-ui-static-text',
+  rowSpan: 4,
+  colSpan: 1,
+  labelColor: '#666',
+  visiable: true,
+}, {
+  label: '苹果价格区域',
+  uuid: 'c29c65b8-b715-4fec-82e1-de1d4aef1160',
+  componentName: 'dap-ui-collapse-layout',
+  rowSpan: 4,
+  colSpan: 2,
+  visiable: true,
+  children: [{
+    label: '苹果价格',
+    placeholder: '请输入苹果价格',
+    type: 'string',
+    uuid: '4c9ec8b9-c007-4120-97dd-902d5cb29379',
+    dataCode: 'rule_apple.apple_price',
+    componentName: 'dap-ui-input',
+    rowSpan: 2,
+    colSpan: 1,
+    labelColor: '#000',
+    visiable: true,
+    required: true,
+  }]
+}]
+```
+
+2. 表单Item通用配置项
+| 参数    | 说明        | 类型     | 可选值    默认值    |
+| -------| -----------| -------- | ------ | --------- |
+| uuid  |    组件ID    | String   |        |           | 
+| componentName   |  组件TAG(<component :is="componentName">)    | String   |        |           | 
+| rowSpan    |   组件的横向占用比例(25%~100%)    | String(1~4) |        |           | 
+| colSpan    |   组件的纵向占用高度(60px~480px)    | String(1~8) |        |           | 
+| visiable   |   是否可见      | Boolean   |        |           | 
+| extraProp   |   额外配置      | Object   |        |           | 
+
+
+3. 输入组件特有配置项(针对可输入组件配置)
+| 参数    | 说明        | 类型     | 可选值    默认值    |
+| -------| -----------| -------- | ------ | --------- |
+| label  |    标题文件    | String   |        |           | 
+| placeholder   |  显示提示文本  | String   |        |           | 
+| dataCode    |   组件绑定的数据值   | String(1~4) |        |           | 
+| required    |   是否必填   | String(1~8) |        |           | 
+| labelColor  |    显示标题文本颜色    | Boolean   |        |           | 
+
+4. 布局组件配置项(针对布局组件配置)
+| 参数    | 说明        | 类型     | 可选值    默认值    |
+| -------| -----------| -------- | ------ | --------- |
+|  chlidren   |   布局配置    |  Array<LayoutConfig>  |   -    |      -   | 
+
+5. 静态显示组件配置项(针对布局组件配置)
+通用组件即可
+
 
 ### 按配置添加数据
+1. `FormData`表单数据格式如下：根据Form提供的`dataCode`, 将数据平铺在此对象中
 
 ### DAP转换
+1. 根据DAP需求，将DAP现有配置简单转换为现有配置，需要使用Util类，Adapter注入，每个组件单独注入注册
 
 ## 新组件开发
 
 ### 组件库内新组件开发
+1. 组件库内组件开发，分 数据组件，布局组件，渲染组件 三种
+具体分辨参考`dap-ui-input`, `dap-ui-static-text`, `dap-ui-collapse-layout` 三个组件。具体实现如下
+
+#### 输入组件属性定义
+
+##### 输入组件需要定义以下属性
+name: 
+compType: FORM_INPUT,
+mixins: [InputComponentMixin, BasicComponentMixin]
+props: {}
+
+##### v-model 绑定如下
+v-model的属性 绑定props的value属性，和@change事件
+
+##### 组件注册
+将属性放在 `packages/index.js` 的 formComponents 组件中
 
 ### 非组件库内新组件开发
+调用 this.$baseFormRegister.registerComponent(formComponent.name, formComponent.type, formComponent) 方法，注册到组件中。
+并需要调用 Vue.component(formComponent.name, formComponent) 将组件注册成全局组件
