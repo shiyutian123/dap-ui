@@ -139,6 +139,7 @@ export default {
 | columns    |  列       | Array\<Column\>   |        |    \[\]     | 
 | rowId    |  自定义主键名称       |  String   |        |         | 
 | height    |  表格的高度；支持铺满父容器或者固定宽高，如果设置 auto 为铺满父容器（如果设置自适应时，必须确保存在父节点且不允许存在相邻元素）       |  Number, String   |  auto, %, px      |         | 
+| maxHeight    |  表格的最大高度       |  Number, String   |  auto, %, px      |         | 
 | border    |  是否带有边框（如果为 true 则显示横向边框、纵向边框、外边框，如果为 false 则显示横向边框、外边框，如果为 none 则显示横向边框）       |  Boolean, String   |        |  true       | 
 | tablePage    |  分页器，如果为undefined或者false则不渲染       | TablePage   |        |         | 
 | frontPaging    |  是否需要前端分页，注：如果启用，tablePage仍需要传入       | Boolean   |        |         | 

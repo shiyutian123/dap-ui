@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-02-11 14:36:56
- * @LastEditTime: 2020-02-18 14:14:52
+ * @LastEditTime: 2020-02-18 18:09:30
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /lerna-dap/packages/dap-vue-ui/packages/components/table/dap-ui-table.vue
@@ -17,6 +17,7 @@
       :loading="tableBaseConfig.loading"
       :size="tableBaseConfig.size || 'mini'"
       :height="tableBaseConfig.height"
+      :max-height="tableBaseConfig.maxHeight"
       :z-index="tableBaseConfig.zIndex"
       :data="computTableData"
       :row-id="tableBaseConfig.rowId"
@@ -42,7 +43,8 @@
           </div>
         </template>
         <template v-slot="{ row, rowIndex }">
-          <div class="seq-cell" :class="{ 'checked': row.$__checked }">
+          <span v-if="tableBaseConfig.selectMode !== 'multipart' && tableBaseConfig.selectMode !== 'single'">{{ rowIndex + 1 }}</span>
+          <div v-if="tableBaseConfig.selectMode === 'multipart' || tableBaseConfig.selectMode === 'single'" class="seq-cell" :class="{ 'checked': row.$__checked }">
             <span class="seq">{{ rowIndex + 1 }}</span>
             <span class="vxe-cell--checkbox" @click="onCheckRow(row, rowIndex)" :class="{ 'is--checked': row.$__checked }"></span>
           </div>
