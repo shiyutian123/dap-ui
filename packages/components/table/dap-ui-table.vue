@@ -1,8 +1,8 @@
 <!--
  * @Author: your name
  * @Date: 2020-02-11 14:36:56
- * @LastEditTime : 2020-02-13 16:17:47
- * @LastEditors  : Please set LastEditors
+ * @LastEditTime: 2020-02-18 14:14:52
+ * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /lerna-dap/packages/dap-vue-ui/packages/components/table/dap-ui-table.vue
  -->
@@ -28,9 +28,26 @@
       @select-all="handleCheckboxChange"
       @checkbox-all="handleCheckboxChange"
       @sort-change="handleSortChange">
-      <vxe-table-column v-if="tableBaseConfig.selectMode === 'single'" type="radio" align="center" title="" width="40"></vxe-table-column>
-      <vxe-table-column v-if="tableBaseConfig.selectMode === 'multipart'" type="checkbox" align="center" width="40"></vxe-table-column>
-      <vxe-table-column v-if="!tableBaseConfig.hideSeq" type="seq" align="center" width="45"></vxe-table-column>
+      <!-- <vxe-table-column v-if="tableBaseConfig.selectMode === 'single'" type="radio" align="center" title="" width="40"></vxe-table-column> -->
+      <!-- <vxe-table-column v-if="tableBaseConfig.selectMode === 'multipart'" type="checkbox" align="center" width="40"></vxe-table-column> -->
+      <!-- <vxe-table-column v-if="!tableBaseConfig.hideSeq" type="seq" align="center" width="45"></vxe-table-column> -->
+      <vxe-table-column v-if="!tableBaseConfig.hideSeq" align="center" width="45">
+        <template v-slot:header>
+          <div class="seq-header">
+            <span v-if="tableBaseConfig.selectMode !== 'multipart'">#</span>
+            <span v-if="tableBaseConfig.selectMode === 'multipart'" title="全选/取消"
+            class="vxe-cell--checkbox"
+            :class="{ 'is--checked': checkAll, 'is--indeterminate': indeterminate }"
+            @click="onClickCheckAll"></span>
+          </div>
+        </template>
+        <template v-slot="{ row, rowIndex }">
+          <div class="seq-cell" :class="{ 'checked': row.$__checked }">
+            <span class="seq">{{ rowIndex + 1 }}</span>
+            <span class="vxe-cell--checkbox" @click="onCheckRow(row, rowIndex)" :class="{ 'is--checked': row.$__checked }"></span>
+          </div>
+        </template>
+      </vxe-table-column>
       <template v-for="(config, index) in tableBaseConfig.columns">
         <vxe-table-column v-if="!config.slotName" :key="index" v-bind="config"></vxe-table-column>
         <vxe-table-column v-if="config.slotName" :key="index" v-bind="config">
@@ -92,7 +109,10 @@ export default {
   },
   data() {
     return {
-    }
+      checkAll: false,
+      indeterminate: false,
+      checkedData: []
+    };
   },
   computed: {
     computTableData: function () {
@@ -123,6 +143,13 @@ export default {
         if (this.tableBaseConfig.frontPaging && newValue) {
           this.tableBaseConfig.tablePage.totalResult = newValue.length;
         }
+        this.checkedData.map(checkedItem => {
+          const tempObj = newValue.filter(item => item[this.tableBaseConfig.rowId] === checkedItem[this.tableBaseConfig.rowId])[0];
+          if (tempObj) {
+            tempObj.$__checked = true;
+          }
+        });
+        this.$_setHeaderSeqCheckStatus();
       },
       immediate: true
     }
@@ -145,6 +172,7 @@ export default {
       } else {
         this.$emit('page-change', e);
       }
+      this.$_setHeaderSeqCheckStatus();
     },
     /**
      * @description: 单选选中事件
@@ -178,6 +206,123 @@ export default {
      */
     handleSortChange(e) {
       this.$emit('sort-change', e);
+    },
+    /**
+     * @description: 选中行事件
+     * @param {Object} row - 行数据
+     * @return: 
+     */
+    onCheckRow(row, rowIndex) {
+      const flag = row.$__checked;
+      if (this.tableBaseConfig.selectMode === 'single') {
+        this.tableData.map((item, i) => {
+          item.$__checked = false;
+        });
+      }
+      row.$__checked = !flag;
+      this.tableData = Object.assign([], this.tableData);
+      this.$_setHeaderSeqCheckStatus();
+      // 将选中数据向上抛
+      const data = {
+        selection: this.getChekced()
+      };
+      this.$emit('select-change', data);
+      // 组件实例记录选中的数据
+      if (this.tableBaseConfig.selectMode === 'multipart') {
+        if (row.$__checked) {
+          this.$_takeCheckedData([row]);
+        } else {
+          this.$_takeUncheckedData([row]);
+        }
+      } else {
+        if (row.$__checked) {
+          this.checkedData = [JSON.parse(JSON.stringify(row))];
+        } else {
+          this.checkedData = [];
+        }
+      }
+    },
+    onClickCheckAll() {
+      this.indeterminate = false;
+      this.checkAll = !this.checkAll;
+      let tempArr;
+      if (this.tableBaseConfig.frontPaging) { // 处理前端分页数据
+        const start = (this.tableBaseConfig.tablePage.currentPage - 1) * this.tableBaseConfig.tablePage.pageSize;
+        const end = start + this.tableBaseConfig.tablePage.pageSize;
+        tempArr = this.tableData.slice(start, end);
+        tempArr.map((item) => {
+          item.$__checked = this.checkAll;
+        });
+        this.tableData = Object.assign([], this.tableData);
+      } else {
+        this.tableData.map((item) => {
+          item.$__checked = this.checkAll;
+        });
+        this.tableData = Object.assign([], this.tableData);
+        tempArr = this.tableData;
+      }
+      // 将选中数据向上抛
+      const data = {
+        selection: this.getChekced()
+      };
+      this.$emit('select-change', data);
+      // 组件实例记录选中的数据
+      if (this.checkAll) {
+        this.$_takeCheckedData(tempArr);
+      } else {
+        this.$_takeUncheckedData(tempArr);
+      }
+    },
+    $_setHeaderSeqCheckStatus() {
+      let tempArr;
+      if (this.tableBaseConfig.frontPaging) {
+        const start = (this.tableBaseConfig.tablePage.currentPage - 1) * this.tableBaseConfig.tablePage.pageSize;
+        const end = start + this.tableBaseConfig.tablePage.pageSize;
+        tempArr = this.tableData.slice(start, end);
+      } else {
+        tempArr = this.tableData;
+      }
+      const checkedLength = tempArr.filter(item => item.$__checked).length;
+      if (checkedLength === 0) {
+        this.checkAll = false;
+        this.indeterminate = false;
+      } else if (checkedLength > 0 && checkedLength !== tempArr.length) {
+        this.indeterminate = true;
+      } else {
+        this.checkAll = true;
+        this.indeterminate = false;
+      }
+    },
+    getChekced() {
+      return this.getCurrentPageChecked();
+    },
+    getAllChecked() {
+      return this.checkedData;
+    },
+    getCurrentPageChecked() {
+      if (this.tableBaseConfig.frontPaging) {
+        const start = (this.tableBaseConfig.tablePage.currentPage - 1) * this.tableBaseConfig.tablePage.pageSize;
+        const end = start + this.tableBaseConfig.tablePage.pageSize;
+        const tempArr = this.tableData.slice(start, end);
+        return tempArr.filter(item => item.$__checked);
+      } else {
+        return this.tableData.filter(item => item.$__checked);
+      }
+    },
+    $_takeCheckedData(checkedArr) {
+      checkedArr.map(checkedItem => {
+        if (this.checkedData.filter(item => item[this.tableBaseConfig.rowId] === checkedItem[this.tableBaseConfig.rowId]).length === 0) {
+          this.checkedData.push(JSON.parse(JSON.stringify(checkedItem)));
+        }
+      });
+    },
+    $_takeUncheckedData(uncheckedArr) {
+      uncheckedArr.map(uncheckedItem => {
+        const tempArr = this.checkedData.filter(item => item[this.tableBaseConfig.rowId] === uncheckedItem[this.tableBaseConfig.rowId]);
+        if (tempArr.length > 0) {
+          this.checkedData.splice(this.checkedData.indexOf(tempArr[0]), 1);
+        }
+      });
     }
   }
 }
