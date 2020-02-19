@@ -2,7 +2,7 @@
  * @Author: DevinShi
  * @Date: 2020-02-06 10:37:47
  * @LastEditors: DevinShi
- * @LastEditTime: 2020-02-17 07:46:10
+ * @LastEditTime: 2020-02-19 03:06:58
  * @Description: file content description
  -->
 <template>
@@ -24,12 +24,18 @@
             :is="itemConfig.componentName"
             :label="itemConfig.label"
             :value="currentFormData[itemConfig.dataCode]"
+            :uuid="itemConfig.uuid"
+            :componentName="itemConfig.componentName"
+            @formEventEmit="$emit('formEventEmit', $event)"
             @change="formValueChange(itemConfig.dataCode, $event)"></component>
           
           <component
             :label="itemConfig.label"
             v-if="itemConfig.visiable && $baseFormRegister.getComponentType(itemConfig.componentName) === 'FORM_STATIC_RENDER'"
             :is="itemConfig.componentName"
+            :uuid="itemConfig.uuid"
+            :componentName="itemConfig.componentName"
+            @formEventEmit="$emit('formEventEmit', $event)"
             :label-color="itemConfig.labelColor"></component>
 
           <component
@@ -38,6 +44,9 @@
             v-model="currentFormData"
             @validate="validateChange(itemConfig.uuid, $event)"
             :layoutConfig="itemConfig"
+            :uuid="itemConfig.uuid"
+            :componentName="itemConfig.componentName"
+            @formEventEmit="$emit('formEventEmit', $event)"
             :is="itemConfig.componentName"></component>
 
             <a-empty 

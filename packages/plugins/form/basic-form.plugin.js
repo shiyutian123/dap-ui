@@ -2,7 +2,7 @@
  * @Author: DevinShi
  * @Date: 2020-02-16 02:27:11
  * @LastEditors: DevinShi
- * @LastEditTime: 2020-02-16 07:43:41
+ * @LastEditTime: 2020-02-18 15:05:56
  * @Description: file content description
  */
 import StringUtil from '../../utils/string.util';
@@ -24,6 +24,16 @@ export default {
     install (Vue, opts) {
         Vue.prototype.$baseFormRegister = {
             registeredComponent: {},
+            registeredEvent: {},
+            registerEvent(compName, eventCallback) {
+
+            },
+            mergeEvent(compName, eventCallback) {
+
+            },
+            executeEventCallback(compName, event) {
+                
+            },
             registerComponent(compName, compType, component) {
                 if (typeof component.template === 'string' || typeof component.render === 'function') {
                     if (!this.registeredComponent[compName]) {

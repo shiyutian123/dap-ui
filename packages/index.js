@@ -2,13 +2,15 @@
  * @Author: DevinShi
  * @Date: 2020-02-06 03:27:31
  * @LastEditors: DevinShi
- * @LastEditTime: 2020-02-16 15:47:44
+ * @LastEditTime: 2020-02-18 08:28:02
  * @Description: file content description
  */
 import Vuelidate from 'vuelidate'
 
 import DapUiButton from "./components/form/button/dap-ui-button.vue";
 import DapUiInput from "./components/form/input/dap-ui-input.vue";
+import DapUiSelect from "./components/form/select/dap-ui-select.vue";
+
 import DapUiStaticText from "./components/form/static-text/dap-ui-static-text.vue";
 import DapUiBasicForm from "./components/form/form/dap-ui-basic-form.vue";
 import DapUiBasicFormItem from "./components/form/form-item/dap-ui-basic-form-item.vue";
@@ -29,7 +31,7 @@ import RequestPlugin from './plugins/request/request.js'
 import BasicFormRegisterPlugin from './plugins/form/basic-form.plugin.js'
 
 // 表单组件列表
-const formComponents = [ DapUiInput, DapUiStaticText, DapUiCollapseLayout];
+const formComponents = [ DapUiInput, DapUiSelect, DapUiStaticText, DapUiCollapseLayout];
 
 // 所有组件列表
 const components = [...formComponents, DapUiButton, DapUiBasicForm, DapUiBasicFormItem, DapUiTable, DapUiModal];
