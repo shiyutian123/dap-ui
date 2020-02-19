@@ -67,6 +67,12 @@
             "path": "/input"
           },
           {
+            "desc": "Select 下拉选择框",
+            "name": "select",
+            "isMobile": "1",
+            "path": "/select"
+          },
+          {
             "desc": "CollapseLayout布局",
             "name": "collapse-layout",
             "isMobile": "1",
