@@ -1,14 +1,15 @@
 <!--
  * @Author: your name
  * @Date: 2020-02-11 14:46:57
- * @LastEditTime : 2020-02-13 16:13:53
- * @LastEditors  : Please set LastEditors
+ * @LastEditTime: 2020-02-18 14:13:59
+ * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /lerna-dap/packages/dap-vue-ui/examples/demos/table.vue
  -->
 <template>
   <div class="demo-block">
     <dap-ui-table
+    ref="table"
     :table-base-config="tableBaseConfig"
     :table-data="tableData"
     @page-change="handlePageChange"
@@ -17,6 +18,8 @@
         <span style="color:blue">{{ row.name }} {{ row.id }}</span>
       </template>
     </dap-ui-table>
+    本页已选中的数据：
+    {{ checkedData }}
   </div>
 </template>
 
@@ -25,11 +28,13 @@ export default {
   name: 'table-demo',
   data() {
     return {
+      checkedData: [],
       tableBaseConfig: {
         loading: false,
         rowId: 'id',
-        frontPaging: true,
-        selectMode: 'multipart',
+        frontPaging: false,
+        hideSeq: false,
+        selectMode: 'single',
         checkboxConfig: {
           checkRowKeys: ['1', '2']
         },
@@ -63,8 +68,10 @@ export default {
       tableData: []
     };
   },
+  computed: {
+  },
   created() {
-    for (let i = 0; i < 1000; i++) {
+    for (let i = 0; i < 15; i++) {
       this.tableData.push({name: '张三', sex: '男', age: 18, id: `${i}`});
     }
   },
@@ -81,9 +88,17 @@ export default {
       // load data...
       this.tableBaseConfig.loading = true;
       setTimeout(() => {
+        const data = [];
+        for (let i = 0; i < 15; i++) {
+          data.push({name: '张三', sex: '男', age: 18, id: `${(e.currentPage - 1) * e.pageSize + i}`});
+        }
+        this.tableData = data;
         this.tableBaseConfig.loading = false;
         this.tableBaseConfig.tablePage.currentPage = e.currentPage;
         this.tableBaseConfig.tablePage.pageSize = e.pageSize;
+        setTimeout(() => {
+          this.checkedData = this.$refs.table.getChekced();
+        }, 0);
       }, 1000);
     },
     /**
@@ -93,7 +108,7 @@ export default {
      * @return: 
      */
     handleSelectChange(e) {
-      window.console.log(e);
+      this.checkedData = e.selection;
     }
   }
 }
