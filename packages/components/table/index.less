@@ -63,6 +63,17 @@
     }
 
     .vxe-cell {
+        .required {
+            &::before {
+                content: '*';
+                color: #F00;
+                font-size: 1rem;
+                font-weight: 500;
+                position: relative;
+                left: -2px;
+                top: 4px;
+            }
+        }
         .seq-header {
             cursor: pointer;
             .vxe-cell--checkbox {

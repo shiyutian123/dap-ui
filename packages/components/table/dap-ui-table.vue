@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-02-11 14:36:56
- * @LastEditTime: 2020-02-18 18:09:30
+ * @LastEditTime: 2020-02-19 17:42:14
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /lerna-dap/packages/dap-vue-ui/packages/components/table/dap-ui-table.vue
@@ -18,6 +18,7 @@
       :size="tableBaseConfig.size || 'mini'"
       :height="tableBaseConfig.height"
       :max-height="tableBaseConfig.maxHeight"
+      :min-height="tableBaseConfig.minHeight"
       :z-index="tableBaseConfig.zIndex"
       :data="computTableData"
       :row-id="tableBaseConfig.rowId"
@@ -43,7 +44,7 @@
           </div>
         </template>
         <template v-slot="{ row, rowIndex }">
-          <span v-if="tableBaseConfig.selectMode !== 'multipart' && tableBaseConfig.selectMode !== 'single'">{{ rowIndex + 1 }}</span>
+          <span class="number_seq" v-if="tableBaseConfig.selectMode !== 'multipart' && tableBaseConfig.selectMode !== 'single'">{{ rowIndex + 1 }}</span>
           <div v-if="tableBaseConfig.selectMode === 'multipart' || tableBaseConfig.selectMode === 'single'" class="seq-cell" :class="{ 'checked': row.$__checked }">
             <span class="seq">{{ rowIndex + 1 }}</span>
             <span class="vxe-cell--checkbox" @click="onCheckRow(row, rowIndex)" :class="{ 'is--checked': row.$__checked }"></span>
@@ -51,7 +52,11 @@
         </template>
       </vxe-table-column>
       <template v-for="(config, index) in tableBaseConfig.columns">
-        <vxe-table-column v-if="!config.slotName" :key="index" v-bind="config"></vxe-table-column>
+        <vxe-table-column v-if="!config.slotName" :key="index" v-bind="config">
+          <template v-slot:header>
+            <span :class="{ 'required': config.required }">{{ config.title }}</span>
+          </template>
+        </vxe-table-column>
         <vxe-table-column v-if="config.slotName" :key="index" v-bind="config">
           <template v-slot="{ row,rowIndex }">
             <slot
@@ -146,7 +151,7 @@ export default {
           this.tableBaseConfig.tablePage.totalResult = newValue.length;
         }
         this.checkedData.map(checkedItem => {
-          const tempObj = newValue.filter(item => item[this.tableBaseConfig.rowId] === checkedItem[this.tableBaseConfig.rowId])[0];
+          const tempObj = newValue.filter(item => JSON.stringify(item) === JSON.stringify(checkedItem))[0];
           if (tempObj) {
             tempObj.$__checked = true;
           }
@@ -238,7 +243,7 @@ export default {
         }
       } else {
         if (row.$__checked) {
-          this.checkedData = [JSON.parse(JSON.stringify(row))];
+          this.checkedData = [row];
         } else {
           this.checkedData = [];
         }
@@ -313,14 +318,14 @@ export default {
     },
     $_takeCheckedData(checkedArr) {
       checkedArr.map(checkedItem => {
-        if (this.checkedData.filter(item => item[this.tableBaseConfig.rowId] === checkedItem[this.tableBaseConfig.rowId]).length === 0) {
-          this.checkedData.push(JSON.parse(JSON.stringify(checkedItem)));
+        if (this.checkedData.filter(item => JSON.stringify(item) === JSON.stringify(checkedItem)).length === 0) {
+          this.checkedData.push(checkedItem);
         }
       });
     },
     $_takeUncheckedData(uncheckedArr) {
       uncheckedArr.map(uncheckedItem => {
-        const tempArr = this.checkedData.filter(item => item[this.tableBaseConfig.rowId] === uncheckedItem[this.tableBaseConfig.rowId]);
+        const tempArr = this.checkedData.filter(item => JSON.stringify(item) === JSON.stringify(uncheckedItem));
         if (tempArr.length > 0) {
           this.checkedData.splice(this.checkedData.indexOf(tempArr[0]), 1);
         }
