@@ -2,11 +2,11 @@
  * @Author: DevinShi
  * @Date: 2020-02-06 10:37:47
  * @LastEditors: DevinShi
- * @LastEditTime: 2020-02-18 11:01:33
+ * @LastEditTime: 2020-02-18 14:33:03
  * @Description: file content description
  -->
 <template>
-  <div class="dap-ui-input dap-ui-form-item dap-ui-form-input">
+  <div class="dap-ui-select dap-ui-form-item dap-ui-form-input">
     <a-form-item
       :label-col="labelCol"
       :wrapper-col="wrapperCol"
@@ -19,22 +19,29 @@
       <template v-slot:label>
         <span :style="{color: labelColor}">{{label}}</span>
       </template>
-      <a-input 
-        :value="value"
-        @input="$formEventEmit('change', $event.target.value)"
-        :placeholder="placeholder" 
-        :defaultValue="defaultValue"
-        :disabled="disabled"
-        :allowClear="allowClear"/>
+        <a-select 
+            :allowClear="allowClear"
+            :disabled="disabled"
+            :defaultValue="defaultValue" 
+            :placeholder="placeholder" 
+            :value="value"
+            :loading="extraProp.loading"
+            @change="$formEventEmit('change', $event)"
+            @dropdownVisibleChange="$formEventEmit('dropdownVisibleChange', $event)">
+            <a-select-option v-for="option in options" 
+                :value="option.value"
+                :key="option.value">{{option.label}}</a-select-option>
+        </a-select>
     </a-form-item>
   </div>
 </template>
 <script>
+
 import InputComponentMixin from '../../../mixins/input-component-mixin.js';
 import BasicComponentMixin from '../../../mixins/basic-component-mixin.js';
 
 export default {
-  name: "DapUiInput",
+  name: "DapUiSelect",
   type: 'FORM_INPUT',
   mixins: [InputComponentMixin, BasicComponentMixin],
   props: {
@@ -44,6 +51,10 @@ export default {
     'allowClear': {
       type: Boolean,
       default: false
+    },
+    'options': {
+      type: Array,
+      default: []
     }
   }
 }
