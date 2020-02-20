@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-02-11 14:36:56
- * @LastEditTime: 2020-02-20 16:43:50
+ * @LastEditTime: 2020-02-20 17:39:21
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /lerna-dap/packages/dap-vue-ui/packages/components/table/dap-ui-table.vue
@@ -63,7 +63,8 @@
             <slot
             :name="config.slotName"
             :row="row"
-            :rowIndex="rowIndex">
+            :rowIndex="rowIndex"
+            :column="config">
             </slot>
           </template>
         </vxe-table-column>

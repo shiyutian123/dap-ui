@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-02-20 10:13:07
- * @LastEditTime: 2020-02-20 17:08:36
+ * @LastEditTime: 2020-02-20 18:08:03
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dap-vue-ui/packages/components/form/table-extend/dap-ui-table-extend.vue
@@ -129,7 +129,7 @@ export default {
   },
   methods: {
     scrollToLastRow() {
-      const row = this.tableData[this.tableData.length - 1];
+      const row = this.value[this.value.length - 1];
       if (this.displayType === "horizontal") {
         this.$refs.horizontalTable.scrollToRow(row);
       } else {
@@ -150,7 +150,7 @@ export default {
       this.tableBaseConfig.columns.map(item => {
         obj[item.field] = undefined;
       });
-      this.tableData.push(obj);
+      this.value.push(obj);
       this.scrollToLastRow();
       this.$formEventEmit('add-record', {
         mouseEvent: e
@@ -166,7 +166,7 @@ export default {
         });
         arr.push(obj);
       });
-      this.tableData.push(...arr);
+      this.value.push(...arr);
       this.scrollToLastRow();
       this.$formEventEmit('copy-record', {
         mouseEvent: e
@@ -175,7 +175,7 @@ export default {
     onClickDelete(e) {
       const checkedData = this.getCheckedData();
       for (const item of checkedData) {
-        this.tableData.splice(this.tableData.indexOf(item), 1);
+        this.value.splice(this.value.indexOf(item), 1);
       }
       this.$formEventEmit('delete-record', {
         mouseEvent: e,
