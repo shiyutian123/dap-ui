@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-02-11 14:36:56
- * @LastEditTime: 2020-02-20 20:54:20
+ * @LastEditTime: 2020-02-20 21:58:57
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /lerna-dap/packages/dap-vue-ui/packages/components/table/dap-ui-table.vue
@@ -333,6 +333,9 @@ export default {
       setTimeout(() => {
         this.$refs.table.scrollToRow(row);
       }, 80);
+    },
+    updateFooter() {
+      this.$refs.table.updateFooter();
     },
     $_takeCheckedData(checkedArr) {
       checkedArr.map(checkedItem => {
