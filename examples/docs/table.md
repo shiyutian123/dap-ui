@@ -130,6 +130,17 @@ export default {
 | select-change    |  当选中改变的时候触发的事件       |    |        |  `{selection: Array}`         | 
 | sort-change    |  当排序改变的时候触发的事件       |    |        |  `	{column: Object, property: String, order: String}`         | 
 
+## Slots
+
+<!-- {.md} -->
+
+| 属性    | 说明        | 类型     | 可选值  |  参数    |
+| -------| -----------| -------- | ------ | --------- |
+| seqFooter    |  自定义序号列表尾内容的模板       |    |        |         | 
+| footer    |  自定义表尾内容的模板       |    |        |  `{items: Array, itemIndex: Number}`         | 
+| \[slotName\]    |  自定义表格内容的模板       |    |        |  `{row: Object, rowIndex: Number, column: Object}`         | 
+
+
 ## TableBaseConfig
 
 <!-- {.md} -->
@@ -154,8 +165,8 @@ export default {
 | selectMode    |  选中模式       | String   |  `single` `multipart`      |         | 
 | radioConfig    |  单选框配置项       | RadioConfig   |        |         | 
 | checkboxConfig    |  复选框配置项       | CheckboxConfig   |        |         | 
-
-
+| showFooter    |  是否显示表尾合计（需要与footerMethod联合使用）       |  Boolean   |        |         | 
+| footerMethod    |  表尾合计的计算方法 Function({columns, data})       |  Function   |        |         | 
 
 ## Column
 

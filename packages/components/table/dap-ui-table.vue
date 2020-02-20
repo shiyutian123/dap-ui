@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-02-11 14:36:56
- * @LastEditTime: 2020-02-19 17:42:14
+ * @LastEditTime: 2020-02-20 20:39:48
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /lerna-dap/packages/dap-vue-ui/packages/components/table/dap-ui-table.vue
@@ -12,6 +12,8 @@
       :border="typeof(tableBaseConfig.border) === 'undefined' ? true : tableBaseConfig.border"
       stripe
       highlight-hover-row
+      :show-footer="tableBaseConfig.showFooter"
+      :footer-method="tableBaseConfig.footerMethod"
       :show-overflow="computShowOverflow"
       :show-header-overflow="computShowHeaderOverflow"
       :loading="tableBaseConfig.loading"
@@ -20,7 +22,7 @@
       :max-height="tableBaseConfig.maxHeight"
       :min-height="tableBaseConfig.minHeight"
       :z-index="tableBaseConfig.zIndex"
-      :data="computTableData"
+      :data.sync="computTableData"
       :row-id="tableBaseConfig.rowId"
       :radio-config="tableBaseConfig.radioConfig"
       :checkbox-config="tableBaseConfig.checkboxConfig"
@@ -33,7 +35,7 @@
       <!-- <vxe-table-column v-if="tableBaseConfig.selectMode === 'single'" type="radio" align="center" title="" width="40"></vxe-table-column> -->
       <!-- <vxe-table-column v-if="tableBaseConfig.selectMode === 'multipart'" type="checkbox" align="center" width="40"></vxe-table-column> -->
       <!-- <vxe-table-column v-if="!tableBaseConfig.hideSeq" type="seq" align="center" width="45"></vxe-table-column> -->
-      <vxe-table-column v-if="!tableBaseConfig.hideSeq" align="center" width="45">
+      <vxe-table-column v-if="!tableBaseConfig.hideSeq" align="center" width="55">
         <template v-slot:header>
           <div class="seq-header">
             <span v-if="tableBaseConfig.selectMode !== 'multipart'">#</span>
@@ -50,11 +52,17 @@
             <span class="vxe-cell--checkbox" @click="onCheckRow(row, rowIndex)" :class="{ 'is--checked': row.$__checked }"></span>
           </div>
         </template>
+        <template v-slot:footer>
+          <slot name="seqFooter"></slot>
+        </template>
       </vxe-table-column>
       <template v-for="(config, index) in tableBaseConfig.columns">
         <vxe-table-column v-if="!config.slotName" :key="index" v-bind="config">
           <template v-slot:header>
             <span :class="{ 'required': config.required }">{{ config.title }}</span>
+          </template>
+          <template v-slot:footer="{ items, itemIndex }">
+              <slot name="footer" :items="items" :itemIndex="itemIndex"></slot>
           </template>
         </vxe-table-column>
         <vxe-table-column v-if="config.slotName" :key="index" v-bind="config">
@@ -62,8 +70,12 @@
             <slot
             :name="config.slotName"
             :row="row"
-            :rowIndex="rowIndex">
+            :rowIndex="rowIndex"
+            :column="config">
             </slot>
+          </template>
+          <template v-slot:footer="{ items, itemIndex }">
+              <slot name="footer" :items="items" :itemIndex="itemIndex"></slot>
           </template>
         </vxe-table-column>
       </template>

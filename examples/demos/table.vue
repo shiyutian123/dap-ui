@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-02-11 14:46:57
- * @LastEditTime: 2020-02-18 14:13:59
+ * @LastEditTime: 2020-02-20 19:49:55
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /lerna-dap/packages/dap-vue-ui/examples/demos/table.vue
@@ -14,8 +14,15 @@
     :table-data="tableData"
     @page-change="handlePageChange"
     @select-change="handleSelectChange">
-      <template v-slot:name="{ row, rowIndex }">
-        <span style="color:blue">{{ row.name }} {{ row.id }}</span>
+      <template v-slot:name="{ row, rowIndex, column }">
+        <span style="color:blue">{{ row.name }} {{ row.id }} {{ column }}</span>
+      </template>
+      <template v-slot:seqFooter>
+        <span>累计</span>
+      </template>
+      <template v-slot:footer="{ items, itemIndex }">
+        <span>{{ items }}</span>
+        <span>{{ itemIndex }}</span>
       </template>
     </dap-ui-table>
     本页已选中的数据：
@@ -63,6 +70,14 @@ export default {
           currentPage: 1,
           pageSize: 15,
           totalResult: 100
+        },
+        showFooter: true,
+        footerMethod: ({ columns, data }) => {
+          return [
+            columns.map((column, columnIndex) => {
+              return 1+1;
+            })
+          ];
         }
       },
       tableData: []
