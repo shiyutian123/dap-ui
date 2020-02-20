@@ -20,14 +20,24 @@
 ```html
   <div class="demo-block">
     <dap-ui-table
+    ref="table"
     :table-base-config="tableBaseConfig"
     :table-data="tableData"
     @page-change="handlePageChange"
     @select-change="handleSelectChange">
-      <template v-slot:name="{ row, rowIndex }">
-        <span style="color:blue">{{ row.name }} {{ row.id }}</span>
+      <template v-slot:name="{ row, rowIndex, column }">
+        <span style="color:blue">{{ row.name }} {{ row.id }} {{ column }}</span>
+      </template>
+      <template v-slot:seqFooter>
+        <span>累计</span>
+      </template>
+      <template v-slot:footer="{ items, itemIndex }">
+        <span>{{ items }}</span>
+        <span>{{ itemIndex }}</span>
       </template>
     </dap-ui-table>
+    本页已选中的数据：
+    {{ checkedData }}
   </div>
 ```
 
@@ -37,11 +47,13 @@ export default {
   name: 'table-demo',
   data() {
     return {
+      checkedData: [],
       tableBaseConfig: {
         loading: false,
         rowId: 'id',
-        frontPaging: true,
-        selectMode: 'multipart',
+        frontPaging: false,
+        hideSeq: false,
+        selectMode: 'single',
         checkboxConfig: {
           checkRowKeys: ['1', '2']
         },
@@ -51,11 +63,15 @@ export default {
           {
             field: 'name',
             title: '姓名',
-            slotName: 'name'
+            slotName: 'name',
+            sortable: true,
+            remoteSort: true
           },
           {
             field: 'sex',
-            title: '性别'
+            title: '性别',
+            sortable: true,
+            remoteSort: true
           },
           {
             field: 'age',
@@ -66,13 +82,23 @@ export default {
           currentPage: 1,
           pageSize: 15,
           totalResult: 100
+        },
+        showFooter: true,
+        footerMethod: ({ columns, data }) => {
+          return [
+            columns.map((column, columnIndex) => {
+              return 1+1;
+            })
+          ];
         }
       },
       tableData: []
     };
   },
+  computed: {
+  },
   created() {
-    for (let i = 0; i < 1000; i++) {
+    for (let i = 0; i < 15; i++) {
       this.tableData.push({name: '张三', sex: '男', age: 18, id: `${i}`});
     }
   },
@@ -89,9 +115,17 @@ export default {
       // load data...
       this.tableBaseConfig.loading = true;
       setTimeout(() => {
+        const data = [];
+        for (let i = 0; i < 15; i++) {
+          data.push({name: '张三', sex: '男', age: 18, id: `${(e.currentPage - 1) * e.pageSize + i}`});
+        }
+        this.tableData = data;
         this.tableBaseConfig.loading = false;
         this.tableBaseConfig.tablePage.currentPage = e.currentPage;
         this.tableBaseConfig.tablePage.pageSize = e.pageSize;
+        setTimeout(() => {
+          this.checkedData = this.$refs.table.getChekced();
+        }, 0);
       }, 1000);
     },
     /**
@@ -101,7 +135,7 @@ export default {
      * @return: 
      */
     handleSelectChange(e) {
-      window.console.log(e);
+      this.checkedData = e.selection;
     }
   }
 }
@@ -130,6 +164,17 @@ export default {
 | select-change    |  当选中改变的时候触发的事件       |    |        |  `{selection: Array}`         | 
 | sort-change    |  当排序改变的时候触发的事件       |    |        |  `	{column: Object, property: String, order: String}`         | 
 
+## Slots
+
+<!-- {.md} -->
+
+| 属性    | 说明        | 类型     | 可选值  |  参数    |
+| -------| -----------| -------- | ------ | --------- |
+| seqFooter    |  自定义序号列表尾内容的模板       |    |        |         | 
+| footer    |  自定义表尾内容的模板       |    |        |  `{items: Array, itemIndex: Number}`         | 
+| \[slotName\]    |  自定义表格内容的模板       |    |        |  `{row: Object, rowIndex: Number, column: Object}`         | 
+
+
 ## TableBaseConfig
 
 <!-- {.md} -->
@@ -154,8 +199,8 @@ export default {
 | selectMode    |  选中模式       | String   |  `single` `multipart`      |         | 
 | radioConfig    |  单选框配置项       | RadioConfig   |        |         | 
 | checkboxConfig    |  复选框配置项       | CheckboxConfig   |        |         | 
-
-
+| showFooter    |  是否显示表尾合计（需要与footerMethod联合使用）       |  Boolean   |        |         | 
+| footerMethod    |  表尾合计的计算方法 Function({columns, data})       |  Function   |        |         | 
 
 ## Column
 
