@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-02-11 14:36:56
- * @LastEditTime: 2020-02-19 17:42:14
+ * @LastEditTime: 2020-02-20 16:43:50
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /lerna-dap/packages/dap-vue-ui/packages/components/table/dap-ui-table.vue
@@ -9,6 +9,7 @@
 <template>
   <div class="dap-ui-table">
     <vxe-table
+      ref="table"
       :border="typeof(tableBaseConfig.border) === 'undefined' ? true : tableBaseConfig.border"
       stripe
       highlight-hover-row
@@ -227,7 +228,7 @@ export default {
         });
       }
       row.$__checked = !flag;
-      this.tableData = Object.assign([], this.tableData);
+      this.$emit('update:tableData', Object.assign([], this.tableData));
       this.$_setHeaderSeqCheckStatus();
       // 将选中数据向上抛
       const data = {
@@ -260,12 +261,12 @@ export default {
         tempArr.map((item) => {
           item.$__checked = this.checkAll;
         });
-        this.tableData = Object.assign([], this.tableData);
+        this.$emit('update:tableData', Object.assign([], this.tableData));
       } else {
         this.tableData.map((item) => {
           item.$__checked = this.checkAll;
         });
-        this.tableData = Object.assign([], this.tableData);
+        this.$emit('update:tableData', Object.assign([], this.tableData));
         tempArr = this.tableData;
       }
       // 将选中数据向上抛
@@ -315,6 +316,11 @@ export default {
       } else {
         return this.tableData.filter(item => item.$__checked);
       }
+    },
+    scrollToRow(row) {
+      setTimeout(() => {
+        this.$refs.table.scrollToRow(row);
+      }, 80);
     },
     $_takeCheckedData(checkedArr) {
       checkedArr.map(checkedItem => {
