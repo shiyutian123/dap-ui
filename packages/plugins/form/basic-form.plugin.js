@@ -134,7 +134,7 @@ export default {
                         tagAdapter = adapter;
                     }
                 });
-                return adapter;
+                return tagAdapter;
             },
             /**
              * 数据转换配置
@@ -144,7 +144,7 @@ export default {
             convertCompConfig(componentConfig, tag) {
                 // 根据tag找到转换器，转换数据
                 const adapter = this.getAdapterByTag(tag);
-                return adapter(componentConfig);
+                return adapter.adapter(componentConfig);
             },
             /**
              * 执行注入事件

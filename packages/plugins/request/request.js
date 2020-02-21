@@ -191,7 +191,7 @@ export default {
         },
         cancelToken: urlConfig.config && urlConfig.config.cancelToken
       }
-      if (method === 'post' || method === 'POST') {
+      if (config.method === 'post' || config.method === 'POST') {
         config.data = urlConfig.params;
         delete config.params
 

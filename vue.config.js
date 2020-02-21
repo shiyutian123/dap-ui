@@ -1,8 +1,8 @@
 /*
  * @Author: DevinShi
  * @Date: 2020-02-06 03:24:53
- * @LastEditors: DevinShi
- * @LastEditTime: 2020-02-11 10:24:29
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-02-20 21:03:15
  * @Description: file content description
  */
 const path = require("path");
@@ -167,7 +167,6 @@ module.exports = {
           // 'primary-color': '#1DA57A',
           // 'link-color': '#1DA57A',
           // 'border-radius-base': '2px',
-          "font-size-base": "13px"
         },
         javascriptEnabled: true
       }
@@ -221,7 +220,9 @@ module.exports = {
   pluginOptions: {
     "style-resources-loader": {
       preProcessor: "less",
-      patterns: ["node_modules/ant-design-vue/dist/antd.less"]
+      patterns: [                
+        // path.resolve(__dirname, './packages/assets/app.less')
+      ]
     },
     lintStyleOnBuild: false,
     stylelint: {}
