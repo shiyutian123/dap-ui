@@ -19,6 +19,7 @@
     "axios": "^0.19.2",
     "core-js": "^3.4.4",
     "js-file-download": "^0.4.9",
+    "jsonpath-plus": "^3.0.0",
     "link": "^0.1.5",
     "lint-staged": "^10.0.7",
     "register-service-worker": "^1.6.2",
@@ -58,7 +59,7 @@
     "eslint-plugin-vue": "^5.0.0",
     "husky": "^4.2.1",
     "less": "^3.0.4",
-    "less-loader": "^5.0.0",
+    "less-loader": "^4.1.0",
     "markdown-it-container": "^2.0.0",
     "markdown-it-decorate": "^1.2.2",
     "markdown-it-task-checkbox": "^1.0.6",
@@ -132,7 +133,6 @@
     "overrides": [
       {
         "files": [
-          "**/packages/*.{j,t}s?(x)",
           "**/__tests__/*.{j,t}s?(x)",
           "**/tests/unit/**/*.spec.{j,t}s?(x)"
         ],
