@@ -12,7 +12,7 @@ export default {
   data: function() {
     return {
       formConfig: [{
-        label: '苹果名称',
+        label: '苹果名称1',
         placeholder: '请输入苹果名称',
         type: 'string',
         uuid: '54d0d1c7-8465-4600-82b1-1d327d97c427',
@@ -22,6 +22,7 @@ export default {
         colSpan: 1,
         labelColor: '#eee',
         visiable: true,
+        disabled: true,
       }, {
         label: '苹果类型',
         placeholder: '请输入苹果类型',
@@ -34,17 +35,9 @@ export default {
         required: true,
         labelColor: '#000',
         visiable: true,
-      }, {
+      },{
         label: '苹果类型描述',
-        uuid: '53f14f71-8100-4d66-b89f-b30168c26d61',
-        componentName: 'dap-ui-static-text',
-        rowSpan: 4,
-        colSpan: 1,
-        labelColor: '#666',
-        visiable: true,
-      }, {
-        label: '苹果类型描述',
-        uuid: '53f14f71-8100-4d66-b89f-b30168c26d61',
+        uuid: '53f14f71-8100-4d66-b89f-b30168c26d62',
         componentName: 'dap-ui-select',
         rowSpan: 4,
         colSpan: 1,
@@ -76,6 +69,15 @@ export default {
           }]
         }]
       }, {
+        label: '这是一个静态文本提示',
+        uuid: '53f14f71-8100-4d66-b89f-b30168c26d61',
+        componentName: 'dap-ui-static-text',
+        rowSpan: 4,
+        colSpan: 1,
+        labelColor: '#666',
+        visiable: true,
+      },{
+
         label: '被保险人清单',
         uuid: '196be4f4-728b-45af-8f10-a02c82110413',
         dataCode: 'rule_apple.list',
@@ -102,8 +104,9 @@ export default {
   methods: {
     reset() {
       this.$refs.basicFormDemo.resetForm();
-      this.formData = {
-        // 'rule_apple.app_type': '山东'
+    },
+    formEvent($event) {
+      if ($event.eventName ==='dropdownVisibleChange' && $event.event === true) {
       }
     }
   }
@@ -114,6 +117,7 @@ export default {
   <div class="demo-block">
     <a-button @click="reset()">重置</a-button> 
     <a-button style="margin-left: 16px" type="primary" @click="$refs.basicFormDemo.validateTouch()">验证表单</a-button>
-    <dap-ui-basic-form ref="basicFormDemo" :formConfig="formConfig" v-model="formData"></dap-ui-basic-form> 
+    <!-- @formEventEmit="" -->
+    <dap-ui-basic-form @formEventEmit="formEvent" ref="basicFormDemo" :formConfig="formConfig" v-model="formData"></dap-ui-basic-form> 
   </div>
 </template>

@@ -12,17 +12,19 @@ export default {
     },
     props: {
         labelCol: {
-            type: Object,
-            default: {
-                xs: { span: 24 },
-                sm: { span: 5 },
+            default: function() {
+                return {
+                    xs: { span: 24 },
+                    sm: { span: 5 },
+                }
             }
         },
         wrapperCol: {
-            type: Object,
-            default: {
-                xs: { span: 24 },
-                sm: { span: 12 },
+            default: function() {
+                return {
+                    xs: { span: 24 },
+                    sm: { span: 12 },
+                }
             }
         },
         disabled: {
@@ -34,10 +36,8 @@ export default {
             default: true,
         },
         extra: {
-            type: Object, // String | slot
         },
         help: {
-            type: Object, // String | slot
         },
         hasFeedback: {
             type: Boolean,
@@ -54,7 +54,18 @@ export default {
             type: String
         },
         value: {
-            type: String
+        },
+        defaultValue: {
+        },
+        allowClear: {
+            type: Boolean,
+            default: false
+        },
+        options: {
+            type: Array,
+            default: function() {
+                return [];
+            }
         }
     }
 }

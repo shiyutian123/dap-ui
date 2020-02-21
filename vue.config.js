@@ -220,7 +220,9 @@ module.exports = {
   pluginOptions: {
     "style-resources-loader": {
       preProcessor: "less",
-      patterns: ["node_modules/ant-design-vue/dist/antd.less"]
+      patterns: [
+        // path.resolve(__dirname, './packages/assets/app.less')
+      ]
     },
     lintStyleOnBuild: false,
     stylelint: {}

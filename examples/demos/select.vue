@@ -37,7 +37,7 @@ export default {
   },
   methods: {
     formEvent($event) {
-      if ($event.event) {
+      if ($event.eventName ==='dropdownVisibleChange' && $event.event === true) {
         this.extraProp.loading = true;
         setTimeout(() => {
           this.extraProp.loading = false ;
