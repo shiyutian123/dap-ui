@@ -15,7 +15,7 @@
         v-for="itemConfig of visiableFormConfig"
         :key="itemConfig.uuid">
           <component
-            v-if="itemConfig.visiable && itemConfig.dataCode && $baseFormRegister.getComponentType(itemConfig.componentName) === 'FORM_INPUT'"
+            v-if="itemConfig.visiable && $baseFormRegister.getComponentType(itemConfig.componentName) === 'FORM_INPUT'"
             :has-feedback="false"
             :label-color="itemConfig.labelColor"
             :validate-status="$v.currentFormData[itemConfig.dataCode].$dirty && $v.currentFormData[itemConfig.dataCode].$error ? 'error' : 'success'"
@@ -25,8 +25,9 @@
             :label="itemConfig.label"
             :value="currentFormData[itemConfig.dataCode]"
             :uuid="itemConfig.uuid"
+            :disabled="itemConfig.disabled"
             :componentName="itemConfig.componentName"
-            @formEventEmit="$emit('formEventEmit', $event)"
+            @formEventEmit="formEventEmit($event)"
             @change="formValueChange(itemConfig.dataCode, $event)"></component>
           
           <component
@@ -35,7 +36,7 @@
             :is="itemConfig.componentName"
             :uuid="itemConfig.uuid"
             :componentName="itemConfig.componentName"
-            @formEventEmit="$emit('formEventEmit', $event)"
+            @formEventEmit="formEventEmit($event)"
             :label-color="itemConfig.labelColor"></component>
 
           <component
@@ -46,7 +47,7 @@
             :layoutConfig="itemConfig"
             :uuid="itemConfig.uuid"
             :componentName="itemConfig.componentName"
-            @formEventEmit="$emit('formEventEmit', $event)"
+            @formEventEmit="formEventEmit($event)"
             :is="itemConfig.componentName"></component>
 
             <a-empty 
@@ -137,6 +138,14 @@ export default {
           }
         })
         // this.currentFormData = this.formData;
+      },
+      /**
+       * 表单事件自动触发
+       */
+      formEventEmit($event) {
+        // 表单事件发送
+        this.$baseFormRegister.excuteAdapterEvent($event.componentName, $event)
+        this.$emit('formEventEmit', $event);
       }
   },
   watch: {
@@ -155,7 +164,7 @@ export default {
       default: {}
     },
     formConfig: {
-      type: Object,
+      type: Array,
       default: []
     },
     validate: {

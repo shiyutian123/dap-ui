@@ -14,7 +14,10 @@ export default {
             type: String
         },
         extraProp: {
-            type: Object
+            type: Object,
+            default: function() {
+                return {}
+            }
         },
         uuid: {
             type: String 

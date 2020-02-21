@@ -62,10 +62,10 @@ export default {
         if (err.response) {
           if (HTTP_ERROR_CONSTANT[err.response.status]) {
             Vue.prototype.$message.error(HTTP_ERROR_CONSTANT[err.response.status].errorMsg)
-          } else if (err.response.status >= (HTTP_ERROR_CONSTANT.BadRequestMin.errorCode - 9000) && err.response.status <= (HTTP_ERROR_CONSTANT.BadRequestMax.errorCode - 9000)) {
-            Vue.prototype.$message.error(HTTP_ERROR_CONSTANT[9400].errorMsg)
-          } else if (err.response.status >= (HTTP_ERROR_CONSTANT.ServerExceptionMin.errorCode - 9000) && err.response.status <= (HTTP_ERROR_CONSTANT.ServerExceptionMax.errorCode - 9000)) {
-            Vue.prototype.$message.error(HTTP_ERROR_CONSTANT[9500].errorMsg)
+          } else if (err.response.status >= (HTTP_ERROR_CONSTANT[HTTP_STATUS_CODE.BadRequestMin].errorCode - 9000) && err.response.status <= (HTTP_ERROR_CONSTANT[HTTP_STATUS_CODE.BadRequestMax].errorCode - 9000)) {
+            Vue.prototype.$message.error(HTTP_ERROR_CONSTANT[HTTP_STATUS_CODE.BadRequestMin].errorMsg)
+          } else if (err.response.status >= (HTTP_ERROR_CONSTANT[HTTP_STATUS_CODE.ServerExceptionMin].errorCode - 9000) && err.response.status <= (HTTP_ERROR_CONSTANT[HTTP_STATUS_CODE.ServerExceptionMin].errorCode - 9000)) {
+            Vue.prototype.$message.error(HTTP_ERROR_CONSTANT[HTTP_STATUS_CODE.ServerExceptionMin].errorMsg)
           }
         } else if (err.message === '终止请求') {
           console.log(err.message)
@@ -177,12 +177,10 @@ export default {
       } else {
         urlConfig.url = urlConfig.url + '?' + '__timestamp=' + (new Date()).valueOf()
       }
-
       const config = {
         url: urlConfig.url,
         method: urlConfig.method,
         params: urlConfig.params,
-        data: urlConfig.params,
         headers: {
           ...options.headers,
           ...urlConfig.headers
@@ -193,36 +191,25 @@ export default {
         },
         cancelToken: urlConfig.config && urlConfig.config.cancelToken
       }
+      if (method === 'post' || method === 'POST') {
+        config.data = urlConfig.params;
+        delete config.params
+
+      }
+      
       // eslint-disable-next-line no-extend-native
       let promise
       promise = new Promise(function (resolve, reject) {
         instance.request(config)
           .then(response => {
             const data = response.data
-            if (data.message === 'token失效') {
-              if (process.env.VUE_APP_BASEURL.includes('pluto')) {
-                Vue.prototype.$message.error('登录信息失效，请重新登录。')
-                setTimeout(() => {
-                  window.location.href = 'http://47.111.230.1:30008/uaa/logout'
-                }, 2000)
-              } else {
-                Vue.prototype.$message.error('登录信息失效，请重新登录。')
-                setTimeout(() => {
-                  window.location.href = 'http://k8s.definesys.com:30008/uaa/logout'
-                }, 2000)
-              }
-            }
             // 自定义解析字段，并带上相关请求头
             if (customOptions.businessValid(data)) {
               customOptions.businessTransform(data, response)
               resolve(data)
             } else {
-              if (data.code === '-80010' && data.message === '积分已达上限') {
-                reject(data)
-              } else {
-                customOptions.businessErrorCatch(data, response, needShowMessage)
-                reject(data)
-              }
+              customOptions.businessErrorCatch(data, response, needShowMessage)
+              reject(data)
             }
           })
           .catch(err => {

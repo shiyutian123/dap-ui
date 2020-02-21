@@ -71,6 +71,8 @@ export default {
 
   DapUiInput,
 
+  DapUiSelect,
+  
   DapUiStaticText,
   
   DapUiBasicForm,
@@ -80,6 +82,7 @@ export default {
   DapUiCollapseLayout,
 
   DapUiTable,
+  
   DapUiModal,
 };
 

@@ -38,13 +38,6 @@ export default {
   type: 'FORM_INPUT',
   mixins: [InputComponentMixin, BasicComponentMixin],
   props: {
-    'defaultValue': {
-      type: String
-    },
-    'allowClear': {
-      type: Boolean,
-      default: false
-    }
   }
 }
 </script>
