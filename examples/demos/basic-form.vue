@@ -1,8 +1,8 @@
 <!--
  * @Author: DevinShi
  * @Date: 2020-02-06 08:13:20
- * @LastEditors: DevinShi
- * @LastEditTime: 2020-02-16 14:13:50
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-02-20 18:08:59
  * @Description: file content description
  -->
 <style lang="less"></style>
@@ -75,6 +75,15 @@ export default {
             required: true,
           }]
         }]
+      }, {
+        label: '被保险人清单',
+        uuid: '196be4f4-728b-45af-8f10-a02c82110413',
+        dataCode: 'rule_apple.list',
+        componentName: 'dap-ui-table-extend',
+        rowSpan: 4,
+        colSpan: 2,
+        visiable: true,
+        columnSet: JSON.parse(`[{"formControlName":"insurer_list.account","title":"被保险人账号", "required": true},{"formControlName":"insurer_list.name","title":"被保险人姓名"},{"formControlName":"insurer_list.email","title":"被保险人邮箱"},{"formControlName":"insurer_list.birth","title":"出生日期"},{"formControlName":"insurer_list.start_date","title":"保险开始日期"},{"formControlName":"insurer_list.end_date","title":"保险结束日期"}]`)
       }],
       formData: {
       }
@@ -83,7 +92,10 @@ export default {
   mounted() {
     setTimeout(() => {
       this.formData = {
-        // 'rule_apple.app_type': '山东'
+        // 'rule_apple.app_type': '山东',
+        'rule_apple.list': JSON.parse(
+          '[{"insurer_list.account_detail":[{"id":"5d75c1a9b119820db41c090c","empId":"097","name":"翁秋娟","email":"qiujuan.weng@definesys.com","icon":"http://k8s.definesys.com:30529/process/form/downAttachment/1576636536867","firstLetter":"w"}],"insurer_list.password":"9999","insurer_list.email":"534","insurer_list.start_date":"2020-01-13","insurer_list.end_date":"2020-01-13","insurer_list.dept_detail":[{"id":"5df2f34ef0618600010c37a2","name":"流程部","code":"dept5","parentStructure":{"parentCode":"jiaofu2","parentName":"交付2","nextParentCode":"general","parentStructure":{"parentCode":"general","parentName":"总部"}},"parentOrgPath":"总部·交付2"}],"insurer_list.id":20,"insurer_list.dept":["dept5"],"insurer_list.name":"786","insurer_list.account":["097"],"insurer_list.destination_country":"000","insurer_list.birth":"2020-01-13"},{"insurer_list.account_detail":[{"id":"5d75c1a9b119820db41c090c","empId":"097","name":"翁秋娟","email":"qiujuan.weng@definesys.com","icon":"http://k8s.definesys.com:30529/process/form/downAttachment/1576636536867","firstLetter":"w"}],"insurer_list.password":"9999","insurer_list.email":"534","insurer_list.start_date":"2020-01-13","insurer_list.end_date":"2020-01-13","insurer_list.dept_detail":[{"id":"5df2f34ef0618600010c37a2","name":"流程部","code":"dept5","parentStructure":{"parentCode":"jiaofu2","parentName":"交付2","nextParentCode":"general","parentStructure":{"parentCode":"general","parentName":"总部"}},"parentOrgPath":"总部·交付2"}],"insurer_list.id":20,"insurer_list.dept":["dept5"],"insurer_list.name":"786","insurer_list.account":["097"],"insurer_list.destination_country":"000","insurer_list.birth":"2020-01-13"},{"insurer_list.account_detail":[{"id":"5d75c1a9b119820db41c090c","empId":"097","name":"翁秋娟","email":"qiujuan.weng@definesys.com","icon":"http://k8s.definesys.com:30529/process/form/downAttachment/1576636536867","firstLetter":"w"}],"insurer_list.password":"9999","insurer_list.email":"534","insurer_list.start_date":"2020-01-13","insurer_list.end_date":"2020-01-13","insurer_list.dept_detail":[{"id":"5df2f34ef0618600010c37a2","name":"流程部","code":"dept5","parentStructure":{"parentCode":"jiaofu2","parentName":"交付2","nextParentCode":"general","parentStructure":{"parentCode":"general","parentName":"总部"}},"parentOrgPath":"总部·交付2"}],"insurer_list.id":20,"insurer_list.dept":["dept5"],"insurer_list.name":"786","insurer_list.account":["097"],"insurer_list.destination_country":"000","insurer_list.birth":"2020-01-13"},{"insurer_list.account_detail":[{"id":"5d75c1a9b119820db41c090c","empId":"097","name":"翁秋娟","email":"qiujuan.weng@definesys.com","icon":"http://k8s.definesys.com:30529/process/form/downAttachment/1576636536867","firstLetter":"w"}],"insurer_list.password":"9999","insurer_list.email":"534","insurer_list.start_date":"2020-01-13","insurer_list.end_date":"2020-01-13","insurer_list.dept_detail":[{"id":"5df2f34ef0618600010c37a2","name":"流程部","code":"dept5","parentStructure":{"parentCode":"jiaofu2","parentName":"交付2","nextParentCode":"general","parentStructure":{"parentCode":"general","parentName":"总部"}},"parentOrgPath":"总部·交付2"}],"insurer_list.id":20,"insurer_list.dept":["dept5"],"insurer_list.name":"786","insurer_list.account":["097"],"insurer_list.destination_country":"000","insurer_list.birth":"2020-01-13"},{"insurer_list.account_detail":[{"id":"5d75c1a9b119820db41c090c","empId":"097","name":"翁秋娟","email":"qiujuan.weng@definesys.com","icon":"http://k8s.definesys.com:30529/process/form/downAttachment/1576636536867","firstLetter":"w"}],"insurer_list.password":"9999","insurer_list.email":"534","insurer_list.start_date":"2020-01-13","insurer_list.end_date":"2020-01-13","insurer_list.dept_detail":[{"id":"5df2f34ef0618600010c37a2","name":"流程部","code":"dept5","parentStructure":{"parentCode":"jiaofu2","parentName":"交付2","nextParentCode":"general","parentStructure":{"parentCode":"general","parentName":"总部"}},"parentOrgPath":"总部·交付2"}],"insurer_list.id":20,"insurer_list.dept":["dept5"],"insurer_list.name":"786","insurer_list.account":["097"],"insurer_list.destination_country":"000","insurer_list.birth":"2020-01-13"}]'
+        )
       }
     }, 1500)
   },
