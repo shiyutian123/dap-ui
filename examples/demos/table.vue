@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-02-11 14:46:57
- * @LastEditTime: 2020-02-20 19:49:55
+ * @LastEditTime: 2020-02-22 21:45:06
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /lerna-dap/packages/dap-vue-ui/examples/demos/table.vue
@@ -13,7 +13,8 @@
     :table-base-config="tableBaseConfig"
     :table-data="tableData"
     @page-change="handlePageChange"
-    @select-change="handleSelectChange">
+    @select-change="handleSelectChange"
+    @cell-click="onCellClick">
       <template v-slot:name="{ row, rowIndex, column }">
         <span style="color:blue">{{ row.name }} {{ row.id }} {{ column }}</span>
       </template>
@@ -124,6 +125,9 @@ export default {
      */
     handleSelectChange(e) {
       this.checkedData = e.selection;
+    },
+    onCellClick(e) {
+      console.log('------onCellClick-------', e);
     }
   }
 }

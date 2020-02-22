@@ -163,6 +163,7 @@ export default {
 | page-change    |  当分页器改变的时候触发的事件       |    |        |  `{type: String, currentPage: Number, pageSize: Number}`         | 
 | select-change    |  当选中改变的时候触发的事件       |    |        |  `{selection: Array}`         | 
 | sort-change    |  当排序改变的时候触发的事件       |    |        |  `	{column: Object, property: String, order: String}`         | 
+| cell-click    |  单元格被点击时会触发该事件       |    |        |  `	{row: Object, rowIndex: Number, column: Object, columnIndex: Number}`       | 
 
 ## Slots
 
