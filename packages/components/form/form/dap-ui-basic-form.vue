@@ -2,7 +2,7 @@
  * @Author: DevinShi
  * @Date: 2020-02-06 10:37:47
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-02-21 16:15:04
+ * @LastEditTime: 2020-02-21 18:45:29
  * @Description: file content description
  -->
 <template>
@@ -26,6 +26,7 @@
             :value="currentFormData[itemConfig.dataCode]"
             :uuid="itemConfig.uuid"
             :disabled="itemConfig.disabled"
+            :placeholder="itemConfig.placeholder"
             :componentName="itemConfig.componentName"
             :extraProp="itemConfig.extraProp"
             @formEventEmit="formEventEmit($event)"

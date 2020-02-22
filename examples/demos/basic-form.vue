@@ -2,7 +2,7 @@
  * @Author: DevinShi
  * @Date: 2020-02-06 08:13:20
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-02-21 11:41:01
+ * @LastEditTime: 2020-02-21 18:44:57
  * @Description: file content description
  -->
 <style lang="less"></style>
@@ -43,6 +43,7 @@ export default {
         colSpan: 1,
         labelColor: '#666',
         visiable: true,
+        required: true
       }, {
         label: '苹果价格',
         uuid: 'c29c65b8-b715-4fec-82e1-de1d4aef1160',
@@ -77,7 +78,6 @@ export default {
         labelColor: '#666',
         visiable: true,
       },{
-
         label: '被保险人清单',
         uuid: '196be4f4-728b-45af-8f10-a02c82110413',
         dataCode: 'rule_apple.list',
@@ -88,6 +88,16 @@ export default {
         extraProp: {
           columnSet: JSON.parse(`[{"field":"insurer_list.account","title":"被保险人账号", "required": true},{"field":"insurer_list.name","title":"被保险人姓名"},{"field":"insurer_list.email","title":"被保险人邮箱"},{"field":"insurer_list.birth","title":"出生日期"},{"field":"insurer_list.start_date","title":"保险开始日期"},{"field":"insurer_list.end_date","title":"保险结束日期"}]`)
         }
+      },{
+        label: '合同',
+        uuid: '',
+        dataCode: 'skya_project.contract',
+        componentName: 'dap-ui-lov',
+        placeholder: '请选择合同',
+        rowSpan: 2,
+        colSpan: 1,
+        required: true,
+        visiable: true
       }],
       formData: {
       }

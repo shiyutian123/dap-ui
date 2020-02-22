@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-02-20 10:13:07
- * @LastEditTime: 2020-02-21 11:37:07
+ * @LastEditTime: 2020-02-21 16:40:32
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dap-vue-ui/packages/components/form/table-extend/dap-ui-table-extend.vue
@@ -62,12 +62,6 @@ export default {
   type: "FORM_INPUT",
   mixins: [InputComponentMixin, BasicComponentMixin],
   props: {
-    columns: {
-      type: Array,
-      default: function() {
-        return [];
-      }
-    }
   },
   data() {
     return {
