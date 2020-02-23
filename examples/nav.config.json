@@ -95,6 +95,12 @@
             "name": "modal",
             "isMobile": "1",
             "path": "/modal"
+          },
+          {
+            "desc": "Lov 弹窗选择",
+            "name": "lov",
+            "isMobile": "1",
+            "path": "/lov"
           }
         ]
       },

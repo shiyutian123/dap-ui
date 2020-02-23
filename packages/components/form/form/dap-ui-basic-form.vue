@@ -1,8 +1,8 @@
 <!--
  * @Author: DevinShi
  * @Date: 2020-02-06 10:37:47
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-02-20 17:47:57
+ * @LastEditors: DevinShi
+ * @LastEditTime: 2020-02-23 17:48:42
  * @Description: file content description
  -->
 <template>
@@ -27,9 +27,10 @@
             :uuid="itemConfig.uuid"
             :options="itemConfig.options"
             :disabled="itemConfig.disabled"
+            :placeholder="itemConfig.placeholder"
             :componentName="itemConfig.componentName"
             :columns="itemConfig.columnSet"
-            :placeholder="itemConfig.placeholder"
+            :extraProp="itemConfig.extraProp"
             @formEventEmit="formEventEmit($event)"
             @change="formValueChange(itemConfig.dataCode, $event)"></component>
           

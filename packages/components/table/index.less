@@ -124,7 +124,7 @@
         cursor: pointer;
     }
 
-    .vxe-table .seq-cell .vxe-cell--checkbox:before, .vxe-table .seq-cell .vxe-cell--radio:before {
+    .vxe-table .vxe-cell--checkbox:before, .vxe-table .vxe-cell--radio:before {
         content: "";
         position: absolute;
         height: 1.2em;
@@ -144,7 +144,16 @@
         position: absolute;
     }
 
-    .vxe-table .seq-cell .vxe-cell--checkbox.is--checked:after {
+    .vxe-table .vxe-cell--checkbox.is--indeterminate:after {
+        top: 0.53em;
+        left: 1px;
+        height: 0.20em;
+        width: 1em;
+        background-color: @white;
+        transform: scale(0.6);
+    }
+
+    .vxe-table .vxe-cell--checkbox.is--checked:after {
         height: .7em;
         width: .34em;
         top: .2em;

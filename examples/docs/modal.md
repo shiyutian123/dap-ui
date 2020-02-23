@@ -1,8 +1,8 @@
 <!--
  * @Author: your name
  * @Date: 2020-02-13 15:02:48
- * @LastEditTime : 2020-02-15 14:26:52
- * @LastEditors  : Please set LastEditors
+ * @LastEditTime: 2020-02-21 18:32:11
+ * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dap-vue-ui/examples/docs/modal.md
  -->
@@ -94,6 +94,7 @@ export default {
 | -------| -----------| -------- | ------ | --------- |
 | title    |  标题       | String   |        |           | 
 | visible    |  对话框是否可见       | Boolean   |        |           | 
+| modalClass    |  对话框额外的class       | String   |        |           | 
 | size    |  对话框尺寸       | String   |  `large` `medium` `small`      |  medium         | 
 | after-close    |  Modal 完全关闭后的回调       | Function   |        |           | 
 | cancel-text    |  取消按钮文字       | String   |        |  取消         | 

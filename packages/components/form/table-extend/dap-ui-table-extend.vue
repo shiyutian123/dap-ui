@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-02-20 10:13:07
- * @LastEditTime: 2020-02-20 18:08:03
+ * @LastEditTime: 2020-02-23 15:08:42
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dap-vue-ui/packages/components/form/table-extend/dap-ui-table-extend.vue
@@ -31,12 +31,14 @@
       ref="horizontalTable"
       :table-data.sync="value"
       :table-base-config="tableBaseConfig"
+      @cell-click="onCellClick"
     ></dap-ui-table>
     <div v-if="displayType === 'vertical'" class="vertical-table">
       <dap-ui-table
         ref="verticalTable"
         :table-data.sync="value"
         :table-base-config="verticalTableBaseConfig"
+        @cell-click="onCellClick"
       >
         <template v-slot:customColumn="{ row, rowIndex }">
           <div class="vertical-row">
@@ -62,12 +64,6 @@ export default {
   type: "FORM_INPUT",
   mixins: [InputComponentMixin, BasicComponentMixin],
   props: {
-    columns: {
-      type: Array,
-      default: function() {
-        return [];
-      }
-    }
   },
   data() {
     return {
@@ -96,18 +92,10 @@ export default {
     };
   },
   watch: {
-    columns: {
+    'extraProp.columns': {
       handler(newValue, oldValue) {
         if (newValue) {
-          const columns = [];
-          newValue.map(item => {
-            const column = {
-              field: item.formControlName,
-              title: item.title,
-              required: item.required
-            };
-            columns.push(column);
-          });
+          const columns = newValue;
           this.tableBaseConfig.columns = columns; // 横向表格
           this.verticalTableBaseConfig.columns = [
             { field: "_", title: "", slotName: "customColumn" }
@@ -181,6 +169,9 @@ export default {
         mouseEvent: e,
         checkedData: checkedData
       });
+    },
+    onCellClick(e) {
+      this.$formEventEmit('cell-click', e);
     }
   }
 };
