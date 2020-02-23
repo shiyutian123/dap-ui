@@ -25,9 +25,11 @@
             :label="itemConfig.label"
             :value="currentFormData[itemConfig.dataCode]"
             :uuid="itemConfig.uuid"
+            :options="itemConfig.options"
             :disabled="itemConfig.disabled"
             :componentName="itemConfig.componentName"
             :columns="itemConfig.columnSet"
+            :placeholder="itemConfig.placeholder"
             @formEventEmit="formEventEmit($event)"
             @change="formValueChange(itemConfig.dataCode, $event)"></component>
           
@@ -81,7 +83,7 @@ export default {
   computed: {
     visiableFormConfig: function() {
       return this.formConfig.filter(itemConfig => {
-        return itemConfig.visiable;
+        return itemConfig && itemConfig.visiable;
       })
     }
   },
@@ -145,7 +147,7 @@ export default {
        */
       formEventEmit($event) {
         // 表单事件发送
-        this.$baseFormRegister.excuteAdapterEvent($event.componentName, $event)
+        this.$baseFormRegister.excuteAdapterEvent($event.componentName, $event, this.formConfig)
         this.$emit('formEventEmit', $event);
       }
   },

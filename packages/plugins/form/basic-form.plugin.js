@@ -2,7 +2,7 @@
  * @Author: DevinShi
  * @Date: 2020-02-16 02:27:11
  * @LastEditors: DevinShi
- * @LastEditTime: 2020-02-18 15:05:56
+ * @LastEditTime: 2020-02-22 15:09:33
  * @Description: file content description
  */
 import StringUtil from '../../utils/string.util';
@@ -18,11 +18,12 @@ class CompError {
 
 const COMP_REGISTER_ERROR = {
      COMP_EXIST_ERROR: new CompError(-5001, '组件已经在表单中注册'),
-     COMP_NOT_VALID_ERROR: new CompError(-5001, '组件不是一个Vue的组件'),
+     COMP_NOT_VALID_ERROR: new CompError(-5002, '组件不是一个Vue的组件'),
  }
 
 const COMP_ADAPTER_REGISTER_ERROR = {
-    COMP_ADAPTER_EXIST_ERROR: new CompError(-5001, '组件适配器已经在表单中注册'),
+    COMP_ADAPTER_EXIST_ERROR: new CompError(-6001, '组件适配器已经在表单中注册'),
+    COMP_ACTION_UUID_EXIST_ERROR: new CompError(-6002, '组件事件监听对象不存在'),
 }
 
 export default {
@@ -82,45 +83,6 @@ export default {
             },
             registerAdapterObj({compName, tag, action, adapter}) {
                 this.registerAdapter(compName,tag, action, adapter)
-                debugger
-                const json = {
-                    "store": {
-                      "book": [
-                        {
-                          "category": "reference",
-                          "author": "Nigel Rees",
-                          "title": "Sayings of the Century",
-                          "price": 8.95
-                        },
-                        {
-                          "category": "fiction",
-                          "author": "Evelyn Waugh",
-                          "title": "Sword of Honour",
-                          "price": 12.99
-                        },
-                        {
-                          "category": "fiction",
-                          "author": "Herman Melville",
-                          "title": "Moby Dick",
-                          "isbn": "0-553-21311-3",
-                          "price": 8.99
-                        },
-                        {
-                          "category": "fiction",
-                          "author": "J. R. R. Tolkien",
-                          "title": "The Lord of the Rings",
-                          "isbn": "0-395-19395-8",
-                          "price": 22.99
-                        }
-                      ],
-                      "bicycle": {
-                        "color": "red",
-                        "price": 19.95
-                      }
-                    }
-                };
-                const result = JSONPath('$..book[?(@.price=8.99)]', json);
-                console.log(result);	
             },
             /**
              * 根据标记获取adapter数据转换器
@@ -129,11 +91,17 @@ export default {
             getAdapterByTag(tag) {
                 const adapterArray = Object.values(this.registeredAdapter);
                 let tagAdapter = undefined;
+                let defaultAdapter = undefined;
                 adapterArray.forEach(adapter => {
                     if (adapter.tag === tag) {
                         tagAdapter = adapter;
+                    } else if (adapter.tag === 'DEFAULT') {
+                        defaultAdapter = adapter;
                     }
                 });
+                if (!tagAdapter) {
+                    tagAdapter = defaultAdapter;
+                }
                 return tagAdapter;
             },
             /**
@@ -144,21 +112,29 @@ export default {
             convertCompConfig(componentConfig, tag) {
                 // 根据tag找到转换器，转换数据
                 const adapter = this.getAdapterByTag(tag);
-                return adapter.adapter(componentConfig);
+                if (adapter && adapter.adapter) {
+                    return adapter.adapter(componentConfig);
+                } else {
+                    return componentConfig;
+                }
             },
             /**
              * 执行注入事件
              */
-            excuteAdapterEvent(compName, actionEvent) {
+            excuteAdapterEvent(compName, actionEvent, formConfig) {
                 const adapter = this.registeredAdapter[compName];
+                const compInfo = this.getConfigByUuid(actionEvent.uuid, formConfig);
                 if(adapter) {
-                    return adapter.action(compName, actionEvent)
+                    return adapter.action(compInfo, actionEvent)
                 }
-            }
-        },
-        Vue.prototype.$formConfigRegister = {
-            getConfigByUuid(uuid) {
-                return undefined;
+            },
+            getConfigByUuid(uuid, formConfig) {
+                const resultArray = JSONPath(`$..[?(@.uuid === '${uuid}')]`, formConfig);
+                if (resultArray && resultArray.length > 0) {
+                    return resultArray[0];
+                } else {
+                    throw new COMP_ADAPTER_REGISTER_ERROR.COMP_ACTION_UUID_EXIST_ERROR
+                }
             },
             setConfigByUuid(uuid, key, value) {
 
