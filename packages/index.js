@@ -2,7 +2,7 @@
  * @Author: DevinShi
  * @Date: 2020-02-06 03:27:31
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-02-20 17:54:25
+ * @LastEditTime: 2020-02-21 16:42:22
  * @Description: file content description
  */
 import Vuelidate from 'vuelidate'
@@ -15,6 +15,7 @@ import DapUiStaticText from "./components/form/static-text/dap-ui-static-text.vu
 import DapUiBasicForm from "./components/form/form/dap-ui-basic-form.vue";
 import DapUiBasicFormItem from "./components/form/form-item/dap-ui-basic-form-item.vue";
 import DapUiTableExtend from './components/form/table-extend/dap-ui-table-extend.vue';
+import DapUiLov from './components/form/lov/dap-ui-lov.vue';
 
 import DapUiCollapseLayout from "./components/form/collapse-layout/dap-ui-collapse-layout.vue";
 
@@ -32,7 +33,7 @@ import RequestPlugin from './plugins/request/request.js'
 import BasicFormRegisterPlugin from './plugins/form/basic-form.plugin.js'
 
 // 表单组件列表
-const formComponents = [ DapUiInput, DapUiSelect, DapUiStaticText, DapUiCollapseLayout, DapUiTableExtend];
+const formComponents = [ DapUiInput, DapUiSelect, DapUiStaticText, DapUiCollapseLayout, DapUiTableExtend, DapUiLov];
 
 // 所有组件列表
 const components = [...formComponents, DapUiButton, DapUiBasicForm, DapUiBasicFormItem, DapUiTable, DapUiModal];

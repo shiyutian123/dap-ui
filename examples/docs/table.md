@@ -236,7 +236,7 @@ export default {
 | -------| -----------| -------- | ------ | --------- |
 | currentPage    |  当前页       |  Number   |        |        | 
 | pageSize    |  每页显示多少条       |  Number   |        |        | 
-| total    |  总共的条数       |  Number   |        |        | 
+| totalResult    |  总共的条数       |  Number   |        |        | 
 | pageSizes    |  每页大小选项列表       |  Array   |        |  默认 \[10,15,20,50,100\]      | 
 
 
