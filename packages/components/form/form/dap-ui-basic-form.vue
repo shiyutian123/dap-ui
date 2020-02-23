@@ -1,8 +1,8 @@
 <!--
  * @Author: DevinShi
  * @Date: 2020-02-06 10:37:47
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-02-21 18:45:29
+ * @LastEditors: DevinShi
+ * @LastEditTime: 2020-02-23 17:48:42
  * @Description: file content description
  -->
 <template>
@@ -25,9 +25,11 @@
             :label="itemConfig.label"
             :value="currentFormData[itemConfig.dataCode]"
             :uuid="itemConfig.uuid"
+            :options="itemConfig.options"
             :disabled="itemConfig.disabled"
             :placeholder="itemConfig.placeholder"
             :componentName="itemConfig.componentName"
+            :columns="itemConfig.columnSet"
             :extraProp="itemConfig.extraProp"
             @formEventEmit="formEventEmit($event)"
             @change="formValueChange(itemConfig.dataCode, $event)"></component>
@@ -82,7 +84,7 @@ export default {
   computed: {
     visiableFormConfig: function() {
       return this.formConfig.filter(itemConfig => {
-        return itemConfig.visiable;
+        return itemConfig && itemConfig.visiable;
       })
     }
   },
@@ -146,7 +148,7 @@ export default {
        */
       formEventEmit($event) {
         // 表单事件发送
-        this.$baseFormRegister.excuteAdapterEvent($event.componentName, $event)
+        this.$baseFormRegister.excuteAdapterEvent($event.componentName, $event, this.formConfig)
         this.$emit('formEventEmit', $event);
       }
   },
