@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-02-20 10:13:07
- * @LastEditTime: 2020-02-21 16:40:32
+ * @LastEditTime: 2020-02-23 15:08:42
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dap-vue-ui/packages/components/form/table-extend/dap-ui-table-extend.vue
@@ -31,12 +31,14 @@
       ref="horizontalTable"
       :table-data.sync="value"
       :table-base-config="tableBaseConfig"
+      @cell-click="onCellClick"
     ></dap-ui-table>
     <div v-if="displayType === 'vertical'" class="vertical-table">
       <dap-ui-table
         ref="verticalTable"
         :table-data.sync="value"
         :table-base-config="verticalTableBaseConfig"
+        @cell-click="onCellClick"
       >
         <template v-slot:customColumn="{ row, rowIndex }">
           <div class="vertical-row">
@@ -90,7 +92,7 @@ export default {
     };
   },
   watch: {
-    'extraProp.columnSet': {
+    'extraProp.columns': {
       handler(newValue, oldValue) {
         if (newValue) {
           const columns = newValue;
@@ -167,6 +169,9 @@ export default {
         mouseEvent: e,
         checkedData: checkedData
       });
+    },
+    onCellClick(e) {
+      this.$formEventEmit('cell-click', e);
     }
   }
 };

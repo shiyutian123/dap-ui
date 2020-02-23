@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-02-11 14:36:56
- * @LastEditTime: 2020-02-21 16:32:10
+ * @LastEditTime: 2020-02-23 16:23:08
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /lerna-dap/packages/dap-vue-ui/packages/components/table/dap-ui-table.vue
@@ -32,7 +32,8 @@
       @select-change="handleCheckboxChange"
       @select-all="handleCheckboxChange"
       @checkbox-all="handleCheckboxChange"
-      @sort-change="handleSortChange">
+      @sort-change="handleSortChange"
+      @cell-click="onCellClick">
       <!-- <vxe-table-column v-if="tableBaseConfig.selectMode === 'single'" type="radio" align="center" title="" width="40"></vxe-table-column> -->
       <!-- <vxe-table-column v-if="tableBaseConfig.selectMode === 'multipart'" type="checkbox" align="center" width="40"></vxe-table-column> -->
       <!-- <vxe-table-column v-if="!tableBaseConfig.hideSeq" type="seq" align="center" width="45"></vxe-table-column> -->
@@ -226,6 +227,24 @@ export default {
      */
     handleSortChange(e) {
       this.$emit('sort-change', e);
+    },
+    /**
+     * @description: 单元格被点击时会触发该事件
+     * @param {Object} e - 单元格被点击时的参数
+     * @param {Object} e.row - 单元格被点击时的行
+     * @param {Number} e.rowIndex - 单元格被点击时的行索引
+     * @param {Object} e.column - 单元格被点击时的列
+     * @param {Number} e.columnIndex - 单元格被点击时的列索引
+     * @return:
+     */
+    onCellClick(e) {
+      const data = {
+        row: e.row,
+        rowIndex: e.rowIndex,
+        column: e.column,
+        columnIndex: e.columnIndex
+      };
+      this.$emit('cell-click', data);
     },
     /**
      * @description: 选中行事件
