@@ -2,7 +2,7 @@
  * @Author: DevinShi
  * @Date: 2020-02-06 10:37:47
  * @LastEditors: DevinShi
- * @LastEditTime: 2020-02-23 17:48:42
+ * @LastEditTime: 2020-02-24 11:32:41
  * @Description: file content description
  -->
 <template>
@@ -31,6 +31,7 @@
             :componentName="itemConfig.componentName"
             :columns="itemConfig.columnSet"
             :extraProp="itemConfig.extraProp"
+            :multi="itemConfig.multi"
             @formEventEmit="formEventEmit($event)"
             @change="formValueChange(itemConfig.dataCode, $event)"></component>
           
