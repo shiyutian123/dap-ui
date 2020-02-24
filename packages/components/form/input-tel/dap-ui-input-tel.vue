@@ -2,7 +2,7 @@
  * @Author: DevinShi
  * @Date: 2020-02-06 10:37:47
  * @LastEditors: DevinShi
- * @LastEditTime: 2020-02-23 13:58:46
+ * @LastEditTime: 2020-02-24 09:08:43
  * @Description: file content description
  -->
 <template>
@@ -45,7 +45,6 @@ export default {
   methods: {
     dataChangeEvent($event) {
       const tel = $event.target.value && $event.target.value.replace(/ /g, '');
-      debugger
       if (!(/^\d*$/.test(tel)) || tel.length > 11) {
         $event.preventDefault();
         $event.stopPropagation();
@@ -55,7 +54,6 @@ export default {
       }
     },
     getTel() {
-      debugger
       if ((/^1[3456789]\d{9}$/.test(this.value))) {
         return this.value.substring(0, 3) + ' ' + this.value.substring(3, 7) + ' ' + this.value.substring(7, 11)
       } else {

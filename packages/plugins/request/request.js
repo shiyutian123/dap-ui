@@ -2,8 +2,8 @@
  * @Author: Devin Shi
  * @Email: yutian.shi@definesys.com
  * @Date: 2019-07-18 19:16:44
- * @LastEditTime : 2020-02-06 12:24:01
- * @LastEditors  : Please set LastEditors
+ * @LastEditTime: 2020-02-24 17:08:12
+ * @LastEditors: DevinShi
  * @Description:
  */
 import axios from 'axios'
@@ -178,6 +178,8 @@ export default {
         urlConfig.url = urlConfig.url + '?' + '__timestamp=' + (new Date()).valueOf()
       }
       const config = {
+        ...options,
+        ...urlConfig,
         url: urlConfig.url,
         method: urlConfig.method,
         params: urlConfig.params,
@@ -185,16 +187,11 @@ export default {
           ...options.headers,
           ...urlConfig.headers
         },
-        config: {
-          ...options,
-          ...urlConfig.config
-        },
         cancelToken: urlConfig.config && urlConfig.config.cancelToken
       }
       if (config.method === 'post' || config.method === 'POST') {
         config.data = urlConfig.params;
         delete config.params
-
       }
       
       // eslint-disable-next-line no-extend-native
@@ -228,23 +225,28 @@ export default {
      */
     Vue.download = function (urlConfig, onDownloadProgress, needShowMessage = true) {
       const config = {
+        ...options,
+        ...urlConfig,
         url: urlConfig.url,
+        method: urlConfig.method,
         params: urlConfig.params,
-        config: {
-          method: 'get',
-          ...urlConfig,
-          responseType: 'blob',
-          onDownloadProgress: onDownloadProgress || urlConfig.onDownloadProgress
-        }
+        responseType: 'blob',
+        onDownloadProgress: onDownloadProgress || urlConfig.onDownloadProgress,
+        cancelToken: urlConfig.config && urlConfig.config.cancelToken
       }
-
+      if (config.method === 'post' || config.method === 'POST') {
+        config.data = urlConfig.params;
+        delete config.params
+      }
+      
       // eslint-disable-next-line no-new
       let promise
       promise = new Promise((resolve, reject) => {
         instance.request(config)
           .then(response => {
             const disposition = response.headers['content-disposition']
-            const filename = decodeURI(disposition.match(/filename="(.*)"/)[1])
+            let filename = disposition && decodeURI(disposition.match(/filename="(.*)"/)[1])  
+            filename = filename || urlConfig.filename || '下载文件';
             fileDownload(response.data, filename)
             // 将文件配置放入数据
             resolve(disposition)
@@ -264,18 +266,17 @@ export default {
      */
     Vue.upload = function (urlConfig, onUploadProgress, needShowMessage = true) {
       const config = {
+        ...options,
+        ...urlConfig.config,
+        method: 'post',
+        onUploadProgress: onUploadProgress || urlConfig.onUploadProgress,
+        headers: {
+          ...options.headers,
+          ...urlConfig.headers,
+          'Content-Type': 'multipart/form-data'
+        },
         url: urlConfig.url,
         params: urlConfig.params,
-        config: {
-          method: 'post',
-          ...urlConfig,
-          onUploadProgress: onUploadProgress || urlConfig.onUploadProgress,
-          headers: {
-            ...options.headers,
-            ...urlConfig.headers,
-            'Content-Type': 'multipart/form-data'
-          }
-        }
       }
       // eslint-disable-next-line no-new
       let promise
