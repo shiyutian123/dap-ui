@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-02-20 10:13:07
- * @LastEditTime: 2020-02-23 15:08:42
+ * @LastEditTime: 2020-02-24 15:28:24
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dap-vue-ui/packages/components/form/table-extend/dap-ui-table-extend.vue
@@ -92,7 +92,7 @@ export default {
     };
   },
   watch: {
-    'extraProp.columns': {
+    columns: {
       handler(newValue, oldValue) {
         if (newValue) {
           const columns = newValue;
