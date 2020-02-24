@@ -2,7 +2,7 @@
  * @Author: DevinShi
  * @Date: 2020-02-06 08:13:20
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-02-23 18:24:31
+ * @LastEditTime: 2020-02-24 15:29:03
  * @Description: file content description
  -->
 <style lang="less"></style>
@@ -85,9 +85,7 @@ export default {
         rowSpan: 4,
         colSpan: 2,
         visiable: true,
-        extraProp: {
-          columns: JSON.parse(`[{"field":"insurer_list.account","title":"被保险人账号", "required": true},{"field":"insurer_list.name","title":"被保险人姓名"},{"field":"insurer_list.email","title":"被保险人邮箱"},{"field":"insurer_list.birth","title":"出生日期"},{"field":"insurer_list.start_date","title":"保险开始日期"},{"field":"insurer_list.end_date","title":"保险结束日期"}]`)
-        }
+        columns: JSON.parse(`[{"field":"insurer_list.account","title":"被保险人账号", "required": true},{"field":"insurer_list.name","title":"被保险人姓名"},{"field":"insurer_list.email","title":"被保险人邮箱"},{"field":"insurer_list.birth","title":"出生日期"},{"field":"insurer_list.start_date","title":"保险开始日期"},{"field":"insurer_list.end_date","title":"保险结束日期"}]`)
       },{
         label: '合同',
         uuid: '9e2e9299-d99c-4d62-b20b-ac9f040018e9',
