@@ -2,7 +2,7 @@
  * @Author: DevinShi
  * @Date: 2020-02-06 10:37:47
  * @LastEditors: DevinShi
- * @LastEditTime: 2020-02-24 11:32:41
+ * @LastEditTime: 2020-02-24 17:18:45
  * @Description: file content description
  -->
 <template>
@@ -149,7 +149,7 @@ export default {
        */
       formEventEmit($event) {
         // 表单事件发送
-        this.$baseFormRegister.excuteAdapterEvent($event.componentName, $event, this.formConfig)
+        this.$baseFormRegister.excuteAdapterEvent($event.componentName, $event, this.formConfig, this.globalFormInfo)
         this.$emit('formEventEmit', $event);
       }
   },
@@ -171,6 +171,9 @@ export default {
     formConfig: {
       type: Array,
       default: []
+    },
+    globalFormInfo: {
+
     },
     validate: {
       type: Object,
