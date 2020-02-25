@@ -55,6 +55,8 @@ export default {
         },
         value: {
         },
+        transValue: {
+        },
         defaultValue: {
         },
         allowClear: {
