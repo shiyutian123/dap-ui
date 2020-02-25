@@ -1,8 +1,8 @@
 /*
  * @Author: DevinShi
  * @Date: 2020-02-11 06:49:10
- * @LastEditors: DevinShi
- * @LastEditTime: 2020-02-17 10:57:16
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-02-25 17:56:29
  * @Description: file content description
  */
 export default {
@@ -66,6 +66,10 @@ export default {
             default: function() {
                 return [];
             }
+        },
+        colSpan: {
+            type: Number,
+            default: 1
         }
     }
 }
