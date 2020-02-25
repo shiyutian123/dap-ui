@@ -230,12 +230,16 @@ export default {
       const config = {
         url: urlConfig.url,
         params: urlConfig.params,
+        method: urlConfig.post || 'post',
         config: {
-          method: 'get',
-          ...urlConfig,
-          responseType: 'blob',
+          responseType: 'arraybuffer',
           onDownloadProgress: onDownloadProgress || urlConfig.onDownloadProgress
         }
+      }
+
+      if (config.method === 'post' || config.method === 'POST') {
+        config.data = urlConfig.params;
+        delete config.params
       }
 
       // eslint-disable-next-line no-new
