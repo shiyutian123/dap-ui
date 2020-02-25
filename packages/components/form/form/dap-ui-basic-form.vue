@@ -2,7 +2,7 @@
  * @Author: DevinShi
  * @Date: 2020-02-06 10:37:47
  * @LastEditors: DevinShi
- * @LastEditTime: 2020-02-24 17:18:45
+ * @LastEditTime: 2020-02-25 13:32:04
  * @Description: file content description
  -->
 <template>
@@ -24,6 +24,7 @@
             :is="itemConfig.componentName"
             :label="itemConfig.label"
             :value="currentFormData[itemConfig.dataCode]"
+            :transValue.sync="currentFormData[itemConfig.transDataCode]"
             :uuid="itemConfig.uuid"
             :options="itemConfig.options"
             :disabled="itemConfig.disabled"
@@ -33,6 +34,7 @@
             :extraProp="itemConfig.extraProp"
             :multi="itemConfig.multi"
             @formEventEmit="formEventEmit($event)"
+            @updateTransValue="formValueTransChange(itemConfig.transDataCode, $event)"
             @change="formValueChange(itemConfig.dataCode, $event)"></component>
           
           <component
@@ -106,6 +108,10 @@ export default {
     }
   },
   methods: {
+      formValueTransChange(transDataCode, value) {
+        this.$set(this.currentFormData, transDataCode, value);
+        this.$emit('change', this.currentFormData);
+      },
       formValueChange(dataCode, value) {
         this.$set(this.currentFormData, dataCode, value);
         this.$emit('change', this.currentFormData);
@@ -149,7 +155,7 @@ export default {
        */
       formEventEmit($event) {
         // 表单事件发送
-        this.$baseFormRegister.excuteAdapterEvent($event.componentName, $event, this.formConfig, this.globalFormInfo)
+        this.$baseFormRegister.excuteAdapterEvent($event.componentName, $event, this.formConfig, this.globalFormInfo, this.formData)
         this.$emit('formEventEmit', $event);
       }
   },

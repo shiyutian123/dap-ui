@@ -2,7 +2,7 @@
  * @Author: DevinShi
  * @Date: 2020-02-16 02:27:11
  * @LastEditors: DevinShi
- * @LastEditTime: 2020-02-24 17:18:21
+ * @LastEditTime: 2020-02-25 02:20:02
  * @Description: file content description
  */
 import StringUtil from '../../utils/string.util';
@@ -121,11 +121,11 @@ export default {
             /**
              * 执行注入事件
              */
-            excuteAdapterEvent(compName, actionEvent, formConfig, globalFormInfo) {
+            excuteAdapterEvent(compName, actionEvent, formConfig, globalFormInfo, formData) {
                 const adapter = this.registeredAdapter[compName];
                 const compInfo = this.getConfigByUuid(actionEvent.uuid, formConfig);
                 if(adapter) {
-                    return adapter.action(compInfo, actionEvent, globalFormInfo)
+                    return adapter.action(compInfo, actionEvent, globalFormInfo, formData)
                 }
             },
             getConfigByUuid(uuid, formConfig) {
@@ -136,8 +136,11 @@ export default {
                     throw new COMP_ADAPTER_REGISTER_ERROR.COMP_ACTION_UUID_EXIST_ERROR
                 }
             },
-            setConfigByUuid(uuid, key, value) {
-
+            setConfigByUuid(uuid, formConfig, key, value) {
+                const itemConfig = this.getConfigByUuid(uuid, formConfig);
+                if (itemConfig) {
+                    itemConfig[key] = value ;
+                }
             }
         }
     }

@@ -2,13 +2,12 @@
  * @Author: DevinShi
  * @Date: 2020-02-06 10:37:47
  * @LastEditors: DevinShi
- * @LastEditTime: 2020-02-24 10:16:27
+ * @LastEditTime: 2020-02-25 14:42:16
  * @Description: file content description
  -->
 <template>
   <div class="dap-ui-select dap-ui-form-item dap-ui-form-input">
     <!-- multi ? 'multiple' : 'default' -->
-    {{multi}}
     <a-form-item
       :label-col="labelCol"
       :wrapper-col="wrapperCol"
@@ -30,14 +29,13 @@
             :autoClearSearchValue="true"
             :mode="multi ? 'multiple' : 'default'"
             :maxTagCount="3"
-            :filterOption="filterOption"
             :loading="extraProp.loading"
-            @change="$formEventEmit('change', $event)"
+            :showArrow="true"
+            @change="selectFormEmit('change', $event)"
             @dropdownVisibleChange="$formEventEmit('dropdownVisibleChange', $event)">
             <a-select-option v-for="option in options" 
-                :value="option.value"
-                :title="option.label"
-                :key="option.value">{{option.label}}</a-select-option>
+                :key="option.label"
+                :title="option.label">{{option.label}}</a-select-option>
         </a-select>
     </a-form-item>
   </div>
@@ -54,8 +52,23 @@ export default {
   props: {
   },
   methods: {
-    filterOption(input, option) {
-      return option.componentOptions.propsData.title && option.componentOptions.propsData.title.indexOf(input) !== -1;
+    // filterOption(input, option) {
+    //   return option.componentOptions.propsData.title && option.componentOptions.propsData.title.indexOf(input) !== -1;
+    // },
+    selectFormEmit(eventName, event) {
+      if (event && Array.isArray(event)) {
+        const selectOptions = [];
+        event.forEach(data => {
+          this.options.some(option => {
+            if (option.label === data) {
+              selectOptions.push(option)
+              return true;
+            }
+          })
+        })
+        this.$formEventEmit('change', event);
+        this.$formEventEmit('updateTransValue', selectOptions);
+      }
     }
   }
 }
