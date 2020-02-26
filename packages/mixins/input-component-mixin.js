@@ -2,7 +2,7 @@
  * @Author: DevinShi
  * @Date: 2020-02-11 06:49:10
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-02-25 17:56:29
+ * @LastEditTime: 2020-02-26 14:38:06
  * @Description: file content description
  */
 export default {
@@ -55,9 +55,15 @@ export default {
         },
         value: {
         },
+        transValue: {
+        },
         defaultValue: {
         },
         allowClear: {
+            type: Boolean,
+            default: false
+        },
+        multi: {
             type: Boolean,
             default: false
         },
