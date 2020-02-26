@@ -2,7 +2,7 @@
  * @Author: DevinShi
  * @Date: 2020-02-06 03:27:31
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-02-25 16:14:35
+ * @LastEditTime: 2020-02-25 19:12:22
  * @Description: file content description
  */
 import Vuelidate from 'vuelidate'
@@ -12,6 +12,7 @@ import DapUiInput from "./components/form/input/dap-ui-input.vue";
 import DapUiInputNum from "./components/form/input-num/dap-ui-input-num.vue";
 import DapUiInputTel from "./components/form/input-tel/dap-ui-input-tel.vue";
 import DapUiInputTextarea from "./components/form/input-textarea/dap-ui-input-textarea.vue";
+import DapUiInputMoney from "./components/form/input-money/dap-ui-input-money";
 
 import DapUiSelect from "./components/form/select/dap-ui-select.vue";
 import DapUiRadio from "./components/form/radio/dap-ui-radio.vue";
@@ -42,7 +43,7 @@ import VueLsPlugin from './plugins/storage/vue-ls.plugin.js'
 import BasicFormRegisterPlugin from './plugins/form/basic-form.plugin.js'
 
 // 表单组件列表
-const formComponents = [ DapUiInput, DapUiSelect, DapUiRadio, DapUiInputNum, DapUiInputTel, DapUiInputTextarea, DapUiStaticText, DapUiCollapseLayout, DapUiTableExtend, DapUiLov];
+const formComponents = [ DapUiInput, DapUiSelect, DapUiRadio, DapUiInputNum, DapUiInputTel, DapUiInputTextarea, DapUiInputMoney, DapUiStaticText, DapUiCollapseLayout, DapUiTableExtend, DapUiLov];
 
 // 所有组件列表
 const components = [...formComponents, DapUiButton, DapUiBasicForm, DapUiBasicFormItem, DapUiTable, DapUiModal];
