@@ -2,7 +2,7 @@
  * @Author: DevinShi
  * @Date: 2020-02-06 10:37:47
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-02-27 12:51:59
+ * @LastEditTime: 2020-02-27 15:32:21
  * @Description: file content description
  -->
 <template>
@@ -19,7 +19,7 @@
             :has-feedback="false"
             :label-color="itemConfig.labelColor"
             :validate-status="$v.currentFormData[itemConfig.dataCode].$dirty && $v.currentFormData[itemConfig.dataCode].$error ? 'error' : 'success'"
-            :help="$v.currentFormData[itemConfig.dataCode].$dirty && $v.currentFormData[itemConfig.dataCode].$error ? itemConfig.label + '为必填' : undefined"
+            :help="validationText(itemConfig)"
             :required="itemConfig.required"
             :is="itemConfig.componentName"
             :label="itemConfig.label"
@@ -70,7 +70,7 @@
 
 <script>
 import { validationMixin } from 'vuelidate'
-import { required } from 'vuelidate/lib/validators'
+import { required, email } from 'vuelidate/lib/validators'
 import ValidateUtil from '../../../utils/validate.util.js'
 
 export default {
@@ -98,11 +98,24 @@ export default {
     const currentFormData = {};
     for (let itemConfig of this.formConfig) {
       if (itemConfig.required) {
-        currentFormData[itemConfig.dataCode] = {
-          required
+        if (itemConfig.componentName === "dap-ui-input-email") {
+          currentFormData[itemConfig.dataCode] = {
+            email,
+            required
+          }
+        } else {
+          currentFormData[itemConfig.dataCode] = {
+            required
+          }
         }
       } else {
-        currentFormData[itemConfig.dataCode] = {}
+        if (itemConfig.componentName === "dap-ui-input-email") {
+          currentFormData[itemConfig.dataCode] = {
+            email
+          }
+        } else {
+          currentFormData[itemConfig.dataCode] = {}
+        }
       }
     }
     return {
@@ -159,6 +172,26 @@ export default {
         // 表单事件发送
         this.$baseFormRegister.excuteAdapterEvent($event.componentName, $event, this.formConfig, this.globalFormInfo, this.formData)
         this.$emit('formEventEmit', $event);
+      },
+      /**
+       * @author lizhihang
+       * @param itemConfig 表单配置
+       * @description 校验提示文字
+       * @date 2020-2-27
+       */
+      validationText(itemConfig) {
+        if (this.$v.currentFormData[itemConfig.dataCode].$dirty && this.$v.currentFormData[itemConfig.dataCode].$error) {
+          console.log(this.$v.currentFormData[itemConfig.dataCode]);
+          if (!this.$v.currentFormData[itemConfig.dataCode].required) {
+            // 如果是必填校验，则显示 xxx为必填
+            return itemConfig.label +  '为必填';
+          } else {
+            // 如果是其他校验（如邮箱校验），则显示 xxx格式不正确
+            return itemConfig.label +  '格式不正确';
+          }
+        } else {
+          return undefined;
+        }
       }
   },
   watch: {

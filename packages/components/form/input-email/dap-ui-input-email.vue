@@ -2,11 +2,11 @@
  * @Author: DevinShi
  * @Date: 2020-02-06 10:37:47
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-02-27 15:37:08
+ * @LastEditTime: 2020-02-27 14:47:56
  * @Description: file content description
  -->
 <template>
-  <div class="dap-ui-input-date dap-ui-form-item dap-ui-form-input">
+  <div class="dap-ui-input-email dap-ui-form-item dap-ui-form-input">
     <a-form-item
       :label-col="labelCol"
       :wrapper-col="wrapperCol"
@@ -19,49 +19,25 @@
       <template v-slot:label>
         <span :style="{color: labelColor}">{{label}}</span>
       </template>
-      <a-date-picker class="input-date"
-        :value="getDate(value)"
-        @change="onChange"
+      <a-input 
+        :value="value"
+        @input="$formEventEmit('change', $event.target.value)"
         :placeholder="placeholder" 
-        :defaultValue="getDate(defaultValue)"
+        :defaultValue="defaultValue"
         :disabled="disabled"
-        :allowClear="true"
-        :showTime="extraProp.showTime"/>
+        :allowClear="allowClear"/>
     </a-form-item>
   </div>
 </template>
 <script>
 import InputComponentMixin from '../../../mixins/input-component-mixin.js';
 import BasicComponentMixin from '../../../mixins/basic-component-mixin.js';
-import moment from 'moment';
 
 export default {
-  name: "DapUiInputDate",
+  name: "DapUiInputEmail",
   type: 'FORM_INPUT',
   mixins: [InputComponentMixin, BasicComponentMixin],
   props: {
-  },
-  data() {
-    return {
-      dataFormat: 'YYYY-MM-DD',
-      dateTimeFormat: 'YYYY-MM-DD HH:mm:ss'
-    }
-  },
-  methods: {
-    moment,
-    onChange(date, dateString) {
-      this.$formEventEmit('change', dateString);
-    },
-    getDate(value) {
-      if (value) {
-        if (this.extraProp.showTime) {
-          return this.moment(value, this.dateTimeFormat);
-        } else {
-          return this.moment(value, this.dataFormat);
-        }
-      }
-      
-    }
   }
 }
 </script>
