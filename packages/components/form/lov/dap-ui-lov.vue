@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-02-21 16:38:40
- * @LastEditTime: 2020-02-23 17:30:04
+ * @LastEditTime: 2020-02-27 18:29:28
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dap-vue-ui/packages/components/form/lov/dap-ui-lov.vue
@@ -88,6 +88,9 @@ export default {
       checkedData: []
     }
   },
+  created() {
+    this.lovTableBaseConfig.selectMode = this.extraProp.selectMode;
+  },
   methods: {
     onClickLovInput(e) {
       if (!this.disabled) {
@@ -158,6 +161,11 @@ export default {
     'extraProp.loading': {
       handler(newVal, oldVal) {
         this.lovTableBaseConfig.loading = newVal;
+      }
+    },
+    'extraProp.selectMode': {
+      handler(newVal, oldVal) {
+        this.lovTableBaseConfig.selectMode = newVal;
       }
     }
   }
