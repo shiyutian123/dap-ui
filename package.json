@@ -14,7 +14,7 @@
 		"save-deps": "npm prune && npm shrinkwrap --dev",
 		"version": "conventional-changelog -p vue -i CHANGELOG.md -s",
 		"fix-memory-limit": "cross-env LIMIT=2048 increase-memory-limit"
-	  },
+	},
 	"dependencies": {
 		"ant-design-vue": "^1.4.10",
 		"axios": "^0.19.2",
@@ -23,6 +23,7 @@
 		"jsonpath-plus": "^3.0.0",
 		"link": "^0.1.5",
 		"lint-staged": "^10.0.7",
+		"moment": "^2.24.0",
 		"register-service-worker": "^1.6.2",
 		"vue": "^2.6.10",
 		"vue-ant-design": "0.0.1",

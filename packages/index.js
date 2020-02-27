@@ -2,7 +2,7 @@
  * @Author: DevinShi
  * @Date: 2020-02-06 03:27:31
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-02-25 19:12:22
+ * @LastEditTime: 2020-02-27 11:11:28
  * @Description: file content description
  */
 import Vuelidate from 'vuelidate'
@@ -13,6 +13,7 @@ import DapUiInputNum from "./components/form/input-num/dap-ui-input-num.vue";
 import DapUiInputTel from "./components/form/input-tel/dap-ui-input-tel.vue";
 import DapUiInputTextarea from "./components/form/input-textarea/dap-ui-input-textarea.vue";
 import DapUiInputMoney from "./components/form/input-money/dap-ui-input-money";
+import DapUiInputDate from "./components/form/input-date/dap-ui-input-date";
 
 import DapUiSelect from "./components/form/select/dap-ui-select.vue";
 import DapUiRadio from "./components/form/radio/dap-ui-radio.vue";
@@ -42,8 +43,10 @@ import VueLsPlugin from './plugins/storage/vue-ls.plugin.js'
 
 import BasicFormRegisterPlugin from './plugins/form/basic-form.plugin.js'
 
+import MomentPlugin from './plugins/moment/moment.plugin'
+
 // 表单组件列表
-const formComponents = [ DapUiInput, DapUiSelect, DapUiRadio, DapUiInputNum, DapUiInputTel, DapUiInputTextarea, DapUiInputMoney, DapUiStaticText, DapUiCollapseLayout, DapUiTableExtend, DapUiLov];
+const formComponents = [ DapUiInput, DapUiSelect, DapUiRadio, DapUiInputNum, DapUiInputTel, DapUiInputTextarea, DapUiInputMoney, DapUiInputDate, DapUiStaticText, DapUiCollapseLayout, DapUiTableExtend, DapUiLov];
 
 // 所有组件列表
 const components = [...formComponents, DapUiButton, DapUiBasicForm, DapUiBasicFormItem, DapUiTable, DapUiModal];
@@ -61,6 +64,9 @@ const install = function(Vue) {
 
   // 使用表单注册插件
   Vue.use(BasicFormRegisterPlugin);
+
+  // 使用日期格式转换插件
+  Vue.use(MomentPlugin);
 
   // 遍历注册全局组件
   components.forEach(component => {

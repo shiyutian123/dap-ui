@@ -2,7 +2,7 @@
  * @Author: DevinShi
  * @Date: 2020-02-06 10:37:47
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-02-26 14:39:09
+ * @LastEditTime: 2020-02-27 12:51:59
  * @Description: file content description
  -->
 <template>
@@ -34,6 +34,7 @@
             :extraProp="itemConfig.extraProp"
             :colSpan="itemConfig.colSpan"
             :multi="itemConfig.multi"
+            :defaultValue="itemConfig.defaultValue"
             @formEventEmit="formEventEmit($event)"
             @updateTransValue="formValueTransChange(itemConfig.transDataCode, $event)"
             @change="formValueChange(itemConfig.dataCode, $event)"></component>
