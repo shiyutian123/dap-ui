@@ -2,7 +2,7 @@
  * @Author: DevinShi
  * @Date: 2020-02-06 08:13:20
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-02-21 11:41:01
+ * @LastEditTime: 2020-02-24 15:29:03
  * @Description: file content description
  -->
 <style lang="less"></style>
@@ -43,6 +43,7 @@ export default {
         colSpan: 1,
         labelColor: '#666',
         visiable: true,
+        required: true
       }, {
         label: '苹果价格',
         uuid: 'c29c65b8-b715-4fec-82e1-de1d4aef1160',
@@ -77,7 +78,6 @@ export default {
         labelColor: '#666',
         visiable: true,
       },{
-
         label: '被保险人清单',
         uuid: '196be4f4-728b-45af-8f10-a02c82110413',
         dataCode: 'rule_apple.list',
@@ -85,8 +85,23 @@ export default {
         rowSpan: 4,
         colSpan: 2,
         visiable: true,
+        columns: JSON.parse(`[{"field":"insurer_list.account","title":"被保险人账号", "required": true},{"field":"insurer_list.name","title":"被保险人姓名"},{"field":"insurer_list.email","title":"被保险人邮箱"},{"field":"insurer_list.birth","title":"出生日期"},{"field":"insurer_list.start_date","title":"保险开始日期"},{"field":"insurer_list.end_date","title":"保险结束日期"}]`)
+      },{
+        label: '合同',
+        uuid: '9e2e9299-d99c-4d62-b20b-ac9f040018e9',
+        dataCode: 'skya_project.contract',
+        componentName: 'dap-ui-lov',
+        placeholder: '请选择合同',
+        rowSpan: 2,
+        colSpan: 1,
+        required: true,
+        visiable: true,
         extraProp: {
-          columnSet: JSON.parse(`[{"field":"insurer_list.account","title":"被保险人账号", "required": true},{"field":"insurer_list.name","title":"被保险人姓名"},{"field":"insurer_list.email","title":"被保险人邮箱"},{"field":"insurer_list.birth","title":"出生日期"},{"field":"insurer_list.start_date","title":"保险开始日期"},{"field":"insurer_list.end_date","title":"保险结束日期"}]`)
+          tableData: [],
+          totalResult: 0,
+          columns: [],
+          loading: false,
+          extraCode: 'contract_no'
         }
       }],
       formData: {
@@ -108,7 +123,26 @@ export default {
       this.$refs.basicFormDemo.resetForm();
     },
     formEvent($event) {
+      const config = this.formConfig.filter(item => item.uuid === $event.uuid)[0];
       if ($event.eventName ==='dropdownVisibleChange' && $event.event === true) {
+      }
+      if ($event.eventName === 'query-lov-data') {
+        config.extraProp.loading = true;
+        setTimeout(() => {
+          // 查询列信息
+          this.$set(config.extraProp, 'columns', [{field: 'contract_no', title: '合同编码'}]);
+          // 查询数据
+          config.extraProp.tableData = JSON.parse(`[{"region_TRANS":{"meaning":["east"],"type":"comm_region"},"id":1,"chance_TRANS":"3","contract_no":"HT20200001","amount":900000.0,"chance":"上海得帆-DAP研发项目","payment_clause":"项目验收完成","sign_date":"2020-01-12","contract_name":"上海得帆-DAP研发项目","apply_time":"2020-01-11 13:35:33","customer_manager":["117"],"applier":"117","contract_files":"1578807448156","region":"华东","rowDocumentId":"5e1ab0ca6762f3000101a339","customer":"上海得帆信息技术有限公司"},{"region_TRANS":{"meaning":["east"],"type":"comm_region"},"id":2,"chance_TRANS":"5","contract_no":"HT20200002","amount":80000.0,"chance":"上海得帆-Pluto研发项目","sign_date":"2020-01-12","contract_name":"上海得帆-Pluto研发项目","apply_time":"2020-01-12 13:59:25","customer_manager":["117"],"applier":"117","region":"华东","rowDocumentId":"5e1ab5fd2bc5d6000147b5c8","customer":"上海得帆信息技术有限公司"},{"region_TRANS":{"meaning":["east"],"type":"comm_region"},"id":3,"chance_TRANS":"6","contract_no":"HT20200004","amount":80000.0,"chance":"上海得帆-MP研发项目","sign_date":"2020-01-12","contract_name":"上海得帆-MP研发项目","apply_time":"2020-01-12 14:01:29","customer_manager":["117"],"applier":"117","region":"华东","rowDocumentId":"5e1ab6a12bc5d6000147b622","customer":"上海得帆信息技术有限公司"},{"region_TRANS":{"meaning":["east"],"type":"comm_region"},"id":5,"chance_TRANS":"7","contract_no":"HT20200005","amount":8500.0,"chance":"上海得帆-门户研发项目","sign_date":"2020-01-12","contract_name":"上海得帆-门户研发项目","apply_time":"2020-01-12 16:12:25","customer_manager":["117"],"applier":"117","region":"华东","rowDocumentId":"5e1ad54a8f2de300010f7099","customer":"上海得帆信息技术有限公司"},{"region_TRANS":{"meaning":["east"],"type":"comm_region"},"id":6,"chance_TRANS":"7","contract_no":"HT20200006","amount":8500.0,"chance":"上海得帆-门户研发项目","sign_date":"2020-01-12","contract_name":"上海得帆-门户研发项目","apply_time":"2020-01-12 16:33:04","customer_manager":["117"],"applier":"117","region":"华东","rowDocumentId":"5e1ad9e38f2de300010f7363","customer":"上海得帆信息技术有限公司"},{"region_TRANS":{"meaning":["east"],"type":"comm_region"},"id":6,"chance_TRANS":"7","contract_no":"HT20200007","amount":8500.0,"chance":"上海得帆-门户研发项目","sign_date":"2020-01-12","contract_name":"上海得帆-门户研发项目","apply_time":"2020-01-12 16:33:04","customer_manager":["117"],"applier":"117","region":"华东","rowDocumentId":"5e1ad9e38f2de300010f7363","customer":"上海得帆信息技术有限公司"}]`);
+          config.extraProp.totalResult = 28;
+          config.extraProp.loading = false;
+        }, 800);
+      }
+      if ($event.eventName === 'lov-ok') {
+        const checkecData = $event.event.selection[0] && $event.event.selection[0];
+        if (checkecData) {
+          this.$set(this.formData, config.dataCode, checkecData[config.extraProp.extraCode]);
+          this.$set(this.formData, `${config.dataCode}_TRANS`, checkecData._id || checkecData.ID || checkecData.id);
+        }
       }
     }
   }

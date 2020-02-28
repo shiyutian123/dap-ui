@@ -2,7 +2,7 @@
  * @Author: DevinShi
  * @Date: 2020-02-11 06:49:10
  * @LastEditors: DevinShi
- * @LastEditTime: 2020-02-17 10:57:16
+ * @LastEditTime: 2020-02-24 09:08:22
  * @Description: file content description
  */
 export default {
@@ -58,6 +58,10 @@ export default {
         defaultValue: {
         },
         allowClear: {
+            type: Boolean,
+            default: false
+        },
+        multi: {
             type: Boolean,
             default: false
         },

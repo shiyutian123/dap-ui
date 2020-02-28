@@ -1,22 +1,32 @@
 /*
  * @Author: DevinShi
  * @Date: 2020-02-06 03:27:31
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-02-20 17:54:25
+ * @LastEditors: DevinShi
+ * @LastEditTime: 2020-02-23 17:49:03
  * @Description: file content description
  */
 import Vuelidate from 'vuelidate'
 
 import DapUiButton from "./components/form/button/dap-ui-button.vue";
 import DapUiInput from "./components/form/input/dap-ui-input.vue";
+import DapUiInputNum from "./components/form/input-num/dap-ui-input-num.vue";
+import DapUiInputTel from "./components/form/input-tel/dap-ui-input-tel.vue";
+
 import DapUiSelect from "./components/form/select/dap-ui-select.vue";
+import DapUiRadio from "./components/form/radio/dap-ui-radio.vue";
+
+import DapUiPersonSelect from "./components/form/person-select/dap-ui-person-select.vue";
 
 import DapUiStaticText from "./components/form/static-text/dap-ui-static-text.vue";
 import DapUiBasicForm from "./components/form/form/dap-ui-basic-form.vue";
 import DapUiBasicFormItem from "./components/form/form-item/dap-ui-basic-form-item.vue";
 import DapUiTableExtend from './components/form/table-extend/dap-ui-table-extend.vue';
+import DapUiLov from './components/form/lov/dap-ui-lov.vue';
 
 import DapUiCollapseLayout from "./components/form/collapse-layout/dap-ui-collapse-layout.vue";
+
+import InputComponentMixin from './mixins/input-component-mixin.js';
+import BasicComponentMixin from './mixins/basic-component-mixin.js';
 
 // 表格组件
 import DapUiTable from "./components/table/dap-ui-table.vue";
@@ -29,10 +39,14 @@ import LodashPlugin from './plugins/lodash/lodash.js'
 
 import RequestPlugin from './plugins/request/request.js'
 
+import CookiePlugin from './plugins/cookie/cookie.plugin.js'
+
+import VueLsPlugin from './plugins/storage/vue-ls.plugin.js'
+
 import BasicFormRegisterPlugin from './plugins/form/basic-form.plugin.js'
 
 // 表单组件列表
-const formComponents = [ DapUiInput, DapUiSelect, DapUiStaticText, DapUiCollapseLayout, DapUiTableExtend];
+const formComponents = [ DapUiInput, DapUiSelect, DapUiRadio, DapUiInputNum, DapUiInputTel, DapUiStaticText, DapUiCollapseLayout, DapUiTableExtend, DapUiLov, DapUiPersonSelect];
 
 // 所有组件列表
 const components = [...formComponents, DapUiButton, DapUiBasicForm, DapUiBasicFormItem, DapUiTable, DapUiModal];
@@ -41,6 +55,10 @@ const install = function(Vue) {
   // 判断是否安装
   if ((install).installed) return;
 
+  Vue.use(CookiePlugin);
+
+  Vue.use(VueLsPlugin);
+  
   // 使用表单验证器
   Vue.use(Vuelidate);
 
@@ -93,5 +111,8 @@ export {
   // 请求插件
   RequestPlugin,
   // lodash插件
-  LodashPlugin
+  LodashPlugin,
+  // mixins
+  InputComponentMixin,
+  BasicComponentMixin
 }
