@@ -1,8 +1,8 @@
 /*
  * @Author: DevinShi
  * @Date: 2020-02-06 03:27:31
- * @LastEditors: DevinShi
- * @LastEditTime: 2020-02-23 17:49:03
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-02-27 16:27:28
  * @Description: file content description
  */
 import Vuelidate from 'vuelidate'
@@ -11,15 +11,21 @@ import DapUiButton from "./components/form/button/dap-ui-button.vue";
 import DapUiInput from "./components/form/input/dap-ui-input.vue";
 import DapUiInputNum from "./components/form/input-num/dap-ui-input-num.vue";
 import DapUiInputTel from "./components/form/input-tel/dap-ui-input-tel.vue";
+import DapUiInputTextarea from "./components/form/input-textarea/dap-ui-input-textarea.vue";
+import DapUiInputMoney from "./components/form/input-money/dap-ui-input-money";
+import DapUiInputDate from "./components/form/input-date/dap-ui-input-date";
+import DapUiInputEmail from "./components/form/input-email/dap-ui-input-email";
 
 import DapUiSelect from "./components/form/select/dap-ui-select.vue";
 import DapUiRadio from "./components/form/radio/dap-ui-radio.vue";
+import DapUiCheckbox from "./components/form/checkbox/dap-ui-checkbox.vue";
 
 import DapUiStaticText from "./components/form/static-text/dap-ui-static-text.vue";
 import DapUiBasicForm from "./components/form/form/dap-ui-basic-form.vue";
 import DapUiBasicFormItem from "./components/form/form-item/dap-ui-basic-form-item.vue";
 import DapUiTableExtend from './components/form/table-extend/dap-ui-table-extend.vue';
 import DapUiLov from './components/form/lov/dap-ui-lov.vue';
+import DapUiDocument from './components/form/document/dap-ui-document.vue';
 
 import DapUiCollapseLayout from "./components/form/collapse-layout/dap-ui-collapse-layout.vue";
 
@@ -40,8 +46,10 @@ import VueLsPlugin from './plugins/storage/vue-ls.plugin.js'
 
 import BasicFormRegisterPlugin from './plugins/form/basic-form.plugin.js'
 
+import MomentPlugin from './plugins/moment/moment.plugin'
+
 // 表单组件列表
-const formComponents = [ DapUiInput, DapUiSelect, DapUiRadio, DapUiInputNum, DapUiInputTel, DapUiStaticText, DapUiCollapseLayout, DapUiTableExtend, DapUiLov];
+const formComponents = [ DapUiInput, DapUiSelect, DapUiRadio, DapUiCheckbox, DapUiInputNum, DapUiInputTel, DapUiInputTextarea, DapUiInputMoney, DapUiInputDate, DapUiInputEmail, DapUiStaticText, DapUiCollapseLayout, DapUiTableExtend, DapUiLov, DapUiDocument];
 
 // 所有组件列表
 const components = [...formComponents, DapUiButton, DapUiBasicForm, DapUiBasicFormItem, DapUiTable, DapUiModal];
@@ -59,6 +67,9 @@ const install = function(Vue) {
 
   // 使用表单注册插件
   Vue.use(BasicFormRegisterPlugin);
+
+  // 使用日期格式转换插件
+  Vue.use(MomentPlugin);
 
   // 遍历注册全局组件
   components.forEach(component => {
