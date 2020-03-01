@@ -2,11 +2,11 @@
  * @Author: DevinShi
  * @Date: 2020-02-06 10:37:47
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-02-26 14:38:22
+ * @LastEditTime: 2020-02-27 15:37:08
  * @Description: file content description
  -->
 <template>
-  <div class="dap-ui-input-tel dap-ui-form-item dap-ui-form-input">
+  <div class="dap-ui-input-date dap-ui-form-item dap-ui-form-input">
     <a-form-item
       :label-col="labelCol"
       :wrapper-col="wrapperCol"
@@ -19,47 +19,49 @@
       <template v-slot:label>
         <span :style="{color: labelColor}">{{label}}</span>
       </template>
-      <a-input 
-        :value="getTel()"
-        @input="dataChangeEvent($event)"
+      <a-date-picker class="input-date"
+        :value="getDate(value)"
+        @change="onChange"
         :placeholder="placeholder" 
-        :defaultValue="defaultValue"
+        :defaultValue="getDate(defaultValue)"
         :disabled="disabled"
-        :allowClear="allowClear" />
+        :allowClear="true"
+        :showTime="extraProp.showTime"/>
     </a-form-item>
   </div>
 </template>
 <script>
 import InputComponentMixin from '../../../mixins/input-component-mixin.js';
 import BasicComponentMixin from '../../../mixins/basic-component-mixin.js';
+import moment from 'moment';
 
 export default {
-  name: "DapUiInputTel",
+  name: "DapUiInputDate",
   type: 'FORM_INPUT',
   mixins: [InputComponentMixin, BasicComponentMixin],
-  computed: {
-  
-  },
   props: {
   },
+  data() {
+    return {
+      dataFormat: 'YYYY-MM-DD',
+      dateTimeFormat: 'YYYY-MM-DD HH:mm:ss'
+    }
+  },
   methods: {
-    dataChangeEvent($event) {
-      const tel = $event.target.value && $event.target.value.replace(/ /g, '');
-      if (!(/^\d*$/.test(tel)) || tel.length > 11) {
-        $event.preventDefault();
-        $event.stopPropagation();
-        // this.$formEventEmit('change', tel);
-      } else {
-        this.$formEventEmit('change', tel);
-      }
+    moment,
+    onChange(date, dateString) {
+      this.$formEventEmit('change', dateString);
     },
-    getTel() {
-      if ((/^1[3456789]\d{9}$/.test(this.value))) {
-        return this.value.substring(0, 3) + ' ' + this.value.substring(3, 7) + ' ' + this.value.substring(7, 11)
-      } else {
-        return this.value;
+    getDate(value) {
+      if (value) {
+        if (this.extraProp.showTime) {
+          return this.moment(value, this.dateTimeFormat);
+        } else {
+          return this.moment(value, this.dataFormat);
+        }
       }
-    }  
+      
+    }
   }
 }
 </script>
