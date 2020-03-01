@@ -1,8 +1,8 @@
 /*
  * @Author: DevinShi
  * @Date: 2020-02-06 03:27:31
- * @LastEditors: DevinShi
- * @LastEditTime: 2020-02-23 17:49:03
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-03-01 14:26:51
  * @Description: file content description
  */
 import Vuelidate from 'vuelidate'
@@ -28,6 +28,8 @@ import DapUiTable from "./components/table/dap-ui-table.vue";
 // 弹窗组件
 import DapUiModal from './components/modal/dap-ui-modal.vue';
 
+import DapUiBpmnProcessFlow from './components/bpmn-process-flow/dap-ui-bpmn-process-flow.vue';
+
 import * as REQ_CONSTANT from './plugins/request/request.constant.js'
 
 import LodashPlugin from './plugins/lodash/lodash.js'
@@ -40,11 +42,13 @@ import VueLsPlugin from './plugins/storage/vue-ls.plugin.js'
 
 import BasicFormRegisterPlugin from './plugins/form/basic-form.plugin.js'
 
+import LoadResourcePlugin from './plugins/load-resource/load-resource.plugin.js';
+
 // 表单组件列表
 const formComponents = [ DapUiInput, DapUiSelect, DapUiRadio, DapUiInputNum, DapUiInputTel, DapUiStaticText, DapUiCollapseLayout, DapUiTableExtend, DapUiLov];
 
 // 所有组件列表
-const components = [...formComponents, DapUiButton, DapUiBasicForm, DapUiBasicFormItem, DapUiTable, DapUiModal];
+const components = [...formComponents, DapUiButton, DapUiBasicForm, DapUiBasicFormItem, DapUiTable, DapUiModal, DapUiBpmnProcessFlow];
 // 定义 install 方法，接收 Vue 作为参数。如果使用 use 注册插件，则所有的组件都将被注册
 const install = function(Vue) {
   // 判断是否安装
@@ -59,6 +63,9 @@ const install = function(Vue) {
 
   // 使用表单注册插件
   Vue.use(BasicFormRegisterPlugin);
+
+  // 使用异步加载资源插件
+  Vue.use(LoadResourcePlugin);
 
   // 遍历注册全局组件
   components.forEach(component => {
@@ -96,8 +103,8 @@ export default {
   DapUiCollapseLayout,
 
   DapUiTable,
-  
   DapUiModal,
+  DapUiBpmnProcessFlow
 };
 
 export {

@@ -101,6 +101,12 @@
             "name": "lov",
             "isMobile": "1",
             "path": "/lov"
+          },
+          {
+            "desc": "BpmnProcessFlow 流程图",
+            "name": "bpmn-process-flow",
+            "isMobile": "1",
+            "path": "/bpmn-process-flow"
           }
         ]
       },
