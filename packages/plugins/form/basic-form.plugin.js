@@ -136,8 +136,16 @@ export default {
                     throw new COMP_ADAPTER_REGISTER_ERROR.COMP_ACTION_UUID_EXIST_ERROR
                 }
             },
-            setConfigByUuid(uuid, formConfig, key, value) {
-                const itemConfig = this.getConfigByUuid(uuid, formConfig);
+            getConfigById(id, formConfig) {
+                const resultArray = JSONPath(`$..[?(@. === '${uuid}')]`, formConfig);
+                if (resultArray && resultArray.length > 0) {
+                    return resultArray[0];
+                } else {
+                    throw new COMP_ADAPTER_REGISTER_ERROR.COMP_ACTION_UUID_EXIST_ERROR
+                }
+            },
+            setConfigById(id, formConfig, key, value) {
+                const itemConfig = this.getConfigByUuid(id, formConfig);
                 if (itemConfig) {
                     itemConfig[key] = value ;
                 }

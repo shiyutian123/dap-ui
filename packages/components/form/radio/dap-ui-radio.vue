@@ -38,7 +38,18 @@ export default {
   type: 'FORM_INPUT',
   mixins: [InputComponentMixin, BasicComponentMixin],
   props: {
-  }
+  },
+  watch: {
+    options: {
+      handler: function(val,oldval){
+        if ((!this.value || this.value.length === 0) && Array.isArray(val) && val.length > 0) {
+          this.$formEventEmit('change', val[0].value);
+        }
+      },
+      deep: true,
+      immediate: true,
+    }
+  },
 }
 </script>
 

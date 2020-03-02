@@ -56,8 +56,11 @@ export default {
     //   return option.componentOptions.propsData.title && option.componentOptions.propsData.title.indexOf(input) !== -1;
     // },
     selectFormEmit(eventName, event) {
-      if (event && Array.isArray(event)) {
+      if (event) {
         const selectOptions = [];
+        if (!Array.isArray(event)) {
+          event = [event];
+        }
         event.forEach(data => {
           this.options.some(option => {
             if (option.label === data) {
