@@ -32,6 +32,10 @@ import BasicComponentMixin from './mixins/basic-component-mixin.js';
 import DapUiTable from "./components/table/dap-ui-table.vue";
 // 弹窗组件
 import DapUiModal from './components/modal/dap-ui-modal.vue';
+// 头像组件
+import DapUiAvatar from "./components/avatar/dap-ui-avatar.vue";
+// 人员组件
+import DapUiPerson from "./components/person/dap-ui-person.vue";
 
 import * as REQ_CONSTANT from './plugins/request/request.constant.js'
 
@@ -49,7 +53,7 @@ import BasicFormRegisterPlugin from './plugins/form/basic-form.plugin.js'
 const formComponents = [ DapUiInput, DapUiSelect, DapUiRadio, DapUiInputNum, DapUiInputTel, DapUiStaticText, DapUiCollapseLayout, DapUiTableExtend, DapUiLov, DapUiPersonSelect];
 
 // 所有组件列表
-const components = [...formComponents, DapUiButton, DapUiBasicForm, DapUiBasicFormItem, DapUiTable, DapUiModal];
+const components = [...formComponents, DapUiButton, DapUiBasicForm, DapUiBasicFormItem, DapUiTable, DapUiModal, DapUiAvatar, DapUiPerson];
 // 定义 install 方法，接收 Vue 作为参数。如果使用 use 注册插件，则所有的组件都将被注册
 const install = function(Vue) {
   // 判断是否安装
