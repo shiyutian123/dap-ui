@@ -58,7 +58,12 @@
             :customRequest="itemConfig.customRequest"
             :remove="itemConfig.remove"
             :fileCodeList="itemConfig.fileCodeList"
-            :documentId="itemConfig.documentId"
+            :documentId="globalFormInfo.documentId"
+            :btnTitle="itemConfig.btnTitle"
+            :uploadSize="itemConfig.uploadSize"
+            :tableData="itemConfig.tableData"
+            :beforeUpload="itemConfig.beforeUpload"
+            :editOnNew="itemConfig.editOnNew"
             @formEventEmit="formEventEmit($event)"
             @change="formValueChange(itemConfig.dataCode, $event)"
             ></component>

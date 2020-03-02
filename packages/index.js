@@ -31,6 +31,8 @@ import DapUiCollapseLayout from "./components/form/collapse-layout/dap-ui-collap
 
 // 上传图片组件
 import DapUiUploadPicture from "./components/form/upload-picture/dap-ui-upload-picture.vue";
+// 上传附件组件
+import DapUiUploadAttachment from "./components/form/upload-attachment/dap-ui-upload-attachment.vue";
 
 // 表格组件
 import DapUiTable from "./components/table/dap-ui-table.vue";
@@ -52,7 +54,7 @@ import BasicFormRegisterPlugin from './plugins/form/basic-form.plugin.js'
 import MomentPlugin from './plugins/moment/moment.plugin'
 
 // 表单组件列表
-const formComponents = [ DapUiInput, DapUiSelect, DapUiRadio, DapUiCheckbox, DapUiInputNum, DapUiInputTel, DapUiInputTextarea, DapUiInputMoney, DapUiInputDate, DapUiInputEmail, DapUiStaticText, DapUiCollapseLayout, DapUiTableExtend, DapUiLov, DapUiDocument, DapUiUploadPicture];
+const formComponents = [ DapUiInput, DapUiSelect, DapUiRadio, DapUiCheckbox, DapUiInputNum, DapUiInputTel, DapUiInputTextarea, DapUiInputMoney, DapUiInputDate, DapUiInputEmail, DapUiStaticText, DapUiCollapseLayout, DapUiTableExtend, DapUiLov, DapUiDocument, DapUiUploadPicture, DapUiUploadAttachment];
 
 // 所有组件列表
 const components = [...formComponents, DapUiButton, DapUiBasicForm, DapUiBasicFormItem, DapUiTable, DapUiModal];

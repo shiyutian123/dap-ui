@@ -14,7 +14,7 @@
       @change="loadSuccess($event)"
       :remove="remove"
     >
-      <a-button type="primary"> <a-icon type="picture" /> {{label}} </a-button>
+      <a-button type="primary"> <a-icon type="picture" /> {{btnTitle}} </a-button>
     </a-upload>
   </div>
 </template>
@@ -80,6 +80,7 @@ export default {
         btt.url = res.data.attachmentUrl ;
         this.fileList.splice(this.fileList.length - 1, 1) ;
         this.fileList.push(btt);
+        this.firstGetValue = false;
         const valueString = this.fileList.map(attr => {
           return attr.uid ;
         }).toString();
