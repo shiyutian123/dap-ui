@@ -6,7 +6,7 @@
  * @Description: file content description
  -->
 <template>
-  <div class="dap-ui-radio dap-ui-form-item dap-ui-form-input">
+  <div class="dap-ui-document dap-ui-form-item dap-ui-form-input">
     <a-form-item
       :label-col="labelCol"
       :wrapper-col="wrapperCol"
@@ -19,13 +19,9 @@
       <template v-slot:label>
         <span :style="{color: labelColor}">{{label}}</span>
       </template>
-      <a-radio-group 
-        :disabled="disabled"
-        :defaultValue="defaultValue"
-        @change="$formEventEmit('change', $event.target.value)"
-        :value="value">
-        <a-radio v-for="option in options" :value="option.value" :key="option.value">{{option.label}}</a-radio>
-      </a-radio-group>
+      <a-input 
+        :value="value"
+        :disabled="true"/>
     </a-form-item>
   </div>
 </template>
@@ -34,22 +30,11 @@ import InputComponentMixin from '../../../mixins/input-component-mixin.js';
 import BasicComponentMixin from '../../../mixins/basic-component-mixin.js';
 
 export default {
-  name: "DapUiRadio",
+  name: "DapUiDocument",
   type: 'FORM_INPUT',
   mixins: [InputComponentMixin, BasicComponentMixin],
   props: {
-  },
-  watch: {
-    options: {
-      handler: function(val,oldval){
-        if ((!this.value || this.value.length === 0) && Array.isArray(val) && val.length > 0) {
-          this.$formEventEmit('change', val[0].value);
-        }
-      },
-      deep: true,
-      immediate: true,
-    }
-  },
+  }
 }
 </script>
 

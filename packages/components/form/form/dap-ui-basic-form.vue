@@ -1,8 +1,8 @@
 <!--
  * @Author: DevinShi
  * @Date: 2020-02-06 10:37:47
- * @LastEditors: DevinShi
- * @LastEditTime: 2020-02-25 13:32:04
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-02-27 15:32:21
  * @Description: file content description
  -->
 <template>
@@ -19,7 +19,7 @@
             :has-feedback="false"
             :label-color="itemConfig.labelColor"
             :validate-status="$v.currentFormData[itemConfig.dataCode].$dirty && $v.currentFormData[itemConfig.dataCode].$error ? 'error' : 'success'"
-            :help="$v.currentFormData[itemConfig.dataCode].$dirty && $v.currentFormData[itemConfig.dataCode].$error ? itemConfig.label + '为必填' : undefined"
+            :help="validationText(itemConfig)"
             :required="itemConfig.required"
             :is="itemConfig.componentName"
             :label="itemConfig.label"
@@ -32,7 +32,9 @@
             :componentName="itemConfig.componentName"
             :columns="itemConfig.columnSet"
             :extraProp="itemConfig.extraProp"
+            :colSpan="itemConfig.colSpan"
             :multi="itemConfig.multi"
+            :defaultValue="itemConfig.defaultValue"
             @formEventEmit="formEventEmit($event)"
             @updateTransValue="formValueTransChange(itemConfig.transDataCode, $event)"
             @change="formValueChange(itemConfig.dataCode, $event)"></component>
@@ -68,7 +70,8 @@
 
 <script>
 import { validationMixin } from 'vuelidate'
-import { required } from 'vuelidate/lib/validators'
+import { required, email } from 'vuelidate/lib/validators'
+import phone from '../../../validates/phone.validate.js'
 import ValidateUtil from '../../../utils/validate.util.js'
 
 export default {
@@ -97,10 +100,16 @@ export default {
     for (let itemConfig of this.formConfig) {
       if (itemConfig.required) {
         currentFormData[itemConfig.dataCode] = {
-          required
+            required
         }
       } else {
         currentFormData[itemConfig.dataCode] = {}
+      }
+
+      if (itemConfig.componentName === "dap-ui-input-email") {
+        currentFormData[itemConfig.dataCode]['email'] = email;
+      } else if (itemConfig.componentName === "dap-ui-input-tel") {
+        currentFormData[itemConfig.dataCode]['phone'] = phone
       }
     }
     return {
@@ -157,6 +166,26 @@ export default {
         // 表单事件发送
         this.$baseFormRegister.excuteAdapterEvent($event.componentName, $event, this.formConfig, this.globalFormInfo, this.formData)
         this.$emit('formEventEmit', $event);
+      },
+      /**
+       * @author lizhihang
+       * @param itemConfig 表单配置
+       * @description 校验提示文字
+       * @date 2020-2-27
+       */
+      validationText(itemConfig) {
+        if (this.$v.currentFormData[itemConfig.dataCode].$dirty && this.$v.currentFormData[itemConfig.dataCode].$error) {
+          console.log(this.$v.currentFormData[itemConfig.dataCode]);
+          if (!this.$v.currentFormData[itemConfig.dataCode].required) {
+            // 如果是必填校验，则显示 xxx为必填
+            return itemConfig.label +  '为必填';
+          } else {
+            // 如果是其他校验（如邮箱校验），则显示 xxx格式不正确
+            return itemConfig.label +  '格式不正确';
+          }
+        } else {
+          return undefined;
+        }
       }
   },
   watch: {

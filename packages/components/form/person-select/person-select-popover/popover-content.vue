@@ -21,7 +21,7 @@
             </div>
           </a-col>
         </a-row>
-        <a-empty v-if="userInfoArray.length === 0"></a-empty>
+        <a-empty v-if="userInfoArray[0].data.length === 0" description="暂无数据"></a-empty>
       </div>
     </template>
   </div>

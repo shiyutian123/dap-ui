@@ -1,12 +1,12 @@
 <!--
  * @Author: DevinShi
  * @Date: 2020-02-06 10:37:47
- * @LastEditors: DevinShi
- * @LastEditTime: 2020-02-18 11:01:33
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-02-27 15:37:08
  * @Description: file content description
  -->
 <template>
-  <div class="dap-ui-radio dap-ui-form-item dap-ui-form-input">
+  <div class="dap-ui-input-date dap-ui-form-item dap-ui-form-input">
     <a-form-item
       :label-col="labelCol"
       :wrapper-col="wrapperCol"
@@ -19,37 +19,50 @@
       <template v-slot:label>
         <span :style="{color: labelColor}">{{label}}</span>
       </template>
-      <a-radio-group 
+      <a-date-picker class="input-date"
+        :value="getDate(value)"
+        @change="onChange"
+        :placeholder="placeholder" 
+        :defaultValue="getDate(defaultValue)"
         :disabled="disabled"
-        :defaultValue="defaultValue"
-        @change="$formEventEmit('change', $event.target.value)"
-        :value="value">
-        <a-radio v-for="option in options" :value="option.value" :key="option.value">{{option.label}}</a-radio>
-      </a-radio-group>
+        :allowClear="true"
+        :showTime="extraProp.showTime"/>
     </a-form-item>
   </div>
 </template>
 <script>
 import InputComponentMixin from '../../../mixins/input-component-mixin.js';
 import BasicComponentMixin from '../../../mixins/basic-component-mixin.js';
+import moment from 'moment';
 
 export default {
-  name: "DapUiRadio",
+  name: "DapUiInputDate",
   type: 'FORM_INPUT',
   mixins: [InputComponentMixin, BasicComponentMixin],
   props: {
   },
-  watch: {
-    options: {
-      handler: function(val,oldval){
-        if ((!this.value || this.value.length === 0) && Array.isArray(val) && val.length > 0) {
-          this.$formEventEmit('change', val[0].value);
-        }
-      },
-      deep: true,
-      immediate: true,
+  data() {
+    return {
+      dataFormat: 'YYYY-MM-DD',
+      dateTimeFormat: 'YYYY-MM-DD HH:mm:ss'
     }
   },
+  methods: {
+    moment,
+    onChange(date, dateString) {
+      this.$formEventEmit('change', dateString);
+    },
+    getDate(value) {
+      if (value) {
+        if (this.extraProp.showTime) {
+          return this.moment(value, this.dateTimeFormat);
+        } else {
+          return this.moment(value, this.dataFormat);
+        }
+      }
+      
+    }
+  }
 }
 </script>
 

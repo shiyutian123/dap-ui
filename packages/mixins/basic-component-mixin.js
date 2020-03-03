@@ -1,8 +1,8 @@
 /*
  * @Author: DevinShi
  * @Date: 2020-02-11 06:49:10
- * @LastEditors: DevinShi
- * @LastEditTime: 2020-02-19 03:06:35
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-02-25 17:39:48
  * @Description: file content description
  */
 export default {
@@ -24,10 +24,13 @@ export default {
         },
         componentName: {
             type: String
+        },
+        colSpan: {
+            type: Number
         }
     },
     methods: {
-        $formEventEmit(eventName, event) {            
+        $formEventEmit(eventName, event) {     
             this.$emit(eventName, event);
             this.$emit('formEventEmit', {
                 eventName: eventName,
