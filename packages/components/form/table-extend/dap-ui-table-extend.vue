@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-02-20 10:13:07
- * @LastEditTime: 2020-02-24 15:28:24
+ * @LastEditTime: 2020-03-04 00:17:42
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dap-vue-ui/packages/components/form/table-extend/dap-ui-table-extend.vue
@@ -64,6 +64,18 @@ export default {
   type: "FORM_INPUT",
   mixins: [InputComponentMixin, BasicComponentMixin],
   props: {
+    value: {
+      type: Array,
+      default: function () {
+        return [];
+      }
+    },
+    columns: {
+      type: Array,
+      default: function() {
+        return [];
+      }
+    }
   },
   data() {
     return {
@@ -114,6 +126,18 @@ export default {
       },
       immediate: true
     }
+    // value: {
+    //   handler(newValue, oldValue) {
+    //     if (!newValue) {
+    //       this.$emit('update:value', []);
+    //     }
+    //   },
+    //   immediate: true
+    // }
+  },
+
+  mounted() {
+    this.$formEventEmit('init-table-data');
   },
   methods: {
     scrollToLastRow() {
@@ -139,6 +163,7 @@ export default {
         obj[item.field] = undefined;
       });
       this.value.push(obj);
+      this.$emit('update:value', Object.assign([], this.value));
       this.scrollToLastRow();
       this.$formEventEmit('add-record', {
         mouseEvent: e
@@ -155,6 +180,7 @@ export default {
         arr.push(obj);
       });
       this.value.push(...arr);
+      this.$emit('update:value', Object.assign([], this.value));
       this.scrollToLastRow();
       this.$formEventEmit('copy-record', {
         mouseEvent: e
@@ -165,6 +191,7 @@ export default {
       for (const item of checkedData) {
         this.value.splice(this.value.indexOf(item), 1);
       }
+      this.$emit('update:value', Object.assign([], this.value));
       this.$formEventEmit('delete-record', {
         mouseEvent: e,
         checkedData: checkedData
