@@ -45,6 +45,7 @@
             :is="itemConfig.componentName"
             :uuid="itemConfig.uuid"
             :componentName="itemConfig.componentName"
+            :extraProp="itemConfig.extraProp"
             @formEventEmit="formEventEmit($event)"
             :label-color="itemConfig.labelColor"></component>
           
