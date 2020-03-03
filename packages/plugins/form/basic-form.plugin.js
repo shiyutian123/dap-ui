@@ -109,11 +109,11 @@ export default {
              * @param {*} componentConfig 
              * @param {*} tag 
              */
-            convertCompConfig(componentConfig, tag) {
+            convertCompConfig(componentConfig, tag, globalFormInfo) {
                 // 根据tag找到转换器，转换数据
                 const adapter = this.getAdapterByTag(tag);
                 if (adapter && adapter.adapter) {
-                    return adapter.adapter(componentConfig);
+                    return adapter.adapter(componentConfig, globalFormInfo);
                 } else {
                     return componentConfig;
                 }
@@ -136,6 +136,12 @@ export default {
                     throw new COMP_ADAPTER_REGISTER_ERROR.COMP_ACTION_UUID_EXIST_ERROR
                 }
             },
+            setConfigByUuid(uuid, formConfig, key, value) {
+                const itemConfig = this.getConfigByUuid(uuid, formConfig);
+                if (itemConfig) {
+                    itemConfig[key] = value ;
+                }
+            },
             getConfigById(id, formConfig) {
                 const resultArray = JSONPath(`$..[?(@. === '${uuid}')]`, formConfig);
                 if (resultArray && resultArray.length > 0) {
@@ -145,7 +151,7 @@ export default {
                 }
             },
             setConfigById(id, formConfig, key, value) {
-                const itemConfig = this.getConfigByUuid(id, formConfig);
+                const itemConfig = this.getConfigById(id, formConfig);
                 if (itemConfig) {
                     itemConfig[key] = value ;
                 }

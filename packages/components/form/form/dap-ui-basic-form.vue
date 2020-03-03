@@ -23,7 +23,7 @@
             :required="itemConfig.required"
             :is="itemConfig.componentName"
             :label="itemConfig.label"
-            :value="currentFormData[itemConfig.dataCode]"
+            :value="currentFormData[itemConfig.dataCode] || itemConfig.defaultValue"
             :transValue.sync="currentFormData[itemConfig.transDataCode]"
             :uuid="itemConfig.uuid"
             :options="itemConfig.options"
@@ -34,7 +34,6 @@
             :extraProp="itemConfig.extraProp"
             :colSpan="itemConfig.colSpan"
             :multi="itemConfig.multi"
-            :defaultValue="itemConfig.defaultValue"
             @formEventEmit="formEventEmit($event)"
             @updateTransValue="formValueTransChange(itemConfig.transDataCode, $event)"
             @change="formValueChange(itemConfig.dataCode, $event)"></component>
