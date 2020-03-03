@@ -27,7 +27,7 @@
             :transValue.sync="currentFormData[itemConfig.transDataCode]"
             :uuid="itemConfig.uuid"
             :options="itemConfig.options"
-            :disabled="itemConfig.disabled"
+            :disabled="isDisabled(itemConfig)"
             :placeholder="itemConfig.placeholder"
             :componentName="itemConfig.componentName"
             :columns="itemConfig.columnSet"
@@ -211,6 +211,22 @@ export default {
           }
         } else {
           return undefined;
+        }
+      },
+      /**
+       * @author lizhihang
+       * @description 组件是否disable。disabled属性优先级高。
+       * @date 2020-3-3
+       */
+      isDisabled(itemConfig) {
+        if (itemConfig.disabled) {
+          // 如果只读 返回true
+          return true;
+        } else if (itemConfig.editOnNew && this.globalFormInfo.documentId) {
+          // 如果新建可编辑，当前是编辑时，返回ture
+          return true;
+        } else {
+          return false;
         }
       }
   },
