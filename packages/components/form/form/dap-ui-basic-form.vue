@@ -46,6 +46,21 @@
             :componentName="itemConfig.componentName"
             @formEventEmit="formEventEmit($event)"
             :label-color="itemConfig.labelColor"></component>
+          
+          <component
+            :label="itemConfig.label"
+            v-if="itemConfig.visiable && $baseFormRegister.getComponentType(itemConfig.componentName) === 'FORM_ATTACHMENT'"
+            :is="itemConfig.componentName"
+            :uuid="itemConfig.uuid"
+            :componentName="itemConfig.componentName"
+            :value="currentFormData[itemConfig.dataCode]"
+            :customRequest="itemConfig.customRequest"
+            :remove="itemConfig.remove"
+            :fileCodeList="itemConfig.fileCodeList"
+            :documentId="itemConfig.documentId"
+            @formEventEmit="formEventEmit($event)"
+            @change="formValueChange(itemConfig.dataCode, $event)"
+            ></component>
 
           <component
             :ref="itemConfig.uuid"

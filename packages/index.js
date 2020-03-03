@@ -2,7 +2,7 @@
  * @Author: DevinShi
  * @Date: 2020-02-06 03:27:31
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-02-27 16:27:28
+ * @LastEditTime: 2020-03-01 17:57:53
  * @Description: file content description
  */
 import Vuelidate from 'vuelidate'
@@ -30,10 +30,15 @@ import DapUiDocument from './components/form/document/dap-ui-document.vue';
 import DapUiCollapseLayout from "./components/form/collapse-layout/dap-ui-collapse-layout.vue";
 import DapUiTabLayout from "./components/form/tab-layout/dap-ui-tab-layout.vue";
 
+// 上传图片组件
+import DapUiUploadPicture from "./components/form/upload-picture/dap-ui-upload-picture.vue";
+
 // 表格组件
 import DapUiTable from "./components/table/dap-ui-table.vue";
 // 弹窗组件
 import DapUiModal from './components/modal/dap-ui-modal.vue';
+
+import DapUiBpmnProcessFlow from './components/bpmn-process-flow/dap-ui-bpmn-process-flow.vue';
 
 import * as REQ_CONSTANT from './plugins/request/request.constant.js'
 
@@ -47,13 +52,13 @@ import VueLsPlugin from './plugins/storage/vue-ls.plugin.js'
 
 import BasicFormRegisterPlugin from './plugins/form/basic-form.plugin.js'
 
+import LoadResourcePlugin from './plugins/load-resource/load-resource.plugin.js';
 import MomentPlugin from './plugins/moment/moment.plugin'
 
 // 表单组件列表
-const formComponents = [ DapUiInput, DapUiSelect, DapUiRadio, DapUiCheckbox, DapUiInputNum, DapUiInputTel, DapUiInputTextarea, DapUiInputMoney, DapUiInputDate, DapUiInputEmail, DapUiStaticText, DapUiCollapseLayout, DapUiTableExtend, DapUiLov, DapUiDocument, DapUiTabLayout];
-
+const formComponents = [ DapUiInput, DapUiSelect, DapUiRadio, DapUiCheckbox, DapUiInputNum, DapUiInputTel, DapUiInputTextarea, DapUiInputMoney, DapUiInputDate, DapUiInputEmail, DapUiStaticText, DapUiCollapseLayout, DapUiTableExtend, DapUiLov, DapUiDocument, DapUiTabLayout, DapUiUploadPicture];
 // 所有组件列表
-const components = [...formComponents, DapUiButton, DapUiBasicForm, DapUiBasicFormItem, DapUiTable, DapUiModal];
+const components = [...formComponents, DapUiButton, DapUiBasicForm, DapUiBasicFormItem, DapUiTable, DapUiModal, DapUiBpmnProcessFlow];
 // 定义 install 方法，接收 Vue 作为参数。如果使用 use 注册插件，则所有的组件都将被注册
 const install = function(Vue) {
   // 判断是否安装
@@ -69,6 +74,8 @@ const install = function(Vue) {
   // 使用表单注册插件
   Vue.use(BasicFormRegisterPlugin);
 
+  // 使用异步加载资源插件
+  Vue.use(LoadResourcePlugin);
   // 使用日期格式转换插件
   Vue.use(MomentPlugin);
 
@@ -108,8 +115,8 @@ export default {
   DapUiCollapseLayout,
 
   DapUiTable,
-  
   DapUiModal,
+  DapUiBpmnProcessFlow
 };
 
 export {
