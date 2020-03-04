@@ -35,6 +35,7 @@
             :colSpan="itemConfig.colSpan"
             :multi="itemConfig.multi"
             :defaultValue="itemConfig.defaultValue"
+            :documentId="globalFormInfo.documentId"
             @formEventEmit="formEventEmit($event)"
             @updateTransValue="formValueTransChange(itemConfig.transDataCode, $event)"
             @change="formValueChange(itemConfig.dataCode, $event)"></component>
