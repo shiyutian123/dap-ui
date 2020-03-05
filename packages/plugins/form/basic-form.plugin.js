@@ -124,8 +124,8 @@ export default {
             excuteAdapterEvent(compName, actionEvent, formConfig, globalFormInfo, formData) {
                 const adapter = this.registeredAdapter[compName];
                 const compInfo = this.getConfigByUuid(actionEvent.uuid, formConfig);
-                if(adapter) {
-                    return adapter.action(compInfo, actionEvent, globalFormInfo, formData)
+                if (adapter) {
+                    return adapter.action(compInfo, actionEvent, globalFormInfo, formData, formConfig)
                 }
             },
             getConfigByUuid(uuid, formConfig) {
@@ -143,7 +143,7 @@ export default {
                 }
             },
             getConfigById(id, formConfig) {
-                const resultArray = JSONPath(`$..[?(@. === '${uuid}')]`, formConfig);
+                const resultArray = JSONPath(`$..[?(@.id === '${id}')]`, formConfig);
                 if (resultArray && resultArray.length > 0) {
                     return resultArray[0];
                 } else {

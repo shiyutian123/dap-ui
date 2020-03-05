@@ -23,7 +23,7 @@
             :required="itemConfig.required"
             :is="itemConfig.componentName"
             :label="itemConfig.label"
-            :value="currentFormData[itemConfig.dataCode] || itemConfig.defaultValue"
+            :value="currentFormData[itemConfig.dataCode]"
             :transValue.sync="currentFormData[itemConfig.transDataCode]"
             :uuid="itemConfig.uuid"
             :options="itemConfig.options"
