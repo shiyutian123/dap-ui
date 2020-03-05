@@ -160,8 +160,6 @@ export default {
         this.params.keyWord = "";
         this.params.page = 1;
         this.$formEventEmit("query-userInfo-array", this.params);
-      } else {
-
       }
     },
     onLoadMore() {
