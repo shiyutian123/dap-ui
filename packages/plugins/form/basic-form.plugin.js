@@ -109,11 +109,11 @@ export default {
              * @param {*} componentConfig 
              * @param {*} tag 
              */
-            convertCompConfig(componentConfig, tag) {
+            convertCompConfig(componentConfig, tag, globalFormInfo) {
                 // 根据tag找到转换器，转换数据
                 const adapter = this.getAdapterByTag(tag);
                 if (adapter && adapter.adapter) {
-                    return adapter.adapter(componentConfig);
+                    return adapter.adapter(componentConfig, globalFormInfo);
                 } else {
                     return componentConfig;
                 }
@@ -124,8 +124,8 @@ export default {
             excuteAdapterEvent(compName, actionEvent, formConfig, globalFormInfo, formData) {
                 const adapter = this.registeredAdapter[compName];
                 const compInfo = this.getConfigByUuid(actionEvent.uuid, formConfig);
-                if(adapter) {
-                    return adapter.action(compInfo, actionEvent, globalFormInfo, formData)
+                if (adapter) {
+                    return adapter.action(compInfo, actionEvent, globalFormInfo, formData, formConfig)
                 }
             },
             getConfigByUuid(uuid, formConfig) {
@@ -138,6 +138,20 @@ export default {
             },
             setConfigByUuid(uuid, formConfig, key, value) {
                 const itemConfig = this.getConfigByUuid(uuid, formConfig);
+                if (itemConfig) {
+                    itemConfig[key] = value ;
+                }
+            },
+            getConfigById(id, formConfig) {
+                const resultArray = JSONPath(`$..[?(@.id === '${id}')]`, formConfig);
+                if (resultArray && resultArray.length > 0) {
+                    return resultArray[0];
+                } else {
+                    throw new COMP_ADAPTER_REGISTER_ERROR.COMP_ACTION_UUID_EXIST_ERROR
+                }
+            },
+            setConfigById(id, formConfig, key, value) {
+                const itemConfig = this.getConfigById(id, formConfig);
                 if (itemConfig) {
                     itemConfig[key] = value ;
                 }

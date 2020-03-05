@@ -20,6 +20,8 @@ import DapUiSelect from "./components/form/select/dap-ui-select.vue";
 import DapUiRadio from "./components/form/radio/dap-ui-radio.vue";
 import DapUiCheckbox from "./components/form/checkbox/dap-ui-checkbox.vue";
 
+import DapUiPersonSelect from "./components/form/person-select/dap-ui-person-select.vue";
+
 import DapUiStaticText from "./components/form/static-text/dap-ui-static-text.vue";
 import DapUiBasicForm from "./components/form/form/dap-ui-basic-form.vue";
 import DapUiBasicFormItem from "./components/form/form-item/dap-ui-basic-form-item.vue";
@@ -28,14 +30,22 @@ import DapUiLov from './components/form/lov/dap-ui-lov.vue';
 import DapUiDocument from './components/form/document/dap-ui-document.vue';
 
 import DapUiCollapseLayout from "./components/form/collapse-layout/dap-ui-collapse-layout.vue";
+import DapUiTabLayout from "./components/form/tab-layout/dap-ui-tab-layout.vue";
 
 // 上传图片组件
 import DapUiUploadPicture from "./components/form/upload-picture/dap-ui-upload-picture.vue";
+
+import InputComponentMixin from './mixins/input-component-mixin.js';
+import BasicComponentMixin from './mixins/basic-component-mixin.js';
 
 // 表格组件
 import DapUiTable from "./components/table/dap-ui-table.vue";
 // 弹窗组件
 import DapUiModal from './components/modal/dap-ui-modal.vue';
+// 头像组件
+import DapUiAvatar from "./components/avatar/dap-ui-avatar.vue";
+// 人员组件
+import DapUiPerson from "./components/person/dap-ui-person.vue";
 
 import DapUiBpmnProcessFlow from './components/bpmn-process-flow/dap-ui-bpmn-process-flow.vue';
 
@@ -55,10 +65,9 @@ import LoadResourcePlugin from './plugins/load-resource/load-resource.plugin.js'
 import MomentPlugin from './plugins/moment/moment.plugin'
 
 // 表单组件列表
-const formComponents = [ DapUiInput, DapUiSelect, DapUiRadio, DapUiCheckbox, DapUiInputNum, DapUiInputTel, DapUiInputTextarea, DapUiInputMoney, DapUiInputDate, DapUiInputEmail, DapUiStaticText, DapUiCollapseLayout, DapUiTableExtend, DapUiLov, DapUiDocument, DapUiUploadPicture];
-
+const formComponents = [ DapUiInput, DapUiSelect, DapUiRadio, DapUiCheckbox, DapUiInputNum, DapUiInputTel, DapUiInputTextarea, DapUiInputMoney, DapUiInputDate, DapUiInputEmail, DapUiStaticText, DapUiCollapseLayout, DapUiTableExtend, DapUiLov, DapUiDocument, DapUiTabLayout, DapUiUploadPicture, DapUiPersonSelect];
 // 所有组件列表
-const components = [...formComponents, DapUiButton, DapUiBasicForm, DapUiBasicFormItem, DapUiTable, DapUiModal, DapUiBpmnProcessFlow];
+const components = [...formComponents, DapUiButton, DapUiBasicForm, DapUiBasicFormItem, DapUiTable, DapUiModal, DapUiBpmnProcessFlow, DapUiAvatar, DapUiPerson];
 // 定义 install 方法，接收 Vue 作为参数。如果使用 use 注册插件，则所有的组件都将被注册
 const install = function(Vue) {
   // 判断是否安装
@@ -125,5 +134,8 @@ export {
   // 请求插件
   RequestPlugin,
   // lodash插件
-  LodashPlugin
+  LodashPlugin,
+  // mixins
+  InputComponentMixin,
+  BasicComponentMixin
 }

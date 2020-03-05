@@ -1,0 +1,82 @@
+.popover-title {
+  width: 320px; 
+  padding: 8px 12px;
+  .popover-left {
+    input {
+      font-size: 14px;
+    }
+  }
+  .popover-right {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 40px;
+    .ant-btn {
+      height: 36px;
+      width: 32px;
+      padding: 0 8px;
+    }
+  }
+}
+
+.popover-content {
+  width: 320px;
+  overflow: auto;
+  max-height: 35vh;
+  padding: 6px 0;
+  p, h5{
+    padding: 0;
+    margin: 0;
+  }
+  .section-name {
+    padding: 0 12px;
+  }
+  .popover-block {
+    height: 50px;
+    margin: 3px 0;
+    padding: 0 12px;
+    &:hover {
+      background-color: rgb(245,245,245);
+    }
+    .popover-left {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+    }
+    .popover-right {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      height: 100%;
+      padding: 0 6px;
+      .popover-row {
+        display: flex;
+        height: 22px;
+        line-height: 22px;
+        overflow: hidden;
+        .item-name, .item-info {
+          width: 100%;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
+        }
+        .item-name {
+          flex: 1;
+          color: #000;
+          font-size: 14px;
+        }
+        .item-info {
+          flex: 0 0 180px;
+          font-size: 12px;
+          color: #999;
+          line-height: 24px;
+        }
+      }
+    }
+  }
+  .popover-block-tag {
+    margin: 3px 0;
+    padding: 0 12px;
+  }
+}
