@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-02-11 14:36:56
- * @LastEditTime: 2020-02-23 16:23:08
+ * @LastEditTime: 2020-03-05 15:24:06
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /lerna-dap/packages/dap-vue-ui/packages/components/table/dap-ui-table.vue
@@ -103,6 +103,11 @@
           </template>
         </vxe-table-column>
         <vxe-table-column v-if="config.slotName" :key="index" v-bind="config">
+          <template v-slot:header>
+            <span :class="{ required: config.required }">{{
+              config.title
+            }}</span>
+          </template>
           <template v-slot="{ row, rowIndex }">
             <slot
               :name="config.slotName"

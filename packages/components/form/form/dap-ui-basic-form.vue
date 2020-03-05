@@ -2,7 +2,7 @@
  * @Author: DevinShi
  * @Date: 2020-02-06 10:37:47
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-02-27 15:32:21
+ * @LastEditTime: 2020-03-05 16:55:12
  * @Description: file content description
  -->
 <template>
@@ -86,6 +86,7 @@
 import { validationMixin } from 'vuelidate'
 import { required, email } from 'vuelidate/lib/validators'
 import phone from '../../../validates/phone.validate.js'
+import table from '../../../validates/table.validate.js';
 import ValidateUtil from '../../../utils/validate.util.js'
 
 export default {
@@ -124,6 +125,8 @@ export default {
         currentFormData[itemConfig.dataCode]['email'] = email;
       } else if (itemConfig.componentName === "dap-ui-input-tel") {
         currentFormData[itemConfig.dataCode]['phone'] = phone
+      } else if (itemConfig.componentName === "dap-ui-table-extend") {
+        currentFormData[itemConfig.dataCode]['required'] = table.required(itemConfig);
       }
     }
     return {

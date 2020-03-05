@@ -1,13 +1,13 @@
 <!--
  * @Author: your name
  * @Date: 2020-02-20 10:13:07
- * @LastEditTime: 2020-03-05 11:52:43
+ * @LastEditTime: 2020-03-05 18:06:16
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dap-vue-ui/packages/components/form/table-extend/dap-ui-table-extend.vue
  -->
 <template>
-  <div class="dap-ui-table-extend">
+  <div class="dap-ui-table-extend" :class="{'validate-error': validateStatus === 'error'}">
     <div class="dap-ui-table-extend-title">
       <div class="title">
         <span :style="{'color': labelColor}">{{ label }}</span>
@@ -70,11 +70,36 @@
               <a-tooltip :title="column.title">
                 <span class="label" :class="{ required: column.required }">{{ column.title }}：</span>
               </a-tooltip>
-              <div class="value">{{ row[column.field] }}</div>
+              <div class="value">
+                <component
+                :has-feedback="false"
+                :label-color="column.labelColor"
+                :required="column.required"
+                :is="column.componentName"
+                :label="column.label"
+                :value="row[column.dataCode]"
+                :transValue.sync="row[column.transDataCode]"
+                :uuid="column.uuid"
+                :options="column.options"
+                :disabled="column.disabled"
+                :placeholder="column.placeholder"
+                :componentName="column.componentName"
+                :columns="column.columnSet"
+                :extraProp="column.extraProp"
+                :colSpan="column.colSpan"
+                :multi="column.multi"
+                :defaultValue="column.defaultValue"
+                @formEventEmit="formEventEmit($event)"
+                @updateTransValue="formValueTransChange(row, column.transDataCode, $event)"
+                @change="formValueChange(row, column.dataCode, $event)"></component>
+              </div>
             </div>
           </div>
         </template>
       </dap-ui-table>
+    </div>
+    <div class="dap-ui-table-extend-footer">
+      <div class="ant-form-explain">{{ help }}</div>
     </div>
   </div>
 </template>
@@ -192,6 +217,7 @@ export default {
       });
       this.value.push(obj);
       this.$emit('update:value', Object.assign([], this.value));
+      this.$emit('change', this.value);
       this.scrollToLastRow();
       this.$formEventEmit('add-record', {
         mouseEvent: e
@@ -209,6 +235,7 @@ export default {
       });
       this.value.push(...arr);
       this.$emit('update:value', Object.assign([], this.value));
+      this.$emit('change', this.value);
       this.scrollToLastRow();
       this.$formEventEmit('copy-record', {
         mouseEvent: e
@@ -220,6 +247,7 @@ export default {
         this.value.splice(this.value.indexOf(item), 1);
       }
       this.$emit('update:value', Object.assign([], this.value));
+      this.$emit('change', this.value);
       this.$formEventEmit('delete-record', {
         mouseEvent: e,
         checkedData: checkedData
@@ -238,12 +266,11 @@ export default {
     },
     formValueTransChange(row, transDataCode, value) {
       this.$set(row, transDataCode, value);
-      // this.$emit('change', row);
+      this.$emit('change', this.value);
     },
     formValueChange(row, dataCode, value) {
       this.$set(row, dataCode, value);
-      // this.$emit('change', row);
-      // this.$v.row[dataCode].$touch();
+      this.$emit('change', this.value);
     }
   }
 };

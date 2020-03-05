@@ -1,8 +1,8 @@
 /*
  * @Author: DevinShi
  * @Date: 2020-02-16 02:27:11
- * @LastEditors: DevinShi
- * @LastEditTime: 2020-02-25 02:20:02
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-03-05 14:42:04
  * @Description: file content description
  */
 import StringUtil from '../../utils/string.util';
@@ -155,6 +155,17 @@ export default {
                 if (itemConfig) {
                     itemConfig[key] = value ;
                 }
+            },
+            /**
+             * 根据tag查出组件名称
+             * @param {*} tag 
+             */
+            getCompNameByTag(tag) {
+                const result = Object.entries(this.registeredAdapter).filter(item => item[1].tag === tag)[0];
+                if (result) {
+                    return result[0];
+                }
+                return result;
             }
         }
     }
