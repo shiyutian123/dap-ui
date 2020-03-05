@@ -48,7 +48,8 @@
             :componentName="itemConfig.componentName"
             :extraProp="itemConfig.extraProp"
             @formEventEmit="formEventEmit($event)"
-            :label-color="itemConfig.labelColor"></component>
+            :label-color="itemConfig.labelColor"
+            :colSpan="itemConfig.colSpan"></component>
           
           <component
             :label="itemConfig.label"
