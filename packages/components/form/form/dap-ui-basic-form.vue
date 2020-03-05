@@ -34,7 +34,6 @@
             :extraProp="itemConfig.extraProp"
             :colSpan="itemConfig.colSpan"
             :multi="itemConfig.multi"
-            :defaultValue="itemConfig.defaultValue"
             @formEventEmit="formEventEmit($event)"
             @updateTransValue="formValueTransChange(itemConfig.transDataCode, $event)"
             @change="formValueChange(itemConfig.dataCode, $event)"></component>
@@ -86,6 +85,7 @@
 <script>
 import { validationMixin } from 'vuelidate'
 import { required, email } from 'vuelidate/lib/validators'
+import phone from '../../../validates/phone.validate.js'
 import ValidateUtil from '../../../utils/validate.util.js'
 
 export default {
@@ -113,24 +113,17 @@ export default {
     const currentFormData = {};
     for (let itemConfig of this.formConfig) {
       if (itemConfig.required) {
-        if (itemConfig.componentName === "dap-ui-input-email") {
-          currentFormData[itemConfig.dataCode] = {
-            email,
+        currentFormData[itemConfig.dataCode] = {
             required
-          }
-        } else {
-          currentFormData[itemConfig.dataCode] = {
-            required
-          }
         }
       } else {
-        if (itemConfig.componentName === "dap-ui-input-email") {
-          currentFormData[itemConfig.dataCode] = {
-            email
-          }
-        } else {
-          currentFormData[itemConfig.dataCode] = {}
-        }
+        currentFormData[itemConfig.dataCode] = {}
+      }
+
+      if (itemConfig.componentName === "dap-ui-input-email") {
+        currentFormData[itemConfig.dataCode]['email'] = email;
+      } else if (itemConfig.componentName === "dap-ui-input-tel") {
+        currentFormData[itemConfig.dataCode]['phone'] = phone
       }
     }
     return {
