@@ -76,6 +76,7 @@ export default {
         colSpan: {
             type: Number,
             default: 1
-        }
+        },
+        documentId: {}
     }
 }

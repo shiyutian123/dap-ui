@@ -176,9 +176,9 @@ export default {
       }
 
       if (urlConfig.url.indexOf('?') !== -1) {
-        urlConfig.url = urlConfig.url + '&' + '__timestamp=' + (new Date()).valueOf()
+        urlConfig.url = urlConfig.url + '&' + 'timestamp=' + (new Date()).valueOf()
       } else {
-        urlConfig.url = urlConfig.url + '?' + '__timestamp=' + (new Date()).valueOf()
+        urlConfig.url = urlConfig.url + '?' + 'timestamp=' + (new Date()).valueOf()
       }
       const config = {
         ...options,
