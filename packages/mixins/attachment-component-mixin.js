@@ -17,6 +17,17 @@ export default {
         }, // 自定义上传属性，类型为方法
         remove: {}, // 自定义删除属性，类型为方法，返回值为一个Promise，或true/false，此处为Promise
         fileCodeList: {}, // 用于监听事件，属性type为类型（delete表示删除成功事件、getValue从/process/form/getAttachmentInfo接口里获取到数据时触发事件），code为传过来的值
-        documentId: {} // documentId 用于判断是否新建
+        documentId: {}, // documentId 用于判断是否新建
+        uploadSize: {},
+        btnTitle: {},
+        attachmentNum: {},
+        tableData: {
+            type: Array,
+            default: () => {
+                return [];
+            }
+        },
+        beforeUpload: {},
+        editOnNew: {},
     }   
 }

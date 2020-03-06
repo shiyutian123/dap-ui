@@ -15,10 +15,14 @@ import DapUiInputTextarea from "./components/form/input-textarea/dap-ui-input-te
 import DapUiInputMoney from "./components/form/input-money/dap-ui-input-money";
 import DapUiInputDate from "./components/form/input-date/dap-ui-input-date";
 import DapUiInputEmail from "./components/form/input-email/dap-ui-input-email";
+import DapUiInputHyperlink from "./components/form/input-hyperlink/dap-ui-input-hyperlink";
 
 import DapUiSelect from "./components/form/select/dap-ui-select.vue";
 import DapUiRadio from "./components/form/radio/dap-ui-radio.vue";
 import DapUiCheckbox from "./components/form/checkbox/dap-ui-checkbox.vue";
+import DapUiSwitch from "./components/form/switch/dap-ui-switch.vue";
+import DapUiMarking from "./components/form/marking/dap-ui-marking.vue";
+import DapUiEditor from "./components/form/editor/dap-ui-editor";
 
 import DapUiPersonSelect from "./components/form/person-select/dap-ui-person-select.vue";
 import DapUiOrgSelect from "./components/form/org-select/dap-ui-org-select.vue";
@@ -35,6 +39,14 @@ import DapUiTabLayout from "./components/form/tab-layout/dap-ui-tab-layout.vue";
 
 // 上传图片组件
 import DapUiUploadPicture from "./components/form/upload-picture/dap-ui-upload-picture.vue";
+// 上传附件组件
+import DapUiUploadAttachment from "./components/form/upload-attachment/dap-ui-upload-attachment.vue";
+
+// 静态图片组件
+import DapUiStaticPicture from "./components/form/static-picture/dap-ui-static-picture.vue";
+
+// 网页组件
+import  DapUiWeb  from "./components/form/web/dap-ui-web.vue";
 
 import InputComponentMixin from './mixins/input-component-mixin.js';
 import BasicComponentMixin from './mixins/basic-component-mixin.js';
@@ -62,6 +74,8 @@ import VueLsPlugin from './plugins/storage/vue-ls.plugin.js'
 
 import BasicFormRegisterPlugin from './plugins/form/basic-form.plugin.js'
 
+import MomentPlugin from './plugins/moment/moment.plugin.js'
+
 import LoadResourcePlugin from './plugins/load-resource/load-resource.plugin.js';
 import MomentPlugin from './plugins/moment/moment.plugin'
 
@@ -84,6 +98,10 @@ const formComponents = [
   DapUiDocument, 
   DapUiTabLayout, 
   DapUiUploadPicture,
+  DapUiUploadAttachment, 
+  DapUiInputHyperlink, 
+  DapUiWeb, 
+  DapUiStaticPicture,
   DapUiPersonSelect,
   DapUiOrgSelect
 ];

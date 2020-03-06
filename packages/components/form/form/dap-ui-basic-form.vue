@@ -27,13 +27,15 @@
             :transValue.sync="currentFormData[itemConfig.transDataCode]"
             :uuid="itemConfig.uuid"
             :options="itemConfig.options"
-            :disabled="itemConfig.disabled"
+            :disabled="isDisabled(itemConfig)"
             :placeholder="itemConfig.placeholder"
             :componentName="itemConfig.componentName"
             :columns="itemConfig.columnSet"
             :extraProp="itemConfig.extraProp"
             :colSpan="itemConfig.colSpan"
             :multi="itemConfig.multi"
+            :defaultValue="itemConfig.defaultValue"
+            :documentId="globalFormInfo.documentId"
             @formEventEmit="formEventEmit($event)"
             @updateTransValue="formValueTransChange(itemConfig.transDataCode, $event)"
             @change="formValueChange(itemConfig.dataCode, $event)"></component>
@@ -44,8 +46,10 @@
             :is="itemConfig.componentName"
             :uuid="itemConfig.uuid"
             :componentName="itemConfig.componentName"
+            :extraProp="itemConfig.extraProp"
             @formEventEmit="formEventEmit($event)"
-            :label-color="itemConfig.labelColor"></component>
+            :label-color="itemConfig.labelColor"
+            :colSpan="itemConfig.colSpan"></component>
           
           <component
             :label="itemConfig.label"
@@ -57,7 +61,12 @@
             :customRequest="itemConfig.customRequest"
             :remove="itemConfig.remove"
             :fileCodeList="itemConfig.fileCodeList"
-            :documentId="itemConfig.documentId"
+            :documentId="globalFormInfo.documentId"
+            :btnTitle="itemConfig.btnTitle"
+            :uploadSize="itemConfig.uploadSize"
+            :tableData="itemConfig.tableData"
+            :beforeUpload="itemConfig.beforeUpload"
+            :editOnNew="itemConfig.editOnNew"
             @formEventEmit="formEventEmit($event)"
             @change="formValueChange(itemConfig.dataCode, $event)"
             ></component>
@@ -192,7 +201,7 @@ export default {
        */
       validationText(itemConfig) {
         if (this.$v.currentFormData[itemConfig.dataCode].$dirty && this.$v.currentFormData[itemConfig.dataCode].$error) {
-          console.log(this.$v.currentFormData[itemConfig.dataCode]);
+          // console.log(this.$v.currentFormData[itemConfig.dataCode]);
           if (!this.$v.currentFormData[itemConfig.dataCode].required) {
             // 如果是必填校验，则显示 xxx为必填
             return itemConfig.label +  '为必填';
@@ -202,6 +211,22 @@ export default {
           }
         } else {
           return undefined;
+        }
+      },
+      /**
+       * @author lizhihang
+       * @description 组件是否disable。disabled属性优先级高。
+       * @date 2020-3-3
+       */
+      isDisabled(itemConfig) {
+        if (itemConfig.disabled) {
+          // 如果只读 返回true
+          return true;
+        } else if (itemConfig.editOnNew && this.globalFormInfo.documentId) {
+          // 如果新建可编辑，当前是编辑时，返回ture
+          return true;
+        } else {
+          return false;
         }
       }
   },
