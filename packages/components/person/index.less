@@ -1,0 +1,62 @@
+.person {
+  display: inline-block;
+  background-color: #f5f5f5;
+  border-radius: 14px;
+  height: 24px;
+  line-height: 24px;
+  margin: 0 4px;
+  .perosn-info {
+    display: flex;
+    .user-name {
+      margin: 0 12px 0 6px;
+      font-size: 12px;
+      flex: auto;
+      text-align: center;
+      max-width: 54px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+}
+.avatar-popover-title {
+  width: 300px;
+  height: 100%;
+  padding: 8px;
+  .item-avatar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 0;
+  }
+  .popover-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 9px;
+    padding-left: 0 !important;
+    .item-name {
+      font-weight: bold;
+      font-size: 14px;
+    }
+    .item-info {
+      display: flex;
+      align-items: baseline;
+      padding: 0;
+      margin: 2px 0;
+      font-size: 12px;
+      color: rgb(158, 158, 158);
+      p {
+        margin: 0 6px !important;
+      }
+      h5 {
+        color: #000;
+      }
+      h5,
+      p {
+        margin: 0;
+        padding: 0;
+      }
+    }
+  }
+}

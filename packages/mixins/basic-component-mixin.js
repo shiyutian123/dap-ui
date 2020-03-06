@@ -30,7 +30,7 @@ export default {
         }
     },
     methods: {
-        $formEventEmit(eventName, event) {            
+        $formEventEmit(eventName, event) {     
             this.$emit(eventName, event);
             this.$emit('formEventEmit', {
                 eventName: eventName,

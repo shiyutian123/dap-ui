@@ -2,7 +2,7 @@
  * @Author: Devin Shi
  * @Email: yutian.shi@definesys.com
  * @Date: 2019-07-18 19:16:44
- * @LastEditTime: 2020-02-24 17:08:12
+ * @LastEditTime: 2020-02-25 17:05:57
  * @LastEditors: DevinShi
  * @Description:
  */
@@ -55,7 +55,10 @@ export default {
         data.headers = response.headers
         data.data = data.data || data.table
       },
-      errorCatch: opts.errorCatch || function (err, needShowMessage) {
+      errorCatch: function (err, needShowMessage) {
+        if (!opts.errorCatch(err, needShowMessage)) {
+          return;
+        }
         if (!needShowMessage) {
           return
         }
@@ -173,9 +176,9 @@ export default {
       }
 
       if (urlConfig.url.indexOf('?') !== -1) {
-        urlConfig.url = urlConfig.url + '&' + '__timestamp=' + (new Date()).valueOf()
+        urlConfig.url = urlConfig.url + '&' + 'timestamp=' + (new Date()).valueOf()
       } else {
-        urlConfig.url = urlConfig.url + '?' + '__timestamp=' + (new Date()).valueOf()
+        urlConfig.url = urlConfig.url + '?' + 'timestamp=' + (new Date()).valueOf()
       }
       const config = {
         ...options,

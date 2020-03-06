@@ -1,8 +1,8 @@
 /*
  * @Author: DevinShi
  * @Date: 2020-02-16 02:27:11
- * @LastEditors: DevinShi
- * @LastEditTime: 2020-02-25 02:20:02
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-03-05 14:42:04
  * @Description: file content description
  */
 import StringUtil from '../../utils/string.util';
@@ -109,11 +109,11 @@ export default {
              * @param {*} componentConfig 
              * @param {*} tag 
              */
-            convertCompConfig(componentConfig, tag) {
+            convertCompConfig(componentConfig, tag, globalFormInfo) {
                 // 根据tag找到转换器，转换数据
                 const adapter = this.getAdapterByTag(tag);
                 if (adapter && adapter.adapter) {
-                    return adapter.adapter(componentConfig);
+                    return adapter.adapter(componentConfig, globalFormInfo);
                 } else {
                     return componentConfig;
                 }
@@ -124,8 +124,8 @@ export default {
             excuteAdapterEvent(compName, actionEvent, formConfig, globalFormInfo, formData) {
                 const adapter = this.registeredAdapter[compName];
                 const compInfo = this.getConfigByUuid(actionEvent.uuid, formConfig);
-                if(adapter) {
-                    return adapter.action(compInfo, actionEvent, globalFormInfo, formData)
+                if (adapter) {
+                    return adapter.action(compInfo, actionEvent, globalFormInfo, formData, formConfig)
                 }
             },
             getConfigByUuid(uuid, formConfig) {
@@ -141,6 +141,31 @@ export default {
                 if (itemConfig) {
                     itemConfig[key] = value ;
                 }
+            },
+            getConfigById(id, formConfig) {
+                const resultArray = JSONPath(`$..[?(@.id === '${id}')]`, formConfig);
+                if (resultArray && resultArray.length > 0) {
+                    return resultArray[0];
+                } else {
+                    throw new COMP_ADAPTER_REGISTER_ERROR.COMP_ACTION_UUID_EXIST_ERROR
+                }
+            },
+            setConfigById(id, formConfig, key, value) {
+                const itemConfig = this.getConfigById(id, formConfig);
+                if (itemConfig) {
+                    itemConfig[key] = value ;
+                }
+            },
+            /**
+             * 根据tag查出组件名称
+             * @param {*} tag 
+             */
+            getCompNameByTag(tag) {
+                const result = Object.entries(this.registeredAdapter).filter(item => item[1].tag === tag)[0];
+                if (result) {
+                    return result[0];
+                }
+                return result;
             }
         }
     }
