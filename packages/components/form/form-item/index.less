@@ -1,6 +1,10 @@
 .dap-ui-basic-form {
     padding-top: 8px;
 
+    .dap-ui-form-item {
+        padding: 8px 0;
+    }
+
     .dap-ui-form-input {
         // display: flex;
         // align-items: center;
@@ -13,6 +17,23 @@
 
             .ant-form-item-label {
                 width: 100px;
+
+                .ant-form-item-required::before {
+                    margin: auto 4px auto 0;
+                    flex: 1;
+                }
+                > label {
+                    display: flex;
+                    justify-content: flex-end;
+                    > span {
+                        text-align: center;
+                        max-width: 90%;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        display: inline-block;
+                    }
+                }
             }
         
             .ant-form-item-control-wrapper {

@@ -1,0 +1,63 @@
+.dap-ui-modal {
+    &.dap-ui-bpmn-process-flow {
+        .ant-modal-body {
+            position: relative;
+            .process-flow-content {
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                z-index: 1;
+                left: 0;
+                top: 0;
+                .canvas {
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+            .masking {
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                z-index: 2;
+                left: 0;
+                top: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+        .ant-modal-footer {
+            display: none;
+        }
+    }
+}
+
+.djs-context-pad.open {
+    display: none !important;
+}
+
+.djs-direct-editing-parent {
+    display: none !important;
+}
+
+.djs-segment-dragger {
+    .djs-hit {
+        pointer-events: none !important;
+    }
+}
+
+.djs-bendpoint {
+    .djs-hit {
+        pointer-events: none !important;
+    }
+}
+
+.djs-element.hover {
+    .djs-outline {
+        stroke: none !important;
+    }
+}
+
+.djs-outline {
+    visibility: visible !important;
+}
