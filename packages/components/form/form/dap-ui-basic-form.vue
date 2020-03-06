@@ -204,7 +204,7 @@ export default {
        */
       validationText(itemConfig) {
         if (this.$v.currentFormData[itemConfig.dataCode].$dirty && this.$v.currentFormData[itemConfig.dataCode].$error) {
-          console.log(this.$v.currentFormData[itemConfig.dataCode]);
+          // console.log(this.$v.currentFormData[itemConfig.dataCode]);
           if (!this.$v.currentFormData[itemConfig.dataCode].required) {
             // 如果是必填校验，则显示 xxx为必填
             return itemConfig.label +  '为必填';

@@ -22,6 +22,7 @@ import DapUiRadio from "./components/form/radio/dap-ui-radio.vue";
 import DapUiCheckbox from "./components/form/checkbox/dap-ui-checkbox.vue";
 import DapUiSwitch from "./components/form/switch/dap-ui-switch.vue";
 import DapUiMarking from "./components/form/marking/dap-ui-marking.vue";
+import DapUiEditor from "./components/form/editor/dap-ui-editor";
 
 import DapUiStaticText from "./components/form/static-text/dap-ui-static-text.vue";
 import DapUiBasicForm from "./components/form/form/dap-ui-basic-form.vue";
@@ -60,10 +61,10 @@ import VueLsPlugin from './plugins/storage/vue-ls.plugin.js'
 
 import BasicFormRegisterPlugin from './plugins/form/basic-form.plugin.js'
 
-import MomentPlugin from './plugins/moment/moment.plugin'
+import MomentPlugin from './plugins/moment/moment.plugin.js'
 
 // 表单组件列表
-const formComponents = [ DapUiInput, DapUiSelect, DapUiRadio, DapUiCheckbox, DapUiSwitch, DapUiMarking, DapUiInputNum, DapUiInputTel, DapUiInputTextarea, DapUiInputMoney, DapUiInputDate, DapUiInputEmail, DapUiStaticText, DapUiCollapseLayout, DapUiTableExtend, DapUiLov, DapUiDocument, DapUiUploadPicture, DapUiUploadAttachment, DapUiInputHyperlink, DapUiWeb, DapUiStaticPicture];
+const formComponents = [ DapUiInput, DapUiSelect, DapUiRadio, DapUiCheckbox, DapUiSwitch, DapUiMarking, DapUiEditor, DapUiInputNum, DapUiInputTel, DapUiInputTextarea, DapUiInputMoney, DapUiInputDate, DapUiInputEmail, DapUiStaticText, DapUiCollapseLayout, DapUiTableExtend, DapUiLov, DapUiDocument, DapUiUploadPicture, DapUiUploadAttachment, DapUiInputHyperlink, DapUiWeb, DapUiStaticPicture];
 
 // 所有组件列表
 const components = [...formComponents, DapUiButton, DapUiBasicForm, DapUiBasicFormItem, DapUiTable, DapUiModal];
