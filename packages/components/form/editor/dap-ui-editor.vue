@@ -34,16 +34,12 @@ export default {
         editorId: new Date().getTime(),
         editorInstance: undefined
       },
-      firstGetValue: true
     }
   },
   watch: {
     value:{ 
       handler(newValue, oldValue) {
-        if (this.documentId && this.firstGetValue) {
-          this.firstGetValue = false;
-          this.vmData.editorInstance.txt.html(newValue);
-        }
+        this.vmData.editorInstance.txt.html(newValue);
       },
     }
   },
@@ -72,7 +68,6 @@ export default {
     ];
     this.vmData.editorInstance.customConfig.uploadImgShowBase64 = true;
     this.vmData.editorInstance.customConfig.onchange = (html => {
-        this.firstGetValue = false;
         if (html === "<p><br></p>") {
           this.$formEventEmit('change', "");
         } else {
