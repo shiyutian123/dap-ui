@@ -77,7 +77,6 @@ import BasicFormRegisterPlugin from './plugins/form/basic-form.plugin.js'
 import MomentPlugin from './plugins/moment/moment.plugin.js'
 
 import LoadResourcePlugin from './plugins/load-resource/load-resource.plugin.js';
-import MomentPlugin from './plugins/moment/moment.plugin'
 
 // 表单组件列表
 const formComponents = [ 
