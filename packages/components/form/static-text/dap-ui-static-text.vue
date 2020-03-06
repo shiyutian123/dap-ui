@@ -7,7 +7,12 @@
  -->
 <template>
   <div class="dap-ui-static-text dap-ui-form-item">
-    <span class="static-text" :style="{color: labelColor}">{{label}}</span>
+    <a-tooltip placement="topLeft">
+      <template slot="title">
+        <span>{{label}}</span>
+      </template>
+      <span class="static-text" :style="{color: labelColor}">{{label}}</span>
+    </a-tooltip>
   </div>
 </template>
 <script>
