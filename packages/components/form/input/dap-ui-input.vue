@@ -20,7 +20,7 @@
         <span :style="{color: labelColor}">{{label}}</span>
       </template>
       <a-input 
-        :value="value || defaultValue"
+        :value="value"
         @input="$formEventEmit('change', $event.target.value)"
         :placeholder="placeholder" 
         :defaultValue="defaultValue"

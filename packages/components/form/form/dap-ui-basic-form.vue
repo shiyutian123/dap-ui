@@ -16,6 +16,7 @@
         :key="itemConfig.uuid">
           <component
             v-if="itemConfig.visiable && $baseFormRegister.getComponentType(itemConfig.componentName) === 'FORM_INPUT'"
+            :defaultValue="itemConfig.defaultValue"
             :has-feedback="false"
             :label-color="itemConfig.labelColor"
             :validate-status="$v.currentFormData[itemConfig.dataCode].$dirty && $v.currentFormData[itemConfig.dataCode].$error ? 'error' : 'success'"
@@ -34,8 +35,7 @@
             :extraProp="itemConfig.extraProp"
             :colSpan="itemConfig.colSpan"
             :multi="itemConfig.multi"
-            :defaultValue="itemConfig.defaultValue"
-            :documentId="globalFormInfo.documentId"
+            :documentId="globalFormInfo ? globalFormInfo.documentId : undefined"
             @formEventEmit="formEventEmit($event)"
             @updateTransValue="formValueTransChange(itemConfig.transDataCode, $event)"
             @change="formValueChange(itemConfig.dataCode, $event)"></component>
@@ -61,7 +61,7 @@
             :customRequest="itemConfig.customRequest"
             :remove="itemConfig.remove"
             :fileCodeList="itemConfig.fileCodeList"
-            :documentId="globalFormInfo.documentId"
+            :documentId="globalFormInfo ? globalFormInfo.documentId : undefined"
             :btnTitle="itemConfig.btnTitle"
             :uploadSize="itemConfig.uploadSize"
             :tableData="itemConfig.tableData"

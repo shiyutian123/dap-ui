@@ -23,7 +23,6 @@
         :value="getDate(value)"
         @change="onChange"
         :placeholder="placeholder" 
-        :defaultValue="getDate(defaultValue)"
         :disabled="disabled"
         :allowClear="true"
         :showTime="extraProp.showTime"/>

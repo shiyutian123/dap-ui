@@ -57,8 +57,6 @@ export default {
         },
         transValue: {
         },
-        defaultValue: {
-        },
         allowClear: {
             type: Boolean,
             default: false
@@ -78,5 +76,11 @@ export default {
             default: 1
         },
         documentId: {}
-    }
+    },
+    created() {
+        debugger
+        if (this.defaultValue && this.defaultValue.length > 0) {
+          this.$formEventEmit('change', this.defaultValue);
+        }
+    },
 }
