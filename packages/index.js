@@ -46,6 +46,8 @@ import DapUiUploadAttachment from "./components/form/upload-attachment/dap-ui-up
 import DapUiStaticPicture from "./components/form/static-picture/dap-ui-static-picture.vue";
 // 模板文件组件
 import DapUiStaticAttachment from "./components/form/static-attachment/dap-ui-static-attachment.vue";
+// 提示符组件
+import DapUiStaticTips from "./components/form/static-tips/dap-ui-static-tips.vue";
 
 // 网页组件
 import  DapUiWeb  from "./components/form/web/dap-ui-web.vue";
@@ -107,6 +109,7 @@ const formComponents = [
   DapUiWeb, 
   DapUiStaticPicture,
   DapUiStaticAttachment,
+  DapUiStaticTips,
   DapUiPersonSelect,
   DapUiOrgSelect
 ];
