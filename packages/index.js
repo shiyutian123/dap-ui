@@ -48,6 +48,10 @@ import DapUiStaticPicture from "./components/form/static-picture/dap-ui-static-p
 import DapUiStaticAttachment from "./components/form/static-attachment/dap-ui-static-attachment.vue";
 // 提示符组件
 import DapUiStaticTips from "./components/form/static-tips/dap-ui-static-tips.vue";
+// 分隔符组件
+import DapUiStaticSplit from "./components/form/static-split/dap-ui-static-split.vue";
+// 占位符组件
+import DapUiStaticPlaceholder from "./components/form/static-placeholder/dap-ui-static-placeholder.vue";
 
 // 网页组件
 import  DapUiWeb  from "./components/form/web/dap-ui-web.vue";
@@ -110,6 +114,8 @@ const formComponents = [
   DapUiStaticPicture,
   DapUiStaticAttachment,
   DapUiStaticTips,
+  DapUiStaticPlaceholder,
+  DapUiStaticSplit,
   DapUiPersonSelect,
   DapUiOrgSelect
 ];
