@@ -27,7 +27,9 @@ export default {
         },
         colSpan: {
             type: Number
-        }
+        },
+        defaultValue: {
+        },
     },
     methods: {
         $formEventEmit(eventName, event) {     

@@ -93,7 +93,8 @@ export default {
     "popover-title": PopoverTitle,
     "popover-content": PopoverContent
   },
-  props: {},
+  props: {
+  },
   computed: {
     calcSelectedArray: function() {
       return this.extraProp.selectedArray.slice(0, this.multCount);
@@ -108,7 +109,7 @@ export default {
         page: 1,
         pageSize: 10
       },
-      multCount: 2
+      multCount: 3
     }
   },
   watch: {
@@ -117,7 +118,8 @@ export default {
         if (newVal && this.extraProp.selectedArray.length === 0) {
           this.$formEventEmit("query-user-info", this.value);
         }
-      }
+      },
+      // immediate: true
     },
     "extraProp.selectedArray": {
       handler(newVal, oldVal) {
