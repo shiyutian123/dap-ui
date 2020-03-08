@@ -2,7 +2,7 @@
  * @Author: DevinShi
  * @Date: 2020-02-06 03:27:31
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-02-27 16:27:28
+ * @LastEditTime: 2020-03-01 17:57:53
  * @Description: file content description
  */
 import Vuelidate from 'vuelidate'
@@ -15,10 +15,14 @@ import DapUiInputTextarea from "./components/form/input-textarea/dap-ui-input-te
 import DapUiInputMoney from "./components/form/input-money/dap-ui-input-money";
 import DapUiInputDate from "./components/form/input-date/dap-ui-input-date";
 import DapUiInputEmail from "./components/form/input-email/dap-ui-input-email";
+import DapUiInputHyperlink from "./components/form/input-hyperlink/dap-ui-input-hyperlink";
 
 import DapUiSelect from "./components/form/select/dap-ui-select.vue";
 import DapUiRadio from "./components/form/radio/dap-ui-radio.vue";
 import DapUiCheckbox from "./components/form/checkbox/dap-ui-checkbox.vue";
+import DapUiSwitch from "./components/form/switch/dap-ui-switch.vue";
+import DapUiMarking from "./components/form/marking/dap-ui-marking.vue";
+import DapUiEditor from "./components/form/editor/dap-ui-editor";
 
 import DapUiPersonSelect from "./components/form/person-select/dap-ui-person-select.vue";
 import DapUiOrgSelect from "./components/form/org-select/dap-ui-org-select.vue";
@@ -31,6 +35,18 @@ import DapUiLov from './components/form/lov/dap-ui-lov.vue';
 import DapUiDocument from './components/form/document/dap-ui-document.vue';
 
 import DapUiCollapseLayout from "./components/form/collapse-layout/dap-ui-collapse-layout.vue";
+import DapUiTabLayout from "./components/form/tab-layout/dap-ui-tab-layout.vue";
+
+// 上传图片组件
+import DapUiUploadPicture from "./components/form/upload-picture/dap-ui-upload-picture.vue";
+// 上传附件组件
+import DapUiUploadAttachment from "./components/form/upload-attachment/dap-ui-upload-attachment.vue";
+
+// 静态图片组件
+import DapUiStaticPicture from "./components/form/static-picture/dap-ui-static-picture.vue";
+
+// 网页组件
+import  DapUiWeb  from "./components/form/web/dap-ui-web.vue";
 
 import InputComponentMixin from './mixins/input-component-mixin.js';
 import BasicComponentMixin from './mixins/basic-component-mixin.js';
@@ -44,6 +60,8 @@ import DapUiAvatar from "./components/avatar/dap-ui-avatar.vue";
 // 人员组件
 import DapUiPerson from "./components/person/dap-ui-person.vue";
 
+import DapUiBpmnProcessFlow from './components/bpmn-process-flow/dap-ui-bpmn-process-flow.vue';
+
 import * as REQ_CONSTANT from './plugins/request/request.constant.js'
 
 import LodashPlugin from './plugins/lodash/lodash.js'
@@ -56,7 +74,9 @@ import VueLsPlugin from './plugins/storage/vue-ls.plugin.js'
 
 import BasicFormRegisterPlugin from './plugins/form/basic-form.plugin.js'
 
-import MomentPlugin from './plugins/moment/moment.plugin'
+import MomentPlugin from './plugins/moment/moment.plugin.js'
+
+import LoadResourcePlugin from './plugins/load-resource/load-resource.plugin.js';
 
 // 表单组件列表
 const formComponents = [ 
@@ -75,12 +95,18 @@ const formComponents = [
   DapUiTableExtend, 
   DapUiLov, 
   DapUiDocument, 
+  DapUiTabLayout, 
+  DapUiUploadPicture,
+  DapUiUploadAttachment, 
+  DapUiInputHyperlink, 
+  DapUiWeb, 
+  DapUiStaticPicture,
   DapUiPersonSelect,
   DapUiOrgSelect
 ];
 
 // 所有组件列表
-const components = [...formComponents, DapUiButton, DapUiBasicForm, DapUiBasicFormItem, DapUiTable, DapUiModal, DapUiAvatar, DapUiPerson];
+const components = [...formComponents, DapUiButton, DapUiBasicForm, DapUiBasicFormItem, DapUiTable, DapUiModal, DapUiBpmnProcessFlow, DapUiAvatar, DapUiPerson];
 // 定义 install 方法，接收 Vue 作为参数。如果使用 use 注册插件，则所有的组件都将被注册
 const install = function(Vue) {
   // 判断是否安装
@@ -96,6 +122,8 @@ const install = function(Vue) {
   // 使用表单注册插件
   Vue.use(BasicFormRegisterPlugin);
 
+  // 使用异步加载资源插件
+  Vue.use(LoadResourcePlugin);
   // 使用日期格式转换插件
   Vue.use(MomentPlugin);
 
@@ -137,6 +165,8 @@ export default {
   DapUiTable,
   
   DapUiModal,
+
+  DapUiBpmnProcessFlow
 };
 
 export {

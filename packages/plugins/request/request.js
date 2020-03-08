@@ -279,11 +279,11 @@ export default {
           'Content-Type': 'multipart/form-data'
         },
         url: urlConfig.url,
-        params: urlConfig.params,
+        data: urlConfig.params
       }
       // eslint-disable-next-line no-new
       let promise
-      promise = Promise((resolve, reject) => {
+      promise = new Promise((resolve, reject) => {
         instance.request(config)
           .then(response => {
             const data = response.data

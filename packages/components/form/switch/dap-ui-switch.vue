@@ -6,7 +6,7 @@
  * @Description: file content description
  -->
 <template>
-  <div class="dap-ui-input dap-ui-form-item dap-ui-form-input">
+  <div class="dap-ui-switch dap-ui-form-item dap-ui-form-input">
     <a-form-item
       :label-col="labelCol"
       :wrapper-col="wrapperCol"
@@ -19,13 +19,11 @@
       <template v-slot:label>
         <span :style="{color: labelColor}">{{label}}</span>
       </template>
-      <a-input 
-        :value="value || defaultValue"
-        @input="$formEventEmit('change', $event.target.value)"
-        :placeholder="placeholder" 
-        :defaultValue="defaultValue"
+      <a-switch
+        :checked="value"
         :disabled="disabled"
-        :allowClear="allowClear"/>
+        @change="$formEventEmit('change', $event)">
+      </a-switch>
     </a-form-item>
   </div>
 </template>
@@ -34,11 +32,21 @@ import InputComponentMixin from '../../../mixins/input-component-mixin.js';
 import BasicComponentMixin from '../../../mixins/basic-component-mixin.js';
 
 export default {
-  name: "DapUiInput",
+  name: "DapUiSwitch",
   type: 'FORM_INPUT',
   mixins: [InputComponentMixin, BasicComponentMixin],
   props: {
-  }
+  },
+  // watch: {
+  //   value: {
+  //     handler (newValue, oldValue) {
+  //       if (newValue === undefined) {
+  //         this.$formEventEmit('change', false);
+  //       }
+  //     },
+  //     immediate: true
+  //   }
+  // },
 }
 </script>
 

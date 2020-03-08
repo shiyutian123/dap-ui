@@ -9,20 +9,21 @@
 <template>
   <div class="dap-ui-modal">
     <a-modal
-    style="top: 1rem;"
-    :class="computClassName"
-    :title="title"
-    :visible="visible"
-    :z-index="zIndex"
-    :cancel-text="cancelText"
-    :ok-text="okText"
-    :mask="mask"
-    :mask-closable="maskClosable"
-    :destroy-on-close="destroyOnClose"
-    :ok-button-props="okButtonProps"
-    :cancel-button-props="cancelButtonProps"
-    @ok="handleOk"
-    @cancel="handleCancel">
+      style="top: 1rem;"
+      :class="computClassName"
+      :title="title"
+      :visible="visible"
+      :z-index="zIndex"
+      :cancel-text="cancelText"
+      :ok-text="okText"
+      :mask="mask"
+      :mask-closable="maskClosable"
+      :destroy-on-close="destroyOnClose"
+      :ok-button-props="okButtonProps"
+      :cancel-button-props="cancelButtonProps"
+      @ok="handleOk"
+      @cancel="handleCancel"
+    >
       <slot></slot>
     </a-modal>
   </div>
@@ -44,14 +45,14 @@ export default {
     },
     modalClass: {
       type: String,
-      default: function () {
-        return '';
+      default: function() {
+        return "";
       }
     },
     size: {
       type: String, // 'large' || 'medium' || 'small',
-      default: function () {
-        return 'medium';
+      default: function() {
+        return "medium";
       }
     },
     afterClose: {
@@ -59,31 +60,31 @@ export default {
     },
     cancelText: {
       type: String,
-      default: function () {
+      default: function() {
         return `取消`;
       }
     },
     okText: {
       type: String,
-      default: function () {
+      default: function() {
         return `确定`;
       }
     },
     zIndex: {
       type: Number,
-      default: function () {
+      default: function() {
         return 1000;
       }
     },
     mask: {
       type: Boolean,
-      default: function () {
+      default: function() {
         return true;
       }
     },
     maskClosable: {
       type: Boolean,
-      default: function () {
+      default: function() {
         return false;
       }
     },
@@ -95,38 +96,40 @@ export default {
     },
     destroyOnClose: {
       type: Boolean,
-      default: function () {
+      default: function() {
         return false;
       }
     },
     contentAdaption: {
       type: Boolean,
-      default: function () {
+      default: function() {
         return false;
       }
     }
   },
   computed: {
-    computClassName: function () {
-      return `dap-ui-modal ${this.contentAdaption ? 'content-adaption' : ''} ${this.size} ${this.modalClass}`;
+    computClassName: function() {
+      return `dap-ui-modal ${this.contentAdaption ? "content-adaption" : ""} ${
+        this.size
+      } ${this.modalClass}`;
     }
   },
   methods: {
     /**
      * @description: 确定点击事件
      * @param {MouseEvent} e - 鼠标事件
-     * @return: 
+     * @return:
      */
     handleOk(e) {
-      this.$emit('ok', e);
+      this.$emit("ok", e);
     },
     /**
      * @description: 取消点击事件
      * @param {MouseEvent} e - 鼠标事件
-     * @return: 
+     * @return:
      */
     handleCancel(e) {
-      this.$emit('cancel', e);
+      this.$emit("cancel", e);
     }
   }
 };
