@@ -57,6 +57,8 @@ export default {
     // },
     selectFormEmit(eventName, event) {
       if (event) {
+        this.$formEventEmit('change', event);
+
         const selectOptions = [];
         if (!Array.isArray(event)) {
           event = [event];
@@ -69,7 +71,6 @@ export default {
             }
           })
         })
-        this.$formEventEmit('change', event);
         this.$formEventEmit('updateTransValue', selectOptions);
       }
     }
