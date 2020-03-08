@@ -29,7 +29,7 @@
         <template v-for="user in calcSelectedArray">
           <dap-ui-person :info="user" :key="user.empId">
             <template slot="popover-content">
-              <div class="person-popover-content">
+              <div class="person-popover-content" v-if="!disabled">
                 <span class="remove-item" @click="removeUser(user)">移除人员</span>
               </div>
             </template>
@@ -54,7 +54,7 @@
                 </a-button>
               </a-tooltip>
             </div>
-            <div class="display-block-mult-add-item">
+            <div class="display-block-mult-add-item" v-if="!disabled">
               <a-button shape="circle">
                 <a-icon type="plus"></a-icon>
               </a-button>
