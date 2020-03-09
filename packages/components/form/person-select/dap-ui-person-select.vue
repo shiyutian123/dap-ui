@@ -24,7 +24,7 @@
         class="display-block" 
         :class="{'display-block-error': validateStatus === 'error'}" 
         tabindex = "0" 
-        @click.self="handleClick"
+        @click="handleClick"
       >
         <template v-for="user in calcSelectedArray">
           <dap-ui-person :info="user" :key="user.empId">
@@ -93,7 +93,8 @@ export default {
     "popover-title": PopoverTitle,
     "popover-content": PopoverContent
   },
-  props: {},
+  props: {
+  },
   computed: {
     calcSelectedArray: function() {
       return this.extraProp.selectedArray.slice(0, this.multCount);
@@ -108,7 +109,7 @@ export default {
         page: 1,
         pageSize: 10
       },
-      multCount: 2
+      multCount: 3
     }
   },
   watch: {
@@ -116,8 +117,11 @@ export default {
       handler(newVal, oldVal) {
         if (newVal && this.extraProp.selectedArray.length === 0) {
           this.$formEventEmit("query-user-info", this.value);
+        } else if (!newVal) {
+          this.extraProp.selectedArray = []
         }
-      }
+      },
+      immediate: true
     },
     "extraProp.selectedArray": {
       handler(newVal, oldVal) {
@@ -150,7 +154,7 @@ export default {
       }
     },
     handleClick() {
-      if (this.extraProp.selectType === "single") {
+      if (this.extraProp.selectType === "single" && !this.isShowPopover) {
         this.isShowPopover = true;
         this.onVisibleChange(true);
       }

@@ -100,6 +100,9 @@ const formComponents = [
   DapUiUploadAttachment, 
   DapUiInputHyperlink, 
   DapUiWeb, 
+  DapUiSwitch,
+  DapUiMarking,
+  DapUiEditor,
   DapUiStaticPicture,
   DapUiPersonSelect,
   DapUiOrgSelect

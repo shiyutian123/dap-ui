@@ -44,7 +44,7 @@
               <a-tag :closable="!disabled" @close="handleClose(org)" :key="org.code">{{ org.name }}</a-tag>
             </template>
             <div class="display-block-more-item" v-if="extraProp.selectedArray.length > multCount">
-              <a-tooltip :title="'共选: ' + extraProp.selectedArray.length + '人'">
+              <a-tooltip :title="'共选: ' + extraProp.selectedArray.length + '组织'">
                 <a-button shape="circle">
                   <a-icon type="small-dash"></a-icon>
                 </a-button>
@@ -61,7 +61,8 @@
       <template v-if="extraProp.mode === 'cascade'">
         <a-select
           ref="cascadeSelect"
-          :v-model="value"
+          :value="value"
+          @change="$formEventEmit('change', $event)"
           :mode="extraProp.selectType === 'mult' ? 'multiple' : 'default'"
           :maxTagCount="multCount"
           :placeholder="placeholder"
@@ -71,7 +72,7 @@
         >
           <template slot="maxTagPlaceholder">
             <div class="display-block-more-item" v-if="extraProp.selectedArray.length > multCount">
-              <a-tooltip :title="'共选: ' + extraProp.selectedArray.length + '人'">
+              <a-tooltip :title="'共选: ' + extraProp.selectedArray.length + '组织'">
                 <a-button shape="circle">
                   <a-icon type="small-dash"></a-icon>
                 </a-button>
@@ -95,7 +96,8 @@ export default {
   type: 'FORM_INPUT',
   mixins: [InputComponentMixin, BasicComponentMixin],
   components: {},
-  props: {},
+  props: {
+  },
   computed: {
     calcSelectedArray: function() {
       return this.extraProp.selectedArray.slice(0, this.multCount);
@@ -103,8 +105,16 @@ export default {
   },
   data() {
     return {
-      multCount: 2
+      multCount: 3
     }
+  },
+  mounted() {
+    //TODO: 不合适的方案
+    setTimeout(() => {
+      if (this.extraProp.mode === 'cascade') {
+        this.$formEventEmit("query-options")
+      }
+    }, 300)
   },
   watch: {
     "value": {
@@ -116,7 +126,8 @@ export default {
             this.$formEventEmit("query-org-info", newVal)
           }
         }
-      }
+      },
+      immediate: true
     },
     "extraProp.options": {
       handler(newVal, oldVal) {
@@ -180,7 +191,7 @@ export default {
     },
     emitValueChange() {
       if (this.extraProp.selectType === "single") {
-        this.$formEventEmit("change", this.extraProp.selectedArray.map(org => org.code)[0] || "")
+        this.$formEventEmit("change", this.extraProp.selectedArray.map(org => org.code)[0])
       } else if (this.extraProp.selectType === "mult") {
         this.$formEventEmit("change", this.extraProp.selectedArray.map(org => org.code))
       }
