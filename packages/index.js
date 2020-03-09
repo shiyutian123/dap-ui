@@ -67,6 +67,8 @@ import DapUiModal from './components/modal/dap-ui-modal.vue';
 import DapUiAvatar from "./components/avatar/dap-ui-avatar.vue";
 // 人员组件
 import DapUiPerson from "./components/person/dap-ui-person.vue";
+// 头像裁剪弹窗
+import DapUiAvatarCropperModal from "./components/avatar-cropper-modal/dap-ui-avatar-cropper-modal.vue";
 
 import DapUiBpmnProcessFlow from './components/bpmn-process-flow/dap-ui-bpmn-process-flow.vue';
 
@@ -121,7 +123,7 @@ const formComponents = [
 ];
 
 // 所有组件列表
-const components = [...formComponents, DapUiButton, DapUiBasicForm, DapUiBasicFormItem, DapUiTable, DapUiModal, DapUiBpmnProcessFlow, DapUiAvatar, DapUiPerson];
+const components = [...formComponents, DapUiButton, DapUiBasicForm, DapUiBasicFormItem, DapUiTable, DapUiModal, DapUiBpmnProcessFlow, DapUiAvatar, DapUiPerson, DapUiAvatarCropperModal];
 // 定义 install 方法，接收 Vue 作为参数。如果使用 use 注册插件，则所有的组件都将被注册
 const install = function(Vue) {
   // 判断是否安装
@@ -181,7 +183,9 @@ export default {
   
   DapUiModal,
 
-  DapUiBpmnProcessFlow
+  DapUiBpmnProcessFlow,
+
+  DapUiAvatarCropperModal,
 };
 
 export {

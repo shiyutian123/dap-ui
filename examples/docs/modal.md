@@ -95,7 +95,7 @@ export default {
 | title    |  标题       | String   |        |           | 
 | visible    |  对话框是否可见       | Boolean   |        |           | 
 | modalClass    |  对话框额外的class       | String   |        |           | 
-| size    |  对话框尺寸       | String   |  `large` `medium` `small`      |  medium         | 
+| size    |  对话框尺寸       | String   |  `large` `medium` `small` `other`     |  medium         | 
 | after-close    |  Modal 完全关闭后的回调       | Function   |        |           | 
 | cancel-text    |  取消按钮文字       | String   |        |  取消         | 
 | ok-text    |  确定按钮文字       | String   |        |  确定         | 
@@ -106,6 +106,8 @@ export default {
 | cancel-button-props    |  cancel 按钮 props, 遵循 jsx规范       | 	{props: ButtonProps, on: {}}   |        |           | 
 | destroy-on-close    |  关闭时销毁 Modal 里的子元素       | 	Boolean   |        |  false         | 
 | content-adaption    |  内容高度自适应，此属性将忽略size属性，请谨慎使用       | 	Boolean   |        |  false         | 
+| width | 弹窗宽度，size为other时生效 | Number |       | 520 |        |
+| confirmLoading | 弹窗确定按钮loading | Boolean |       | false |        |
 
 ## Events
 
