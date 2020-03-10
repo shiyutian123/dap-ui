@@ -37,6 +37,7 @@ import DapUiDocument from './components/form/document/dap-ui-document.vue';
 import DapUiCollapseLayout from "./components/form/collapse-layout/dap-ui-collapse-layout.vue";
 import DapUiTabLayout from "./components/form/tab-layout/dap-ui-tab-layout.vue";
 
+import DapUiAssociateForm from './components/form/associate-form/dap-ui-associate-form.vue'
 // 上传图片组件
 import DapUiUploadPicture from "./components/form/upload-picture/dap-ui-upload-picture.vue";
 // 上传附件组件
@@ -105,7 +106,8 @@ const formComponents = [
   DapUiEditor,
   DapUiStaticPicture,
   DapUiPersonSelect,
-  DapUiOrgSelect
+  DapUiOrgSelect,
+  DapUiAssociateForm
 ];
 
 // 所有组件列表
@@ -116,6 +118,7 @@ const install = function(Vue) {
   if ((install).installed) return;
 
   Vue.use(CookiePlugin);
+  debugger
 
   Vue.use(VueLsPlugin);
   

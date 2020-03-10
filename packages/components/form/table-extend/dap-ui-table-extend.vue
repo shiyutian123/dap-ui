@@ -52,7 +52,11 @@
           :colSpan="column.colSpan"
           :multi="column.multi"
           :defaultValue="column.defaultValue"
-          @formEventEmit="formEventEmit($event)"
+          @formEventEmit="formEventEmit($event, {
+            row: row,
+            rowIndex: rowIndex,
+            column: column
+          })"
           @updateTransValue="formValueTransChange(row, column.transDataCode, $event)"
           @change="formValueChange(row, column.dataCode, $event)"></component>
       </template>
@@ -89,9 +93,18 @@
                 :colSpan="column.colSpan"
                 :multi="column.multi"
                 :defaultValue="column.defaultValue"
-                @formEventEmit="formEventEmit($event)"
-                @updateTransValue="formValueTransChange(row, column.transDataCode, $event)"
-                @change="formValueChange(row, column.dataCode, $event)"></component>
+                @formEventEmit="formEventEmit($event, {
+                  row: row,
+                  rowIndex: rowIndex
+                })"
+                @updateTransValue="formValueTransChange(row, column.transDataCode, $event, {
+                  row: row,
+                  rowIndex: rowIndex
+                })"
+                @change="formValueChange(row, column.dataCode, $event, {
+                  row: row,
+                  rowIndex: rowIndex
+                })"></component>
               </div>
             </div>
           </div>
@@ -216,7 +229,7 @@ export default {
         obj[item.field] = undefined;
       });
       this.value.push(obj);
-      this.$emit('update:value', Object.assign([], this.value));
+      // this.$emit('update:value', Object.assign([], this.value));
       this.$emit('change', this.value);
       this.scrollToLastRow();
       this.$formEventEmit('add-record', {
@@ -234,7 +247,7 @@ export default {
         arr.push(obj);
       });
       this.value.push(...arr);
-      this.$emit('update:value', Object.assign([], this.value));
+      // this.$emit('update:value', Object.assign([], this.value));
       this.$emit('change', this.value);
       this.scrollToLastRow();
       this.$formEventEmit('copy-record', {
@@ -246,7 +259,7 @@ export default {
       for (const item of checkedData) {
         this.value.splice(this.value.indexOf(item), 1);
       }
-      this.$emit('update:value', Object.assign([], this.value));
+      // this.$emit('update:value', Object.assign([], this.value));
       this.$emit('change', this.value);
       this.$formEventEmit('delete-record', {
         mouseEvent: e,
@@ -259,7 +272,8 @@ export default {
     /**
      * 表单事件自动触发
      */
-    formEventEmit($event) {
+    formEventEmit($event, tableInfo) {
+      $event.tableInfo = tableInfo
       // 表单事件发送
       // this.$baseFormRegister.excuteAdapterEvent($event.componentName, $event, this.formConfig, this.globalFormInfo, this.formData)
       this.$emit('formEventEmit', $event);

@@ -166,6 +166,23 @@ export default {
                     return result[0];
                 }
                 return result;
+            },
+
+            getCascadeConfigById(id, formConfig) {
+                try {
+                    const resultArray = JSONPath(`$.*.*..[?(@.filterValues === '${id}')]`, formConfig).map(casItem => {
+                        return this.getConfigById(casItem.refId, formConfig);
+                    });
+                    return resultArray;
+                } catch (error) {
+                    console.error(error);
+                }
+            },
+
+            registerBasicFormItem(formItem) {
+                // const formItemName = StringUtil.toCenterLine(formItem.name);
+                // this.currentFormItemName = formItemName;
+                Vue.component(formItem.name, formItem);
             }
         }
     }
