@@ -1,8 +1,8 @@
 <!--
  * @Author: your name
  * @Date: 2020-02-20 10:13:07
- * @LastEditTime: 2020-03-05 18:06:16
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-03-10 20:56:06
+ * @LastEditors: your name
  * @Description: In User Settings Edit
  * @FilePath: /dap-vue-ui/packages/components/form/table-extend/dap-ui-table-extend.vue
  -->
@@ -55,6 +55,11 @@
           @formEventEmit="formEventEmit($event)"
           @updateTransValue="formValueTransChange(row, column.transDataCode, $event)"
           @change="formValueChange(row, column.dataCode, $event)"></component>
+          <a-empty 
+            image=""
+            v-if="!$baseFormRegister.getComponentType(column.componentName) || !$baseFormRegister.hasComponent(column.componentName)">
+            <span slot="description"> `{{column.componentName}}` 组件未注册 </span>
+          </a-empty>
       </template>
     </dap-ui-table>
     <div v-if="displayType === 'vertical'" class="vertical-table">
@@ -92,6 +97,11 @@
                 @formEventEmit="formEventEmit($event)"
                 @updateTransValue="formValueTransChange(row, column.transDataCode, $event)"
                 @change="formValueChange(row, column.dataCode, $event)"></component>
+                <a-empty 
+                  image=""
+                  v-if="!$baseFormRegister.getComponentType(column.componentName) || !$baseFormRegister.hasComponent(column.componentName)">
+                  <span slot="description"> `{{column.componentName}}` 组件未注册 </span>
+                </a-empty>
               </div>
             </div>
           </div>
@@ -261,7 +271,6 @@ export default {
      */
     formEventEmit($event) {
       // 表单事件发送
-      // this.$baseFormRegister.excuteAdapterEvent($event.componentName, $event, this.formConfig, this.globalFormInfo, this.formData)
       this.$emit('formEventEmit', $event);
     },
     formValueTransChange(row, transDataCode, value) {
