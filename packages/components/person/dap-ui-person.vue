@@ -7,7 +7,7 @@
           :avatarSrc="info.icon"
           :canComputedValue="info.name"
         ></dap-ui-avatar>
-        <span class="user-name">{{ info.name }}</span>
+        <span class="user-name" v-if="isShowName">{{ info.name }}</span>
       </div>
       <template slot="title">
         <a-row class="avatar-popover-title">
@@ -46,6 +46,10 @@ export default {
       type: Object,
       required: true,
       default: {}
+    },
+    isShowName: {
+      type: Boolean,
+      default: true
     }
   }
 }
