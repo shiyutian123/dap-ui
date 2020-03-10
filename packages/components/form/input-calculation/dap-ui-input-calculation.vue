@@ -2,7 +2,7 @@
  * @Author: Trevor
  * @Email: wei.tang@definesys.com
  * @Date: 2020-03-10 14:13:17
- * @LastEditTime: 2020-03-10 14:18:20
+ * @LastEditTime: 2020-03-10 22:57:36
  * @LastEditors: your name
  * @Description: file content
  -->
@@ -39,6 +39,10 @@ export default {
   type: 'FORM_INPUT',
   mixins: [InputComponentMixin, BasicComponentMixin],
   props: {
+  },
+  watch: {
+  },
+  methods: {
   }
 }
 </script>

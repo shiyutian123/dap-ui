@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-02-20 10:13:07
- * @LastEditTime: 2020-03-06 17:06:50
+ * @LastEditTime: 2020-03-10 20:56:06
  * @LastEditors: your name
  * @Description: In User Settings Edit
  * @FilePath: /dap-vue-ui/packages/components/form/table-extend/dap-ui-table-extend.vue
@@ -271,7 +271,6 @@ export default {
      */
     formEventEmit($event) {
       // 表单事件发送
-      // this.$baseFormRegister.excuteAdapterEvent($event.componentName, $event, this.formConfig, this.globalFormInfo, this.formData)
       this.$emit('formEventEmit', $event);
     },
     formValueTransChange(row, transDataCode, value) {

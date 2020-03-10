@@ -2,7 +2,7 @@
  * @Author: DevinShi
  * @Date: 2020-02-06 03:27:31
  * @LastEditors: your name
- * @LastEditTime: 2020-03-10 14:15:38
+ * @LastEditTime: 2020-03-10 18:52:47
  * @Description: file content description
  */
 import Vuelidate from 'vuelidate'
@@ -81,6 +81,7 @@ import LoadResourcePlugin from './plugins/load-resource/load-resource.plugin.js'
 
 // 表单组件列表
 const formComponents = [ 
+  DapUiButton,
   DapUiInput, 
   DapUiSelect, 
   DapUiRadio, 
