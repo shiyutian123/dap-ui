@@ -6,20 +6,17 @@
  * @Description: file content description
  -->
 <template>
-  <div class="dap-ui-static-text dap-ui-form-item">
-    <a-tooltip placement="topLeft">
-      <template slot="title">
-        <span>{{label}}</span>
-      </template>
-      <span class="static-text" :style="{color: labelColor}">{{label}}</span>
-    </a-tooltip>
+  <div class="dap-ui-static-split dap-ui-form-item" :style="{color: labelColor}">
+    <div class="design-static-input-container-split-div"></div>
+    <div class="design-static-input-container-split-text">{{label}}</div>
+    <div class="design-static-input-container-split-div"></div>
   </div>
 </template>
 <script>
 import BasicComponentMixin from '../../../mixins/basic-component-mixin.js';
 
 export default {
-  name: "DapUiStaticText",
+  name: "DapUiStaticSplit",
   type: 'FORM_STATIC_RENDER',
   mixins: [BasicComponentMixin],
   props: {

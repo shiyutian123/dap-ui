@@ -44,6 +44,14 @@ import DapUiUploadAttachment from "./components/form/upload-attachment/dap-ui-up
 
 // 静态图片组件
 import DapUiStaticPicture from "./components/form/static-picture/dap-ui-static-picture.vue";
+// 模板文件组件
+import DapUiStaticAttachment from "./components/form/static-attachment/dap-ui-static-attachment.vue";
+// 提示符组件
+import DapUiStaticTips from "./components/form/static-tips/dap-ui-static-tips.vue";
+// 分隔符组件
+import DapUiStaticSplit from "./components/form/static-split/dap-ui-static-split.vue";
+// 占位符组件
+import DapUiStaticPlaceholder from "./components/form/static-placeholder/dap-ui-static-placeholder.vue";
 
 // 网页组件
 import  DapUiWeb  from "./components/form/web/dap-ui-web.vue";
@@ -59,6 +67,8 @@ import DapUiModal from './components/modal/dap-ui-modal.vue';
 import DapUiAvatar from "./components/avatar/dap-ui-avatar.vue";
 // 人员组件
 import DapUiPerson from "./components/person/dap-ui-person.vue";
+// 头像裁剪弹窗
+import DapUiAvatarCropperModal from "./components/avatar-cropper-modal/dap-ui-avatar-cropper-modal.vue";
 
 import DapUiBpmnProcessFlow from './components/bpmn-process-flow/dap-ui-bpmn-process-flow.vue';
 
@@ -84,6 +94,9 @@ const formComponents = [
   DapUiSelect, 
   DapUiRadio, 
   DapUiCheckbox, 
+  DapUiSwitch,
+  DapUiMarking,
+  DapUiEditor,
   DapUiInputNum, 
   DapUiInputTel, 
   DapUiInputTextarea, 
@@ -100,16 +113,17 @@ const formComponents = [
   DapUiUploadAttachment, 
   DapUiInputHyperlink, 
   DapUiWeb, 
-  DapUiSwitch,
-  DapUiMarking,
-  DapUiEditor,
   DapUiStaticPicture,
+  DapUiStaticAttachment,
+  DapUiStaticTips,
+  DapUiStaticPlaceholder,
+  DapUiStaticSplit,
   DapUiPersonSelect,
   DapUiOrgSelect
 ];
 
 // 所有组件列表
-const components = [...formComponents, DapUiButton, DapUiBasicForm, DapUiBasicFormItem, DapUiTable, DapUiModal, DapUiBpmnProcessFlow, DapUiAvatar, DapUiPerson];
+const components = [...formComponents, DapUiButton, DapUiBasicForm, DapUiBasicFormItem, DapUiTable, DapUiModal, DapUiBpmnProcessFlow, DapUiAvatar, DapUiPerson, DapUiAvatarCropperModal];
 // 定义 install 方法，接收 Vue 作为参数。如果使用 use 注册插件，则所有的组件都将被注册
 const install = function(Vue) {
   // 判断是否安装
@@ -169,7 +183,9 @@ export default {
   
   DapUiModal,
 
-  DapUiBpmnProcessFlow
+  DapUiBpmnProcessFlow,
+
+  DapUiAvatarCropperModal,
 };
 
 export {
