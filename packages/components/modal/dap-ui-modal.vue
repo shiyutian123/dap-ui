@@ -21,6 +21,8 @@
       :destroy-on-close="destroyOnClose"
       :ok-button-props="okButtonProps"
       :cancel-button-props="cancelButtonProps"
+      :width="width"
+      :confirmLoading="confirmLoading"
       @ok="handleOk"
       @cancel="handleCancel"
     >
@@ -105,7 +107,15 @@ export default {
       default: function() {
         return false;
       }
-    }
+    },
+    width: {
+      type: Number,
+      default: 520
+    },
+    confirmLoading: {
+      type: Boolean,
+      default: false
+    },
   },
   computed: {
     computClassName: function() {

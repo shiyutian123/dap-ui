@@ -41,7 +41,7 @@
           </template>
           <template v-if="extraProp.selectType === 'mult'">
             <template v-for="org in calcSelectedArray">
-              <a-tag :closable="true" @close="handleClose(org)">{{ org.name }}</a-tag>
+              <a-tag :closable="!disabled" @close="handleClose(org)" :key="org.code">{{ org.name }}</a-tag>
             </template>
             <div class="display-block-more-item" v-if="extraProp.selectedArray.length > multCount">
               <a-tooltip :title="'共选: ' + extraProp.selectedArray.length + '组织'">
@@ -50,7 +50,7 @@
                 </a-button>
               </a-tooltip>
             </div>
-            <div class="display-block-mult-add-item">
+            <div class="display-block-mult-add-item" v-if="!disabled">
               <a-button shape="circle" @click="handleOpenModal">
                 <a-icon type="plus"></a-icon>
               </a-button>
@@ -80,7 +80,7 @@
             </div>
           </template>
           <template v-for="option in extraProp.options">
-            <a-select-option :value="option.code" :key="option.key">{{ option.name }}</a-select-option>
+            <a-select-option :value="option.code" :key="option.code">{{ option.name }}</a-select-option>
           </template>
         </a-select>
       </template>
@@ -153,7 +153,6 @@ export default {
   methods: {
     onDropdownVisibleChange(visible) {
       if (visible) {
-        debugger
         this.$formEventEmit("query-options")
       }
     },
@@ -176,7 +175,7 @@ export default {
       }
     },
     handleClick() {
-      if (this.extraProp.selectType === "single" && this.extraProp.mode === "modal") {
+      if (this.extraProp.selectType === "single" && this.extraProp.mode === "modal" && !disabled) {
         this.$emit("open-modal")
       }
     },

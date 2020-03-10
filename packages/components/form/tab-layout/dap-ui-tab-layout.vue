@@ -1,8 +1,8 @@
 <!--
  * @Author: DevinShi
  * @Date: 2020-02-06 10:37:47
- * @LastEditors: DevinShi
- * @LastEditTime: 2020-02-17 08:47:32
+ * @LastEditors: your name
+ * @LastEditTime: 2020-03-10 21:15:41
  * @Description: file content description
  -->
 <template>
@@ -12,7 +12,7 @@
             <template v-slot:tab>
                 <span :style="{color: childLayout.labelColor}">{{childLayout.label}}</span>
             </template>
-            <dap-ui-basic-form :ref="'validateForm'" v-model="formData" :formConfig="childLayout.children"></dap-ui-basic-form>
+            <dap-ui-basic-form :ref="'validateForm'" v-model="formData" :formConfig="childLayout.children" @formEventEmit="formEvent"></dap-ui-basic-form>
         </a-tab-pane>
     </a-tabs>
   </div>
@@ -84,6 +84,9 @@ export default {
         if (this.activeKey.indexOf(index + '') === -1) {
           this.activeKey = push(index + '');
         }
+      },
+      formEvent(e) {
+        this.$emit('formEventEmit', e);
       }
     }
 }

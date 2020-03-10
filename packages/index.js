@@ -1,8 +1,8 @@
 /*
  * @Author: DevinShi
  * @Date: 2020-02-06 03:27:31
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-03-01 17:57:53
+ * @LastEditors: your name
+ * @LastEditTime: 2020-03-10 18:52:47
  * @Description: file content description
  */
 import Vuelidate from 'vuelidate'
@@ -16,6 +16,7 @@ import DapUiInputMoney from "./components/form/input-money/dap-ui-input-money";
 import DapUiInputDate from "./components/form/input-date/dap-ui-input-date";
 import DapUiInputEmail from "./components/form/input-email/dap-ui-input-email";
 import DapUiInputHyperlink from "./components/form/input-hyperlink/dap-ui-input-hyperlink";
+import DapUiInputCalcution from "./components/form/input-calculation/dap-ui-input-calculation";
 
 import DapUiSelect from "./components/form/select/dap-ui-select.vue";
 import DapUiRadio from "./components/form/radio/dap-ui-radio.vue";
@@ -45,6 +46,14 @@ import DapUiUploadAttachment from "./components/form/upload-attachment/dap-ui-up
 
 // 静态图片组件
 import DapUiStaticPicture from "./components/form/static-picture/dap-ui-static-picture.vue";
+// 模板文件组件
+import DapUiStaticAttachment from "./components/form/static-attachment/dap-ui-static-attachment.vue";
+// 提示符组件
+import DapUiStaticTips from "./components/form/static-tips/dap-ui-static-tips.vue";
+// 分隔符组件
+import DapUiStaticSplit from "./components/form/static-split/dap-ui-static-split.vue";
+// 占位符组件
+import DapUiStaticPlaceholder from "./components/form/static-placeholder/dap-ui-static-placeholder.vue";
 
 // 网页组件
 import  DapUiWeb  from "./components/form/web/dap-ui-web.vue";
@@ -60,6 +69,8 @@ import DapUiModal from './components/modal/dap-ui-modal.vue';
 import DapUiAvatar from "./components/avatar/dap-ui-avatar.vue";
 // 人员组件
 import DapUiPerson from "./components/person/dap-ui-person.vue";
+// 头像裁剪弹窗
+import DapUiAvatarCropperModal from "./components/avatar-cropper-modal/dap-ui-avatar-cropper-modal.vue";
 
 import DapUiBpmnProcessFlow from './components/bpmn-process-flow/dap-ui-bpmn-process-flow.vue';
 
@@ -81,10 +92,14 @@ import LoadResourcePlugin from './plugins/load-resource/load-resource.plugin.js'
 
 // 表单组件列表
 const formComponents = [ 
+  DapUiButton,
   DapUiInput, 
   DapUiSelect, 
   DapUiRadio, 
   DapUiCheckbox, 
+  DapUiSwitch,
+  DapUiMarking,
+  DapUiEditor,
   DapUiInputNum, 
   DapUiInputTel, 
   DapUiInputTextarea, 
@@ -100,18 +115,20 @@ const formComponents = [
   DapUiUploadPicture,
   DapUiUploadAttachment, 
   DapUiInputHyperlink, 
+  DapUiInputCalcution,
   DapUiWeb, 
-  DapUiSwitch,
-  DapUiMarking,
-  DapUiEditor,
   DapUiStaticPicture,
+  DapUiStaticAttachment,
+  DapUiStaticTips,
+  DapUiStaticPlaceholder,
+  DapUiStaticSplit,
   DapUiPersonSelect,
   DapUiOrgSelect,
   DapUiAssociateForm
 ];
 
 // 所有组件列表
-const components = [...formComponents, DapUiButton, DapUiBasicForm, DapUiBasicFormItem, DapUiTable, DapUiModal, DapUiBpmnProcessFlow, DapUiAvatar, DapUiPerson];
+const components = [...formComponents, DapUiButton, DapUiBasicForm, DapUiBasicFormItem, DapUiTable, DapUiModal, DapUiBpmnProcessFlow, DapUiAvatar, DapUiPerson, DapUiAvatarCropperModal];
 // 定义 install 方法，接收 Vue 作为参数。如果使用 use 注册插件，则所有的组件都将被注册
 const install = function(Vue) {
   // 判断是否安装
@@ -172,7 +189,9 @@ export default {
   
   DapUiModal,
 
-  DapUiBpmnProcessFlow
+  DapUiBpmnProcessFlow,
+
+  DapUiAvatarCropperModal,
 };
 
 export {

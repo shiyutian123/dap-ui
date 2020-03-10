@@ -263,7 +263,10 @@ export default {
       }
     },
     globalFormInfo: {
-
+      type: Object,
+      default() {
+        return {}
+      }
     },
     validate: {
       type: Object,

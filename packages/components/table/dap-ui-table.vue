@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-02-11 14:36:56
- * @LastEditTime: 2020-03-05 15:24:06
+ * @LastEditTime: 2020-03-06 11:17:58
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /lerna-dap/packages/dap-vue-ui/packages/components/table/dap-ui-table.vue
@@ -296,7 +296,13 @@ export default {
         column: e.column,
         columnIndex: e.columnIndex
       };
-      this.$emit("cell-click", data);
+      if (this.tableBaseConfig.selectMode === 'multipart' || this.tableBaseConfig.selectMode === 'single') {
+        if (data.columnIndex !== 0) {
+          this.$emit("cell-click", data);
+        }
+      } else {
+        this.$emit("cell-click", data);
+      }
     },
     /**
      * @description: 选中行事件
