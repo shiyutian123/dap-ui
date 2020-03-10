@@ -78,8 +78,7 @@ export default {
         documentId: {}
     },
     created() {
-        debugger
-        if (this.defaultValue && this.defaultValue.length > 0) {
+        if (this.defaultValue !== undefined && this.defaultValue !== "") {
           this.$formEventEmit('change', this.defaultValue);
         }
     },
