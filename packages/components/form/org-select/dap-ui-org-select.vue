@@ -153,7 +153,6 @@ export default {
   methods: {
     onDropdownVisibleChange(visible) {
       if (visible) {
-        debugger
         this.$formEventEmit("query-options")
       }
     },

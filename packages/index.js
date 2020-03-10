@@ -1,8 +1,8 @@
 /*
  * @Author: DevinShi
  * @Date: 2020-02-06 03:27:31
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-03-01 17:57:53
+ * @LastEditors: your name
+ * @LastEditTime: 2020-03-10 14:15:38
  * @Description: file content description
  */
 import Vuelidate from 'vuelidate'
@@ -16,6 +16,7 @@ import DapUiInputMoney from "./components/form/input-money/dap-ui-input-money";
 import DapUiInputDate from "./components/form/input-date/dap-ui-input-date";
 import DapUiInputEmail from "./components/form/input-email/dap-ui-input-email";
 import DapUiInputHyperlink from "./components/form/input-hyperlink/dap-ui-input-hyperlink";
+import DapUiInputCalcution from "./components/form/input-calculation/dap-ui-input-calculation";
 
 import DapUiSelect from "./components/form/select/dap-ui-select.vue";
 import DapUiRadio from "./components/form/radio/dap-ui-radio.vue";
@@ -99,6 +100,7 @@ const formComponents = [
   DapUiUploadPicture,
   DapUiUploadAttachment, 
   DapUiInputHyperlink, 
+  DapUiInputCalcution,
   DapUiWeb, 
   DapUiSwitch,
   DapUiMarking,
