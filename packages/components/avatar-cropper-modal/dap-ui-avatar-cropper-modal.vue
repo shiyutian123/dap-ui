@@ -1,30 +1,35 @@
 <template>
   <div class="avatar-cropper-modal">
     <input type="file" :id="cropperId" accept="image/png, image/jpeg, image/jpg" @change="select($event)" 
-    style="display: none;position: absolute; clip: rect(0px, 0px, 0px, 0px); cursor: pointer;">
+      style="display: none;position: absolute; clip: rect(0px, 0px, 0px, 0px); cursor: pointer;">
     <dap-ui-modal v-bind="modalConfig" @ok="handleOk" @cancel="handleCancel">
       <div class="tailoring-content-two">
         <div class="container tailoring-box-parcel">
-            <img :ref="srcId" src="" style="width: 100%;height: auto" accept=".jpg, .jpeg, .png">
+          <img
+            :ref="srcId" 
+            src="" 
+            style="width: 100%;height: auto" 
+            accept=".jpg, .jpeg, .png"
+          >
         </div>
         <div class="preview-box-parcel" v-if="showPreviewImg">
-            <p>图片预览：</p>
-            <div>
-              <div class="square previewImg"></div>
-              <div class="circular previewImg"></div>
-            </div>
+          <p>图片预览：</p>
+          <div>
+            <div class="square previewImg"></div>
+            <div class="circular previewImg"></div>
+          </div>
         </div>
       </div>
     </dap-ui-modal>
   </div>
 </template>
 
-<script >
+<script>
 
 var Cropper;
 
 export default {
-  name: 'DapUiAvatarCropperModal',
+  name: "DapUiAvatarCropperModal",
   props: {
     // input file id 与label的for相同
     cropperId: {
@@ -51,7 +56,7 @@ export default {
     imgSize: {
       type: Number,
       default: 2
-    },
+    }
   },
   data() {
     return {
@@ -62,25 +67,25 @@ export default {
         modalClass: "dap-ui-avatar-cropper-modal",
         okText: "确定裁剪",
         width: 850,
-        confirmLoading: false,
+        confirmLoading: false
       }, // 弹窗组件配置
       srcId: new Date().getTime(), // img标签的id，用于获取dom节点
       fr: {}, // input file 的FileReader实例
       file: {}, // input file 的FileReader实例 的file
       image: {}, // img标签的dom
       cropper: {}, // cropper实例
-      inputFile: {}, // input file 的dom
-    }
+      inputFile: {} // input file 的dom
+    };
   },
   watch: {
     showPreviewImg: {
-      handler: function(newVal,oldVal) {
+      handler: function(newVal, oldVal) {
         if (newVal) {
           this.modalConfig.width = 850;
         } else {
           this.modalConfig.width = 570;
         }
-      }, 
+      },
       immediate: true
     }
   },
@@ -99,15 +104,18 @@ export default {
       if (this.checkImgFormat(this.file)) {
         if (this.checkImgSize(this.file)) {
           this.fr.readAsDataURL(this.file);
-          this.fr.onload = () => {   
-            this.loadResources({domain: this.baseDomain, callback: () => {
-              this.modalConfig.visible = true;
-              const _window = window;
-              Cropper = _window.Cropper;
-              setTimeout(()=> {
-                this.iniCropper();
-              }, 10);
-            }});
+          this.fr.onload = () => {
+            this.loadResources({
+              domain: this.baseDomain, 
+              callback: () => {
+                this.modalConfig.visible = true;
+                const _window = window;
+                Cropper = _window.Cropper;
+                setTimeout(()=> {
+                  this.iniCropper();
+                }, 10);
+              }
+            });
           };
         }
       }
@@ -119,27 +127,25 @@ export default {
      */
     iniCropper() {
       this.image = this.$refs[this.srcId];
-      this.image.setAttribute('src', this.fr.result);
+      this.image.setAttribute("src", this.fr.result);
       if (this.isCropperFree) {
         this.cropper = new Cropper(this.image, {
-          preview: '.previewImg', // 预览视图
+          preview: ".previewImg", // 预览视图
           cropBoxMovable: true, // 允许拖动裁剪框
-          dragMode: 'crop', // 可以拖动图片
+          dragMode: "crop", // 可以拖动图片
           cropBoxResizable: true, // 是否通过拖动来调整剪裁框的大小
           viewMode: 1,
-          crop(event) {
-          },
+          crop(event) {},
         });
       } else {
-        this.cropper = new Cropper( this.image, {
+        this.cropper = new Cropper(this.image, {
           aspectRatio: this.cropperWidth / this.cropperHeight,
-          preview: '.previewImg', // 预览视图
+          preview: ".previewImg", // 预览视图
           cropBoxMovable: false, // 不允许拖动裁剪框
-          dragMode: 'move', // 可以拖动图片
+          dragMode: "move", // 可以拖动图片
           cropBoxResizable: false,
           viewMode: 1,
-          crop(event) {
-          },
+          crop(event) {},
         });
       }
     },
@@ -170,8 +176,8 @@ export default {
      */
     handleCancel() {
       this.modalConfig.visible = false;
-      this.inputFile.value = ''; // 将input file标签设为空 防止不触发input的change方法
-      this.image['setAttribute']('src', ''); // // 将img标签设为空 防止下次裁剪img会刷新
+      this.inputFile.value = ""; // 将input file标签设为空 防止不触发input的change方法
+      this.image["setAttribute"]("", ""); // // 将img标签设为空 防止下次裁剪img会刷新
       this.cropper.destroy();
     },
     /**
@@ -183,7 +189,7 @@ export default {
       // this.modalConfig.visible = false;
       const filePath = this.file.name;
       const fileEnd = filePath.substring(filePath.indexOf("."));
-      const dataURL = this.image.cropper['getCroppedCanvas']('', { width: 100, height: 100 });
+      const dataURL = this.image.cropper["getCroppedCanvas"]("", { width: 100, height: 100 });
       const avatarSrc = dataURL.toDataURL();
       const file = this.dataURLtoBlob(avatarSrc);
       const event = {
@@ -191,7 +197,7 @@ export default {
         file: file
       };
       this.$emit("cropperOk", event);
-    }, 
+    },
     /**
      * @author lizhihang
      * @date 2020-3-9
@@ -200,7 +206,7 @@ export default {
     setOkBtnLoading() {
       this.modalConfig.confirmLoading = true;
     },
-    
+
     /**
      * @author lizhihang
      * @date 2020-3-9
@@ -222,8 +228,8 @@ export default {
         fileSize = file.size;
         const size = fileSize / 1024;
         if (size > fileMaxSize) {
-          this.$notification.error({message: '错误', description: '图片大于' + this.imgSize + 'M'});
-          this.inputFile.value = ''; // 将input file标签设为空 防止不触发input的change方法
+          this.$notification.error({message: "错误", description: "图片大于" + this.imgSize + "M"});
+          this.inputFile.value = ""; // 将input file标签设为空 防止不触发input的change方法
           return false;
         } else {
           return true;
@@ -246,13 +252,16 @@ export default {
         const fileEnd = filePath.substring(filePath.lastIndexOf("."));
         for (var i = 0; i < fileTypes.length; i++) {
           if (fileTypes[i] === fileEnd) {
-              isNext = true;
-              break;
+            isNext = true;
+            break;
           }
         }
         if (!isNext) {
-          this.$notification.error({message: '错误', description: '请正确选择图片格式(jpg、png、jpeg)'});
-          this.inputFile.value = ''; // 将input file标签设为空 防止不触发input的change方法
+          this.$notification.error({
+            message: "错误", 
+            description: "请正确选择图片格式(jpg、png、jpeg)"
+          });
+          this.inputFile.value = ""; // 将input file标签设为空 防止不触发input的change方法
           return false;
         } else {
           return true;
@@ -268,7 +277,7 @@ export default {
      * @param dataurl 地址
      */
     dataURLtoBlob(dataurl) {
-      const arr = dataurl.split(',');
+      const arr = dataurl.split(",");
       const mime = arr[0].match(/:(.*?);/)[1];
       const bstr = atob(arr[1]);
       var n = bstr.length;
@@ -282,7 +291,7 @@ export default {
   mounted() {
     this.inputFile = document.getElementById(this.cropperId);
   }
-}
+};
 </script>
 
 <style scoped lang="less" src="./index.less"></style>
