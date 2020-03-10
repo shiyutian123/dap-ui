@@ -22,9 +22,9 @@
       <a-radio-group 
         :disabled="disabled"
         :defaultValue="defaultValue"
-        @change="$formEventEmit('change', $event.target.value)"
+        @change="change"
         :value="value">
-        <a-radio v-for="option in options" :value="option.value" :key="option.value">{{option.label}}</a-radio>
+        <a-radio v-for="option in options" :value="option.label" :key="option.value">{{option.label}}</a-radio>
       </a-radio-group>
     </a-form-item>
   </div>
@@ -50,6 +50,20 @@ export default {
       immediate: true,
     }
   },
+  methods: {
+    change($event) {
+      const data = $event.target.value;
+      const selectOptions = [];
+      this.options.forEach(option => {
+        if (option.label === data) {
+          selectOptions.push(option)
+          return true;
+        }
+      })
+      this.$formEventEmit('change', data);
+      this.$formEventEmit('updateTransValue', selectOptions);
+    }
+  }
 }
 </script>
 
