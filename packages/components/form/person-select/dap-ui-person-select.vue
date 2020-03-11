@@ -24,12 +24,12 @@
         class="display-block" 
         :class="{'display-block-error': validateStatus === 'error'}" 
         tabindex = "0" 
-        @click.self="handleClick"
+        @click="handleClick"
       >
         <template v-for="user in calcSelectedArray">
           <dap-ui-person :info="user" :key="user.empId">
             <template slot="popover-content">
-              <div class="person-popover-content">
+              <div class="person-popover-content" v-if="!disabled">
                 <span class="remove-item" @click="removeUser(user)">移除人员</span>
               </div>
             </template>
@@ -54,7 +54,7 @@
                 </a-button>
               </a-tooltip>
             </div>
-            <div class="display-block-mult-add-item">
+            <div class="display-block-mult-add-item" v-if="!disabled">
               <a-button shape="circle">
                 <a-icon type="plus"></a-icon>
               </a-button>
@@ -117,9 +117,11 @@ export default {
       handler(newVal, oldVal) {
         if (newVal && this.extraProp.selectedArray.length === 0) {
           this.$formEventEmit("query-user-info", this.value);
+        } else if (!newVal) {
+          this.extraProp.selectedArray = []
         }
       },
-      // immediate: true
+      immediate: true
     },
     "extraProp.selectedArray": {
       handler(newVal, oldVal) {
@@ -152,7 +154,7 @@ export default {
       }
     },
     handleClick() {
-      if (this.extraProp.selectType === "single") {
+      if (this.extraProp.selectType === "single" && !this.isShowPopover) {
         this.isShowPopover = true;
         this.onVisibleChange(true);
       }

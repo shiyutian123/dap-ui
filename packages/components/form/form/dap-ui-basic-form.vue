@@ -8,12 +8,21 @@
 <template>
   <!-- 表单渲染，支持JSON Schema格式的渲染方式 -->
   <div class="dap-ui-basic-form dap-ui-form">
-      <dap-ui-basic-form-item
+      <component
+        :is="formItemName"
         :rowSpan="itemConfig.rowSpan"
         :colSpan="itemConfig.colSpan"
         :uuid="itemConfig.uuid"
         v-for="itemConfig of visiableFormConfig"
+        :itemConfig="itemConfig"
+        :globalFormInfo="globalFormInfo"
         :key="itemConfig.uuid">
+      <!-- <dap-ui-basic-form-item
+        :rowSpan="itemConfig.rowSpan"
+        :colSpan="itemConfig.colSpan"
+        :uuid="itemConfig.uuid"
+        v-for="itemConfig of visiableFormConfig"
+        :key="itemConfig.uuid"> -->
           <component
             v-if="itemConfig.visiable && $baseFormRegister.getComponentType(itemConfig.componentName) === 'FORM_INPUT'"
             :defaultValue="itemConfig.defaultValue"
@@ -87,7 +96,7 @@
                 v-if="!$baseFormRegister.getComponentType(itemConfig.componentName) || !$baseFormRegister.hasComponent(itemConfig.componentName)">
                 <span slot="description"> `{{itemConfig.componentName}}` 组件未注册 </span>
             </a-empty>
-      </dap-ui-basic-form-item>
+      </component>
   </div>
 </template>
 
@@ -243,17 +252,28 @@ export default {
   props: {
     formData: {
       type: Object,
-      default: {}
+      default: function() {
+        return {};
+      }
     },
     formConfig: {
       type: Array,
-      default: []
+      default: function() {
+        return [];
+      }
     },
     globalFormInfo: {
-
+      type: Object,
+      default() {
+        return {}
+      }
     },
     validate: {
       type: Object,
+    },
+    formItemName: {
+      type: String,
+      default: 'dap-ui-basic-form-item'
     }
   },
   created() {

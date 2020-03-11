@@ -1,8 +1,8 @@
 /*
  * @Author: DevinShi
  * @Date: 2020-02-06 03:27:31
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-03-01 17:57:53
+ * @LastEditors: your name
+ * @LastEditTime: 2020-03-10 18:52:47
  * @Description: file content description
  */
 import Vuelidate from 'vuelidate'
@@ -16,6 +16,7 @@ import DapUiInputMoney from "./components/form/input-money/dap-ui-input-money";
 import DapUiInputDate from "./components/form/input-date/dap-ui-input-date";
 import DapUiInputEmail from "./components/form/input-email/dap-ui-input-email";
 import DapUiInputHyperlink from "./components/form/input-hyperlink/dap-ui-input-hyperlink";
+import DapUiInputCalcution from "./components/form/input-calculation/dap-ui-input-calculation";
 
 import DapUiSelect from "./components/form/select/dap-ui-select.vue";
 import DapUiRadio from "./components/form/radio/dap-ui-radio.vue";
@@ -37,6 +38,7 @@ import DapUiDocument from './components/form/document/dap-ui-document.vue';
 import DapUiCollapseLayout from "./components/form/collapse-layout/dap-ui-collapse-layout.vue";
 import DapUiTabLayout from "./components/form/tab-layout/dap-ui-tab-layout.vue";
 
+import DapUiAssociateForm from './components/form/associate-form/dap-ui-associate-form.vue'
 // 上传图片组件
 import DapUiUploadPicture from "./components/form/upload-picture/dap-ui-upload-picture.vue";
 // 上传附件组件
@@ -90,6 +92,7 @@ import LoadResourcePlugin from './plugins/load-resource/load-resource.plugin.js'
 
 // 表单组件列表
 const formComponents = [ 
+  DapUiButton,
   DapUiInput, 
   DapUiSelect, 
   DapUiRadio, 
@@ -112,6 +115,7 @@ const formComponents = [
   DapUiUploadPicture,
   DapUiUploadAttachment, 
   DapUiInputHyperlink, 
+  DapUiInputCalcution,
   DapUiWeb, 
   DapUiStaticPicture,
   DapUiStaticAttachment,
@@ -119,7 +123,8 @@ const formComponents = [
   DapUiStaticPlaceholder,
   DapUiStaticSplit,
   DapUiPersonSelect,
-  DapUiOrgSelect
+  DapUiOrgSelect,
+  DapUiAssociateForm
 ];
 
 // 所有组件列表
@@ -130,6 +135,7 @@ const install = function(Vue) {
   if ((install).installed) return;
 
   Vue.use(CookiePlugin);
+  debugger
 
   Vue.use(VueLsPlugin);
   

@@ -1,8 +1,8 @@
 <!--
  * @Author: your name
  * @Date: 2020-02-20 10:13:07
- * @LastEditTime: 2020-03-05 18:06:16
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-03-10 20:56:06
+ * @LastEditors: your name
  * @Description: In User Settings Edit
  * @FilePath: /dap-vue-ui/packages/components/form/table-extend/dap-ui-table-extend.vue
  -->
@@ -52,9 +52,18 @@
           :colSpan="column.colSpan"
           :multi="column.multi"
           :defaultValue="column.defaultValue"
-          @formEventEmit="formEventEmit($event)"
+          @formEventEmit="formEventEmit($event, {
+            row: row,
+            rowIndex: rowIndex,
+            column: column
+          })"
           @updateTransValue="formValueTransChange(row, column.transDataCode, $event)"
           @change="formValueChange(row, column.dataCode, $event)"></component>
+          <a-empty 
+            image=""
+            v-if="!$baseFormRegister.getComponentType(column.componentName) || !$baseFormRegister.hasComponent(column.componentName)">
+            <span slot="description"> `{{column.componentName}}` 组件未注册 </span>
+          </a-empty>
       </template>
     </dap-ui-table>
     <div v-if="displayType === 'vertical'" class="vertical-table">
@@ -89,9 +98,23 @@
                 :colSpan="column.colSpan"
                 :multi="column.multi"
                 :defaultValue="column.defaultValue"
-                @formEventEmit="formEventEmit($event)"
-                @updateTransValue="formValueTransChange(row, column.transDataCode, $event)"
-                @change="formValueChange(row, column.dataCode, $event)"></component>
+                @formEventEmit="formEventEmit($event, {
+                  row: row,
+                  rowIndex: rowIndex
+                })"
+                @updateTransValue="formValueTransChange(row, column.transDataCode, $event, {
+                  row: row,
+                  rowIndex: rowIndex
+                })"
+                @change="formValueChange(row, column.dataCode, $event, {
+                  row: row,
+                  rowIndex: rowIndex
+                })"></component>
+                <a-empty 
+                  image=""
+                  v-if="!$baseFormRegister.getComponentType(column.componentName) || !$baseFormRegister.hasComponent(column.componentName)">
+                  <span slot="description"> `{{column.componentName}}` 组件未注册 </span>
+                </a-empty>
               </div>
             </div>
           </div>
@@ -216,7 +239,7 @@ export default {
         obj[item.field] = undefined;
       });
       this.value.push(obj);
-      this.$emit('update:value', Object.assign([], this.value));
+      // this.$emit('update:value', Object.assign([], this.value));
       this.$emit('change', this.value);
       this.scrollToLastRow();
       this.$formEventEmit('add-record', {
@@ -234,7 +257,7 @@ export default {
         arr.push(obj);
       });
       this.value.push(...arr);
-      this.$emit('update:value', Object.assign([], this.value));
+      // this.$emit('update:value', Object.assign([], this.value));
       this.$emit('change', this.value);
       this.scrollToLastRow();
       this.$formEventEmit('copy-record', {
@@ -246,7 +269,7 @@ export default {
       for (const item of checkedData) {
         this.value.splice(this.value.indexOf(item), 1);
       }
-      this.$emit('update:value', Object.assign([], this.value));
+      // this.$emit('update:value', Object.assign([], this.value));
       this.$emit('change', this.value);
       this.$formEventEmit('delete-record', {
         mouseEvent: e,
@@ -259,9 +282,9 @@ export default {
     /**
      * 表单事件自动触发
      */
-    formEventEmit($event) {
+    formEventEmit($event, tableInfo) {
+      $event.tableInfo = tableInfo
       // 表单事件发送
-      // this.$baseFormRegister.excuteAdapterEvent($event.componentName, $event, this.formConfig, this.globalFormInfo, this.formData)
       this.$emit('formEventEmit', $event);
     },
     formValueTransChange(row, transDataCode, value) {

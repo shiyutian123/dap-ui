@@ -1,8 +1,8 @@
 /*
  * @Author: DevinShi
  * @Date: 2020-02-16 02:27:11
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-03-05 14:42:04
+ * @LastEditors: your name
+ * @LastEditTime: 2020-03-10 14:54:25
  * @Description: file content description
  */
 import StringUtil from '../../utils/string.util';
@@ -136,6 +136,10 @@ export default {
                     throw new COMP_ADAPTER_REGISTER_ERROR.COMP_ACTION_UUID_EXIST_ERROR
                 }
             },
+            getConfigsByCompName(compName, formConfig) {
+                const resultArray = JSONPath(`$..[?(@.componentName === '${compName}')]`, formConfig);
+                return resultArray;
+            },
             setConfigByUuid(uuid, formConfig, key, value) {
                 const itemConfig = this.getConfigByUuid(uuid, formConfig);
                 if (itemConfig) {
@@ -166,6 +170,23 @@ export default {
                     return result[0];
                 }
                 return result;
+            },
+
+            getCascadeConfigById(id, formConfig) {
+                try {
+                    const resultArray = JSONPath(`$.*.*..[?(@.filterValues === '${id}')]`, formConfig).map(casItem => {
+                        return this.getConfigById(casItem.refId, formConfig);
+                    });
+                    return resultArray;
+                } catch (error) {
+                    console.error(error);
+                }
+            },
+
+            registerBasicFormItem(formItem) {
+                // const formItemName = StringUtil.toCenterLine(formItem.name);
+                // this.currentFormItemName = formItemName;
+                Vue.component(formItem.name, formItem);
             }
         }
     }

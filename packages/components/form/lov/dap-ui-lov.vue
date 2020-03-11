@@ -1,8 +1,8 @@
 <!--
  * @Author: your name
  * @Date: 2020-02-21 16:38:40
- * @LastEditTime: 2020-02-27 18:29:28
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-03-10 21:39:34
+ * @LastEditors: your name
  * @Description: In User Settings Edit
  * @FilePath: /dap-vue-ui/packages/components/form/lov/dap-ui-lov.vue
  -->
@@ -118,6 +118,7 @@ export default {
     handleCancel(e) {
       this.resetTablePage();
       this.modalConfig.visible = false;
+      this.$formEventEmit('lov-cancel', data)
     },
     resetTablePage() {
       this.lovTableBaseConfig.tablePage.currentPage = 1;
@@ -146,6 +147,11 @@ export default {
     }
   },
   watch: {
+    value: {
+      handler(newVal, oldVal) {
+        this.$formEventEmit('change', newVal);
+      }
+    },
     'extraProp.totalResult': {
       handler(newVal, oldVal) {
         if (typeof newVal !== 'undefined') {
