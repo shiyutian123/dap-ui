@@ -12,7 +12,12 @@
             <template v-slot:tab>
                 <span :style="{color: childLayout.labelColor}">{{childLayout.label}}</span>
             </template>
-            <dap-ui-basic-form :ref="'validateForm'" v-model="formData" :formConfig="childLayout.children" @formEventEmit="formEvent"></dap-ui-basic-form>
+            <dap-ui-basic-form 
+              :ref="'validateForm'" 
+              v-model="formData" 
+              :isInLayout="true"
+              :formConfig="childLayout.children" 
+              @formEventEmit="formEvent"></dap-ui-basic-form>
         </a-tab-pane>
     </a-tabs>
   </div>

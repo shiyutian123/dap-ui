@@ -24,8 +24,7 @@
       :width="width"
       :confirmLoading="confirmLoading"
       @ok="handleOk"
-      @cancel="handleCancel"
-    >
+      @cancel="handleCancel">
       <slot></slot>
     </a-modal>
   </div>
