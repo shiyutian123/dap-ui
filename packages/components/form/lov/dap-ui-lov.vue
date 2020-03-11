@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-02-21 16:38:40
- * @LastEditTime: 2020-03-11 17:33:06
+ * @LastEditTime: 2020-03-11 17:54:56
  * @LastEditors: your name
  * @Description: In User Settings Edit
  * @FilePath: /dap-vue-ui/packages/components/form/lov/dap-ui-lov.vue
@@ -23,26 +23,30 @@
       <div
       v-if="extraProp.selectMode !== 'multipart'"
       @click="onClickLovInput">
-        <a-input
-        class="lov-input"
-        :readonly="true"
-        :value="value"
-        :placeholder="placeholder"
-        :defaultValue="defaultValue"
-        :allowClear="allowClear"
-        >
-          <a-icon slot="addonAfter" type="search" />
-        </a-input>
+        <a-tooltip :title="computTooltip">
+          <a-input
+          class="lov-input"
+          :readonly="true"
+          :value="value"
+          :placeholder="placeholder"
+          :defaultValue="defaultValue"
+          :allowClear="allowClear"
+          >
+            <a-icon slot="addonAfter" type="search" />
+          </a-input>
+      </a-tooltip>
       </div>
       <div v-if="extraProp.selectMode === 'multipart'">
         <span class="lov-input ant-input-group-wrapper">
           <span class="ant-input-wrapper ant-input-group">
-            <div class="ant-input lov-input" style="border-radius: 4px; display: flex; position: absolute;">
-              <div class="tags">
-                <a-tag v-for="(item, index) in value" :closable="!disabled" :key="index" @close="handlerCloseTag(item, index)">{{ item }}</a-tag>
-              </div>
+            <a-tooltip :title="computTooltip">
+              <div class="ant-input lov-input" style="border-radius: 4px; display: flex; position: absolute;">
+                <div class="tags">
+                  <a-tag v-for="(item, index) in value" :closable="!disabled" :key="index" @close="handlerCloseTag(item, index)">{{ item }}</a-tag>
+                </div>
               <a-button v-if="!disabled" style="min-width: 24px; min-height: 24px;" shape="circle" size="small" icon="plus" @click="onClickLovInput"></a-button>
             </div>
+            </a-tooltip>
           </span>
         </span>
       </div>
@@ -77,6 +81,15 @@ export default {
   type: 'FORM_INPUT',
   mixins: [InputComponentMixin, BasicComponentMixin],
   props: {
+  },
+  computed: {
+    computTooltip: function () {
+      if (Array.isArray(this.value)) {
+        return this.value.join(',');
+      } else {
+        return this.value;
+      }
+    }
   },
   data() {
     return {
