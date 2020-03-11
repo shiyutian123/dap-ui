@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-02-21 16:38:40
- * @LastEditTime: 2020-03-10 21:39:34
+ * @LastEditTime: 2020-03-11 17:33:06
  * @LastEditors: your name
  * @Description: In User Settings Edit
  * @FilePath: /dap-vue-ui/packages/components/form/lov/dap-ui-lov.vue
@@ -21,6 +21,7 @@
         <span :style="{color: labelColor}">{{label}}</span>
       </template>
       <div
+      v-if="extraProp.selectMode !== 'multipart'"
       @click="onClickLovInput">
         <a-input
         class="lov-input"
@@ -32,6 +33,18 @@
         >
           <a-icon slot="addonAfter" type="search" />
         </a-input>
+      </div>
+      <div v-if="extraProp.selectMode === 'multipart'">
+        <span class="lov-input ant-input-group-wrapper">
+          <span class="ant-input-wrapper ant-input-group">
+            <div class="ant-input lov-input" style="border-radius: 4px; display: flex; position: absolute;">
+              <div class="tags">
+                <a-tag v-for="(item, index) in value" :closable="!disabled" :key="index" @close="handlerCloseTag(item, index)">{{ item }}</a-tag>
+              </div>
+              <a-button v-if="!disabled" style="min-width: 24px; min-height: 24px;" shape="circle" size="small" icon="plus" @click="onClickLovInput"></a-button>
+            </div>
+          </span>
+        </span>
       </div>
     </a-form-item>
     <dap-ui-modal
@@ -118,7 +131,7 @@ export default {
     handleCancel(e) {
       this.resetTablePage();
       this.modalConfig.visible = false;
-      this.$formEventEmit('lov-cancel', data)
+      this.$formEventEmit('lov-cancel', e)
     },
     resetTablePage() {
       this.lovTableBaseConfig.tablePage.currentPage = 1;
@@ -144,6 +157,9 @@ export default {
         pageSize: this.lovTableBaseConfig.tablePage.pageSize,
         searchStr: this.searchStr
       });
+    },
+    handlerCloseTag(tag, index) {
+      this.value.splice(index, 1);
     }
   },
   watch: {
