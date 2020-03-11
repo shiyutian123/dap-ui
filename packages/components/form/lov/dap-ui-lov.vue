@@ -18,7 +18,7 @@
       :colon="colon"
       :help="help">
       <template v-slot:label>
-        <span :style="{color: labelColor}">{{label}}</span>
+        <span :style="{color: labelColor}">{{label}}     {{disabled}}</span>
       </template>
       <div
       v-if="extraProp.selectMode !== 'multipart'"
@@ -27,6 +27,7 @@
           <a-input
           class="lov-input"
           :readonly="true"
+          :disabled="disabled"
           :value="value"
           :placeholder="placeholder"
           :defaultValue="defaultValue"
@@ -41,7 +42,7 @@
           <span class="ant-input-wrapper ant-input-group">
             <a-tooltip :title="computTooltip">
               <div class="ant-input lov-input" style="border-radius: 4px; display: flex; position: absolute;">
-                <div class="tags">
+                <div class="tags" v-if="Array.isArray(value)">
                   <a-tag v-for="(item, index) in value" :closable="!disabled" :key="index" @close="handlerCloseTag(item, index)">{{ item }}</a-tag>
                 </div>
               <a-button v-if="!disabled" style="min-width: 24px; min-height: 24px;" shape="circle" size="small" icon="plus" @click="onClickLovInput"></a-button>
@@ -88,6 +89,11 @@ export default {
         return this.value.join(',');
       } else {
         return this.value;
+      }
+    },
+    computedValue: function() {
+      if (this.extraProp.selectMode === 'multipart') {
+        return Array.isArray(this.value) ? this.value : [this.value];
       }
     }
   },

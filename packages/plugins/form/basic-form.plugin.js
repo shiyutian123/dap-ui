@@ -192,6 +192,23 @@ export default {
                     itemConfig[key] = value ;
                 }
             },
+            getConfigByDataCode(dataCode, formConfig) {
+                console.time(`getConfigByDataCode - ${dataCode}`)
+                const resultArray = JSONPath(`$..[?(@.dataCode === '${dataCode}')]`, formConfig);
+                console.timeEnd(`getConfigByDataCode - ${dataCode}`)
+
+                // console.time(`getConfigById - JSONQuery - ${id}`)
+                // const resultArray = JSONQuery( `[**][*id=${id}]` ,{
+                //     data: formConfig
+                // }).value;
+                // console.timeEnd(`getConfigById - JSONQuery - ${id}`)
+
+                if (resultArray && resultArray.length > 0) {
+                    return resultArray[0];
+                } else {
+                    throw COMP_ADAPTER_REGISTER_ERROR.COMP_ACTION_UUID_EXIST_ERROR
+                }
+            },
             /**
              * 根据tag查出组件名称
              * @param {*} tag 
