@@ -135,8 +135,7 @@ const install = function(Vue) {
   if ((install).installed) return;
 
   Vue.use(CookiePlugin);
-  debugger
-
+  
   Vue.use(VueLsPlugin);
   
   // 使用表单验证器

@@ -9,7 +9,7 @@
         <div class="section-name" v-if="section.data.length !== 0">{{ section.name }}</div>
         <a-row v-for="user in section.data" :key="user.empId" class="popover-block" @click.native="handleClick(user)">
           <a-col :span="4" class="popover-left">
-            <dap-ui-avatar :avatarSize="36" :avatarSrc:="user.icon" :canComputedValue="user.name"></dap-ui-avatar>
+            <dap-ui-avatar :avatarSize="36" :avatarSrc="user.icon" :canComputedValue="user.name"></dap-ui-avatar>
           </a-col>
           <a-col :span="20" class="popover-right">
             <div class="popover-row">
