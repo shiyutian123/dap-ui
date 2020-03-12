@@ -7,6 +7,7 @@
  */
 import StringUtil from '../../utils/string.util';
 const {JSONPath} = require('jsonpath-plus');
+const JSONQuery = require('json-query')
 
 class CompError {
     constructor(errorCode, errorMsg, error){
@@ -129,11 +130,30 @@ export default {
                 }
             },
             getConfigByUuid(uuid, formConfig) {
-                const resultArray = JSONPath(`$..[?(@.uuid === '${uuid}')]`, formConfig);
+                // console.time(`getConfigByUuid - ${uuid}`)
+                // const resultArray = JSONPath(`$..[?(@.uuid === '${uuid}')]`, formConfig);
+                // console.timeEnd(`getConfigByUuid - ${uuid}`)
+                if (!(formConfig)) {
+                    return;
+                }
+                let resultArray = JSONQuery( `[**][**][*uuid=${uuid}]` ,{
+                    data: formConfig
+                }).value;
                 if (resultArray && resultArray.length > 0) {
                     return resultArray[0];
-                } else {
-                    throw new COMP_ADAPTER_REGISTER_ERROR.COMP_ACTION_UUID_EXIST_ERROR
+                } else if (Array.isArray(formConfig)) {
+                    let result = undefined
+                    for (let itemConfig of formConfig) {
+                        if (itemConfig.children) {
+                            result = this.getConfigByUuid(uuid, itemConfig.children)
+                        } else if (itemConfig.columnSet) {
+                            result = this.getConfigByUuid(uuid, itemConfig.columnSet)
+                        }
+                        if (result) {
+                            break;
+                        }
+                    }
+                    return result;
                 }
             },
             getConfigsByCompName(compName, formConfig) {
@@ -147,17 +167,46 @@ export default {
                 }
             },
             getConfigById(id, formConfig) {
+                console.time(`getConfigById - ${id}`)
+                const data = {
+                    formConfig: formConfig
+                }
                 const resultArray = JSONPath(`$..[?(@.id === '${id}')]`, formConfig);
+                console.timeEnd(`getConfigById - ${id}`)
+
+                // console.time(`getConfigById - JSONQuery - ${id}`)
+                // const resultArray = JSONQuery( `[**][*id=${id}]` ,{
+                //     data: formConfig
+                // }).value;
+                // console.timeEnd(`getConfigById - JSONQuery - ${id}`)
+
                 if (resultArray && resultArray.length > 0) {
                     return resultArray[0];
                 } else {
-                    throw new COMP_ADAPTER_REGISTER_ERROR.COMP_ACTION_UUID_EXIST_ERROR
+                    throw COMP_ADAPTER_REGISTER_ERROR.COMP_ACTION_UUID_EXIST_ERROR
                 }
             },
             setConfigById(id, formConfig, key, value) {
                 const itemConfig = this.getConfigById(id, formConfig);
                 if (itemConfig) {
                     itemConfig[key] = value ;
+                }
+            },
+            getConfigByDataCode(dataCode, formConfig) {
+                console.time(`getConfigByDataCode - ${dataCode}`)
+                const resultArray = JSONPath(`$..[?(@.dataCode === '${dataCode}')]`, formConfig);
+                console.timeEnd(`getConfigByDataCode - ${dataCode}`)
+
+                // console.time(`getConfigById - JSONQuery - ${id}`)
+                // const resultArray = JSONQuery( `[**][*id=${id}]` ,{
+                //     data: formConfig
+                // }).value;
+                // console.timeEnd(`getConfigById - JSONQuery - ${id}`)
+
+                if (resultArray && resultArray.length > 0) {
+                    return resultArray[0];
+                } else {
+                    throw COMP_ADAPTER_REGISTER_ERROR.COMP_ACTION_UUID_EXIST_ERROR
                 }
             },
             /**

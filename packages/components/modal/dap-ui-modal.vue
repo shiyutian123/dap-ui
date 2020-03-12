@@ -24,8 +24,8 @@
       :width="width"
       :confirmLoading="confirmLoading"
       @ok="handleOk"
-      @cancel="handleCancel"
-    >
+      :footer="footer"
+      @cancel="handleCancel">
       <slot></slot>
     </a-modal>
   </div>
@@ -44,6 +44,8 @@ export default {
       default: function() {
         return false;
       }
+    },
+    footer: {
     },
     modalClass: {
       type: String,

@@ -135,7 +135,6 @@ const install = function(Vue) {
   if ((install).installed) return;
 
   Vue.use(CookiePlugin);
-  debugger
 
   Vue.use(VueLsPlugin);
   
