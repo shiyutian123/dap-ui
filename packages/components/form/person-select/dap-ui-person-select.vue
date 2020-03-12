@@ -134,9 +134,13 @@ export default {
       }
     }
   },
-  created() {
+  mounted() {
     console.log(this.extraProp);
-    this.calcMultCount()
+    // TODO 不合适的方案
+    // 表格宽度计算在这之后
+    setTimeout(() => {
+      this.calcMultCount();
+    }, 100);
   },
   methods: {
     removeUser(user) {
