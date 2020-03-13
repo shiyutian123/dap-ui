@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-02-20 10:13:07
- * @LastEditTime: 2020-03-10 20:56:06
+ * @LastEditTime: 2020-03-13 17:16:08
  * @LastEditors: your name
  * @Description: In User Settings Edit
  * @FilePath: /dap-vue-ui/packages/components/form/table-extend/dap-ui-table-extend.vue
@@ -122,7 +122,7 @@
       </dap-ui-table>
     </div>
     <div class="dap-ui-table-extend-footer">
-      <div class="ant-form-explain">{{ help }}</div>
+      <div v-if="help" class="ant-form-explain">{{ help }}</div>
     </div>
   </div>
 </template>
