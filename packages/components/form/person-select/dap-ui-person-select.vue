@@ -115,8 +115,30 @@ export default {
   watch: {
     "value": {
       handler(newVal, oldVal) {
-        if (newVal && this.extraProp.selectedArray.length === 0) {
-          this.$formEventEmit("query-user-info", this.value);
+        // TODO: 处理临时数据
+        if (newVal && JSON.stringify(newVal) !== JSON.stringify(oldVal)) {
+          if (Array.isArray(newVal)) {
+            //TODO: 替换数据  
+            const queryValue = newVal.map(item => {
+              if (item.indexOf("(") !== -1) {
+                return item.substr(0, item.indexOf("("));
+              } else {
+                return item;
+              }
+            })
+            if (queryValue.length !== 0) {
+              this.$formEventEmit("query-user-info", queryValue);
+            }
+          } else {
+            if (newVal !== '') {
+              if (newVal.indexOf("(") !== -1) {
+                this.$formEventEmit("query-user-info", newVal.substr(0, newVal.indexOf("(")));
+              } else {
+                this.$formEventEmit("query-user-info", newVal);
+              }
+              
+            }
+          }
         } else if (!newVal) {
           this.extraProp.selectedArray = []
         }
@@ -135,7 +157,6 @@ export default {
     }
   },
   created() {
-    console.log(this.extraProp);
     this.calcMultCount()
   },
   methods: {
@@ -148,9 +169,9 @@ export default {
     },
     emitValueChange() {
       if (this.extraProp.selectType === "single") {
-        this.$formEventEmit("change", this.extraProp.selectedArray.map(user => user.empId)[0] || "")
-      } else if (this.extraProp.selectType === "mult") {
-        this.$formEventEmit("change", this.extraProp.selectedArray.map(user => user.empId))
+        this.$formEventEmit("change", this.extraProp.selectedArray[0].map(user => `${user.empId}(${user.name})`))
+      } else {
+        this.$formEventEmit("change", this.extraProp.selectedArray.map(user => `${user.empId}(${user.name})`))
       }
     },
     handleClick() {

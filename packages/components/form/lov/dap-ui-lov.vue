@@ -18,7 +18,7 @@
       :colon="colon"
       :help="help">
       <template v-slot:label>
-        <span :style="{color: labelColor}">{{label}}     {{disabled}}</span>
+        <span :style="{color: labelColor}">{{label}}</span>
       </template>
       <div
       v-if="extraProp.selectMode !== 'multipart'"
@@ -93,7 +93,13 @@ export default {
     },
     computedValue: function() {
       if (this.extraProp.selectMode === 'multipart') {
-        return Array.isArray(this.value) ? this.value : [this.value];
+        if (value === '' || !value) {
+          return []
+        } else {
+          return Array.isArray(this.value) ? this.value : [this.value];
+        }
+      } else {
+        return value;
       }
     }
   },
