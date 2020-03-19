@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-02-21 16:38:40
- * @LastEditTime: 2020-03-12 19:07:39
+ * @LastEditTime: 2020-03-19 19:02:33
  * @LastEditors: your name
  * @Description: In User Settings Edit
  * @FilePath: /dap-vue-ui/packages/components/form/lov/dap-ui-lov.vue
@@ -52,7 +52,16 @@
         </span>
       </div>
     </a-form-item>
-    <dap-ui-modal
+    <lov
+    ref="lov"
+    :visible="modalConfig.visible"
+    :extraProp="extraProp"
+    :placeholder="placeholder"
+    @lov-ok="handleOk"
+    @lov-cancel="handleCancel"
+    @query-lov-data="queryLovData"
+    ></lov>
+    <!-- <dap-ui-modal
     v-bind="modalConfig"
     @ok="handleOk"
     @cancel="handleCancel">
@@ -77,7 +86,7 @@
           </div>
         </a-card>
       </div>
-    </dap-ui-modal>
+    </dap-ui-modal> -->
   </div>
 </template>
 
@@ -132,41 +141,43 @@ export default {
     this.lovTableBaseConfig.selectMode = this.extraProp.selectMode;
   },
   methods: {
+    queryLovData(e) {
+      this.$formEventEmit('query-lov-data', e);
+    },
     onClickLovInput(e) {
       if (!this.disabled) {
         this.modalConfig.visible = true;
         if (this.extraProp.selectMode === 'multipart' && Array.isArray(this.value)) {
-          this.checkedData = this.value.map(item => {
+          const checkedData = this.value.map(item => {
             return { [this.extraProp.dataCode]: item };
           });
-          setTimeout(() => {
-            this.$refs.dapUiTable.checkedData = this.checkedData;
-          }, 100);
+          this.$refs.lov.setCheckedData(checkedData);
         }
         this.$formEventEmit('query-lov-data', {
-          currentPage: this.lovTableBaseConfig.tablePage.currentPage,
-          pageSize: this.lovTableBaseConfig.tablePage.pageSize,
+          currentPage: this.$refs.lov.lovTableBaseConfig.tablePage.currentPage,
+          pageSize: this.$refs.lov.lovTableBaseConfig.tablePage.pageSize,
           value: this.value
         });
         // 计算表格高度
         setTimeout(() => {
-          const height = document.querySelector('.dap-ui-lov-modal .lov-choose-block').clientHeight - 88;
-          this.lovTableBaseConfig.maxHeight = `${height}px`;
+          // const height = document.querySelector('.dap-ui-lov-modal .lov-choose-block').clientHeight - 88;
+          // this.lovTableBaseConfig.maxHeight = `${height}px`;
         }, 60);
       }
     },
     handleOk(e) {
-      this.extraProp.tableData = [];
-      this.resetTablePage();
-      this.$refs.dapUiTable.clearChecked();
+      // this.extraProp.tableData = [];
+      // this.resetTablePage();
+      // this.$refs.dapUiTable.clearChecked();
+      // this.modalConfig.visible = false;
+      // const data = {
+      //   selection: this.checkedData
+      // };
       this.modalConfig.visible = false;
-      const data = {
-        selection: this.checkedData
-      };
-      this.$formEventEmit('lov-ok', data)
+      this.$formEventEmit('lov-ok', e);
     },
     handleCancel(e) {
-      this.resetTablePage();
+      // this.resetTablePage();
       this.modalConfig.visible = false;
       this.$formEventEmit('lov-cancel', e)
     },

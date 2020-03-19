@@ -2,7 +2,7 @@
  * @Author: DevinShi
  * @Date: 2020-02-06 03:27:31
  * @LastEditors: your name
- * @LastEditTime: 2020-03-16 10:55:13
+ * @LastEditTime: 2020-03-19 18:14:02
  * @Description: file content description
  */
 import Vuelidate from 'vuelidate'
@@ -72,6 +72,8 @@ import DapUiPerson from "./components/person/dap-ui-person.vue";
 // 头像裁剪弹窗
 import DapUiAvatarCropperModal from "./components/avatar-cropper-modal/dap-ui-avatar-cropper-modal.vue";
 
+import Lov from "./components/lov/lov.vue";
+
 import DapUiBpmnProcessFlow from './components/bpmn-process-flow/dap-ui-bpmn-process-flow.vue';
 
 import * as REQ_CONSTANT from './plugins/request/request.constant.js'
@@ -130,7 +132,7 @@ const formComponents = [
 ];
 
 // 所有组件列表
-const components = [...formComponents, DapUiButton, DapUiBasicForm, DapUiBasicFormItem, DapUiTable, DapUiModal, DapUiBpmnProcessFlow, DapUiAvatar, DapUiPerson, DapUiAvatarCropperModal];
+const components = [...formComponents, DapUiButton, DapUiBasicForm, DapUiBasicFormItem, DapUiTable, DapUiModal, DapUiBpmnProcessFlow, DapUiAvatar, DapUiPerson, DapUiAvatarCropperModal, Lov];
 // 定义 install 方法，接收 Vue 作为参数。如果使用 use 注册插件，则所有的组件都将被注册
 const install = function(Vue) {
   // 判断是否安装
@@ -195,6 +197,7 @@ export default {
   DapUiBpmnProcessFlow,
 
   DapUiAvatarCropperModal,
+  Lov
 };
 
 export {
