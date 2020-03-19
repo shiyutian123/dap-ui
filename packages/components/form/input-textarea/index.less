@@ -1,6 +1,22 @@
 .dap-ui-input-textarea {
     .textarea {
-        margin-top: 5px;
         resize: none;
     }
+}
+.dap-ui-textarea-column {
+    .ant-form-item {
+        display: flex;
+        flex-direction: column !important;
+        .ant-form-item-label {
+          display: flex;
+          line-height: normal;
+          margin-bottom: 14px;
+          span {
+            font-size: 12px;
+          }
+        }
+        .ant-form-item-control {
+          line-height: normal;
+        }
+      }
 }
