@@ -2,11 +2,13 @@
  * @Author: DevinShi
  * @Date: 2020-02-06 10:37:47
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-02-27 15:37:08
+ * @LastEditTime: 2020-03-19 17:28:58
  * @Description: file content description
  -->
 <template>
-  <div class="dap-ui-input-date dap-ui-form-item dap-ui-form-input">
+  <div
+    class="dap-ui-input-date dap-ui-form-item dap-ui-form-input dap-ui-input-colum"
+  >
     <a-form-item
       :label-col="labelCol"
       :wrapper-col="wrapperCol"

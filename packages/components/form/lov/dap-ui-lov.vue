@@ -1,13 +1,15 @@
 <!--
  * @Author: your name
  * @Date: 2020-02-21 16:38:40
- * @LastEditTime: 2020-03-19 19:02:33
+ * @LastEditTime: 2020-03-20 10:03:44
  * @LastEditors: your name
  * @Description: In User Settings Edit
  * @FilePath: /dap-vue-ui/packages/components/form/lov/dap-ui-lov.vue
  -->
 <template>
-  <div class="dap-ui-lov dap-ui-form-item dap-ui-form-input">
+  <div
+    class="dap-ui-lov dap-ui-form-item dap-ui-form-input dap-ui-input-column"
+  >
     <a-form-item
       :label-col="labelCol"
       :wrapper-col="wrapperCol"

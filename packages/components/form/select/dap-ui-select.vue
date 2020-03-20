@@ -1,12 +1,14 @@
 <!--
  * @Author: DevinShi
  * @Date: 2020-02-06 10:37:47
- * @LastEditors: DevinShi
- * @LastEditTime: 2020-02-25 14:42:16
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-03-19 16:14:55
  * @Description: file content description
  -->
 <template>
-  <div class="dap-ui-select dap-ui-form-item dap-ui-form-input">
+  <div
+    class="dap-ui-select dap-ui-form-item dap-ui-form-input dap-ui-input-column"
+  >
     <!-- multi ? 'multiple' : 'default' -->
     <a-form-item
       :label-col="labelCol"

@@ -2,12 +2,14 @@
  * @Author: Trevor
  * @Email: wei.tang@definesys.com
  * @Date: 2020-03-10 14:13:17
- * @LastEditTime: 2020-03-10 22:57:36
- * @LastEditors: your name
+ * @LastEditTime: 2020-03-19 18:03:13
+ * @LastEditors: Please set LastEditors
  * @Description: file content
  -->
 <template>
-  <div class="dap-ui-input-calculation dap-ui-form-item dap-ui-form-input">
+  <div
+    class="dap-ui-input-calculation dap-ui-form-item dap-ui-form-input dap-ui-input-colum"
+  >
     <a-form-item
       :label-col="labelCol"
       :wrapper-col="wrapperCol"
