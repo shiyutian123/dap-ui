@@ -198,8 +198,10 @@ export default {
        * 表单事件自动触发
        */
       formEventEmit($event) {
-        // 表单事件发送
-        this.$baseFormRegister.excuteAdapterEvent($event.componentName, $event, this.formConfig, this.globalFormInfo, this.formData)
+        if (!this.isInLayout) {
+          // 表单事件发送
+          this.$baseFormRegister.excuteAdapterEvent($event.componentName, $event, this.formConfig, this.globalFormInfo, this.formData)
+        }
         this.$emit('formEventEmit', $event);
       },
       /**
@@ -274,6 +276,10 @@ export default {
     formItemName: {
       type: String,
       default: 'dap-ui-basic-form-item'
+    },
+    isInLayout: {
+      type: Boolean,
+      default: false
     }
   },
   created() {
