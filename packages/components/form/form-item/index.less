@@ -10,13 +10,16 @@
         // align-items: center;
         .ant-form-item {
             display: flex;
+            // flex-direction: column;
             flex-wrap: nowrap;
+            justify-content: flex-end;
             margin: 0;
-            margin-left: 8px;
-            padding: 0 8px;
+            // margin-left: 8px;
+            // padding: 0 8px;
 
             .ant-form-item-label {
-                width: 100px;
+                display: flex;
+                // width: 100px;
 
                 .ant-form-item-required::before {
                     margin: auto 4px auto 0;
@@ -38,7 +41,7 @@
         
             .ant-form-item-control-wrapper {
                 flex: 1;
-                margin-left: 8px;
+                // margin-left: 8px;
             }
         }
     }

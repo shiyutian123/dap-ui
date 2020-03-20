@@ -1,8 +1,8 @@
 <!--
  * @Author: DevinShi
  * @Date: 2020-02-06 10:37:47
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-03-05 16:55:12
+ * @LastEditors: your name
+ * @LastEditTime: 2020-03-19 14:47:34
  * @Description: file content description
  -->
 <template>
@@ -56,6 +56,8 @@
             :uuid="itemConfig.uuid"
             :componentName="itemConfig.componentName"
             :extraProp="itemConfig.extraProp"
+            :value="currentFormData[itemConfig.dataCode]"
+            :columns="itemConfig.columnSet"
             @formEventEmit="formEventEmit($event)"
             :label-color="itemConfig.labelColor"
             :colSpan="itemConfig.colSpan"></component>

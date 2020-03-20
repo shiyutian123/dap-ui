@@ -1,12 +1,14 @@
 <!--
  * @Author: DevinShi
  * @Date: 2020-02-06 10:37:47
- * @LastEditors: DevinShi
- * @LastEditTime: 2020-02-18 11:01:33
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-03-19 17:41:22
  * @Description: file content description
  -->
 <template>
-  <div class="dap-ui-org-select dap-ui-form-item dap-ui-form-input">
+  <div
+    class="dap-ui-org-select dap-ui-form-item dap-ui-form-input dap-ui-input-colum"
+  >
     <a-form-item
       :label-col="labelCol"
       :wrapper-col="wrapperCol"
