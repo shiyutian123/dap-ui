@@ -112,7 +112,13 @@ export default {
     },
     computedValue: function() {
       if (this.extraProp.selectMode === 'multipart') {
-        return Array.isArray(this.value) ? this.value : [this.value];
+        if (value === '' || !value) {
+          return []
+        } else {
+          return Array.isArray(this.value) ? this.value : [this.value];
+        }
+      } else {
+        return value;
       }
     }
   },

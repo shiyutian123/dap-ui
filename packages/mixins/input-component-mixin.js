@@ -75,11 +75,11 @@ export default {
             type: Number,
             default: 1
         },
-        documentId: {}
+        isNew: {}
     },
     created() {
-        if (this.defaultValue !== undefined && this.defaultValue !== "") {
-          this.$formEventEmit('change', this.defaultValue);
+        if (this.defaultValue !== undefined && this.defaultValue !== "" && !this.value && !this.isNew) {
+            this.$formEventEmit('change', this.defaultValue);
         }
     },
 }
