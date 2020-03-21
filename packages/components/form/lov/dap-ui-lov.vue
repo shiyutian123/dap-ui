@@ -160,6 +160,8 @@ export default {
             return { [this.extraProp.dataCode]: item };
           });
           this.$refs.lov.setCheckedData(checkedData);
+        } else {
+          this.$refs.lov.clearCheckedData();
         }
         this.$formEventEmit('query-lov-data', {
           currentPage: this.$refs.lov.lovTableBaseConfig.tablePage.currentPage,

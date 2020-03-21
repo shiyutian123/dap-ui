@@ -1,5 +1,49 @@
+@import '../../assets/app.less';
+
 .dap-ui-modal {
     &.dap-ui-lov-modal {
+      .tagContainer {
+        // min-height: 60px;
+        display: flex;
+        flex-wrap: wrap;
+        align-content: flex-start;
+        padding: 4px 0 0;
+        border-top: 1px solid #EBEEF5;
+        max-height: 106px;
+        min-height: 90.25px;
+        overflow-y: auto;
+      }
+      
+      .webServiceForm {
+        margin-bottom: 10px;
+      }
+      
+      /* :host ::ng-deep #cdk-overlay-1 {
+        z-index: 1500 !important;
+      } */
+    .tag {
+      margin: 9.125px 14px 0 0; 
+      background:#fafafa!important; 
+      border: 0px solid; 
+      padding: 0 7.375px;
+      border-radius: 14px;
+      height: 24.5px;
+      line-height: 24.5px;
+      display: flex;
+      align-items: center;
+      .anticon-close {
+        color: #b2b2b2;
+      }
+    }
+    .textMaxWidth {
+      font-size: 12px;
+      color: #303133;
+      display: inline-block;
+      max-width: 250px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
         .lov-choose-block {
             width: 100%;
             min-height: 70%;
@@ -7,10 +51,157 @@
             .ant-input-search {
                 margin-bottom: 1rem;
             }
+            .vxe-table--main-wrapper {
+              max-height: 424px;
+              overflow-y: auto;
+            }
+            .vxe-header--row {
+              th {
+                background: #fafafa;
+                height: 38px;
+                span {
+                  font-weight: bold;
+                  font-size: 12px;
+                  color: #303133;
+                }
+              }
+            }
+            .vxe-body--row {
+              cursor: pointer;
+              td {
+                height: 38px;
+                span {
+                  font-size: 12px;
+                  color: #303133;
+                }
+              }
+            }
+            .vxe-pager {
+              height: 52px;
+              .vxe-pager--wrapper {
+                
+                .vxe-pager--prev-btn, .vxe-pager--next-btn, .vxe-pager--jump-next {
+                  min-width: 24.5px;
+                  height: 24.5px;
+                  line-height: 22.5px;
+                  margin: 0 7px 0 0;
+                  border: 1px solid #ebeef5;
+                  color: #dcdfe6;
+                  font-size: 10px;
+                }
+                .vxe-pager--prev-btn:hover, .vxe-pager--next-btn:hover, .vxe-pager--jump-next:hover, .vxe-pager--num-btn:hover {
+                  border: 1px solid @primary-color;
+                  color: @primary-color;
+                }
+                .vxe-pager--num-btn {
+                  min-width: 24.5px;
+                  height: 24.5px;
+                  line-height: 22.5px;
+                  margin: 0 7px 0 0;
+                  border: 1px solid #ebeef5;
+                  color: #b2b2b2;
+                  font-size: 10px;
+                }
+                .vxe-pager--num-btn.is--active {
+                  border: 1px solid @primary-color;
+                  color: @primary-color;
+                }
+                .vxe-pager--sizes {
+                  height: 24.5px;
+                  width: 74px;
+                  font-size: 12px;
+                  color: #b2b2b2;
+                  border: 1px solid #ebeef5;
+                  margin: 0;
+                  .size--content {
+                    height: 24px;
+                    display: flex;
+                    align-items: center;
+                    padding: 0 8px;
+                  }
+                }
+              }
+            }
         }
         .ant-modal-body {
-            display: flex;
-            flex-flow: column;
+          padding: 14px 28px;
         }
+        .dap-ui-table .vxe-body--row:hover {
+            background-color: #F5F7FA !important;
+        }
+        .ant-modal-close-x {
+            width: 66.75px;
+            height: 55.75px;
+            line-height: 55.75px;
+            font-size: 18.5px;
+            i {
+                color: #303133;
+            }
+        }
+        .ant-modal-header {
+            border-bottom: 0px solid;
+            padding: 0 28px;
+            display: flex;
+            align-items: center;
+            height: 55.75px;
+            .searchInput {
+                display: flex;
+                align-items: center;
+                height: 34px;
+                overflow: hidden;
+                .title {
+                  font-weight: bold;
+                  color: #303133;
+                }
+                .divide {
+                  width: 0px;
+                  height: 15.75px;
+                  border-left: 1px solid #dcdfe6;
+                  margin: 0 9.625px 0 13.125px;
+                }
+                .staticSearch {
+                  display: flex;
+                  align-items: center;
+                  img {
+                    width: 20px;
+                    height: 20px;
+                    line-height: 20px;
+                    margin-right: 3.5px;
+                  }
+                }
+                .searchInput {
+                  border: 0;
+                  box-shadow: none;
+                  background: 0 0;
+                  padding: 0 4px;
+                  font-size: 12px !important;
+                  color: #b2b2b2;
+                }
+            }
+        }
+        
+        .ant-modal-footer {
+            padding: 0px 28px 13.125px;
+            border-top: 0px solid;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .footerData {
+                color: #b2b2b2;
+                font-size: 12px;
+              }
+            .modalBtn {
+                button {
+                  margin-left: 14px;
+                  width: 63px;
+                  span {
+                    font-size: 12px;
+                    width: 28px;
+                    height: 14px;
+                  }
+                }
+            }
+        }
+          
     }
 }
