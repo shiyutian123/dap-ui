@@ -2,7 +2,7 @@
  * @Author: DevinShi
  * @Date: 2020-02-06 10:37:47
  * @LastEditors: your name
- * @LastEditTime: 2020-03-20 15:54:00
+ * @LastEditTime: 2020-03-22 14:37:39
  * @Description: file content description
  -->
 <template>
@@ -22,7 +22,7 @@
       <template v-slot:label>
         <span :style="{color: labelColor}">{{label}}</span>
       </template>
-        <div v-if="viewable" class="ant-input no-border text-ellipsis">{{ value }}</div>
+        <div v-if="viewable" class="ant-input no-border text-ellipsis">{{ computViewValue }}</div>
         <a-select 
             v-else
             :allowClear="allowClear"
@@ -56,6 +56,13 @@ export default {
   props: {
   },
   computed: {
+    computViewValue: function() {
+      if (Array.isArray(this.value)) {
+        return this.value.join(',');
+      } else {
+        return this.value;
+      }
+    }
   },
   methods: {
     // filterOption(input, option) {
