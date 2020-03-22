@@ -2,12 +2,12 @@
  * @Author: DevinShi
  * @Date: 2020-02-06 10:37:47
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-03-05 16:55:12
+ * @LastEditTime: 2020-03-20 10:51:35
  * @Description: file content description
  -->
 <template>
   <!-- 表单渲染，支持JSON Schema格式的渲染方式 -->
-  <div class="dap-ui-basic-form dap-ui-form">
+  <div class="dap-ui-basic-form dap-ui-form dap-ui-global-form">
       <component
         :is="formItemName"
         :rowSpan="itemConfig.rowSpan"
@@ -56,6 +56,8 @@
             :uuid="itemConfig.uuid"
             :componentName="itemConfig.componentName"
             :extraProp="itemConfig.extraProp"
+            :value="currentFormData[itemConfig.dataCode]"
+            :columns="itemConfig.columnSet"
             @formEventEmit="formEventEmit($event)"
             :label-color="itemConfig.labelColor"
             :colSpan="itemConfig.colSpan"></component>

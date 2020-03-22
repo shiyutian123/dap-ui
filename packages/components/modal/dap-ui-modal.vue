@@ -1,13 +1,13 @@
 <!--
  * @Author: your name
  * @Date: 2020-02-13 14:50:42
- * @LastEditTime: 2020-03-16 11:59:59
- * @LastEditors: your name
+ * @LastEditTime: 2020-03-22 15:46:00
+ * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dap-vue-ui/packages/components/modal/dap-ui-modal.vue
  -->
 <template>
-  <div class="dap-ui-modal">
+  <div class="dap-ui-modal dap-ui-global-form">
     <a-modal
       style="top: 1rem;"
       :class="computClassName"
