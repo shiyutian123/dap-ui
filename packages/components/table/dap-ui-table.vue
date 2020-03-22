@@ -15,7 +15,9 @@
           ? true
           : tableBaseConfig.border
       "
-      stripe
+      :stripe="
+        tableBaseConfig.stripe === 'undefined' ? true : tableBaseConfig.stripe
+      "
       highlight-hover-row
       :show-footer="tableBaseConfig.showFooter"
       :footer-method="tableBaseConfig.footerMethod"
@@ -38,6 +40,8 @@
       @checkbox-all="handleCheckboxChange"
       @sort-change="handleSortChange"
       @cell-click="onCellClick"
+      @cell-mouseenter="cellMouseenterEvent"
+      @cell-mouseleave="cellMouseleaveEvent"
     >
       <!-- <vxe-table-column v-if="tableBaseConfig.selectMode === 'single'" type="radio" align="center" title="" width="40"></vxe-table-column> -->
       <!-- <vxe-table-column v-if="tableBaseConfig.selectMode === 'multipart'" type="checkbox" align="center" width="40"></vxe-table-column> -->
@@ -45,10 +49,10 @@
       <vxe-table-column
         v-if="!tableBaseConfig.hideSeq"
         align="center"
-        width="55"
+        width="58"
       >
         <template v-slot:header>
-          <div class="seq-header">
+          <!-- <div class="seq-header">
             <span v-if="tableBaseConfig.selectMode !== 'multipart'">#</span>
             <span
               v-if="tableBaseConfig.selectMode === 'multipart'"
@@ -60,6 +64,26 @@
               }"
               @click="onClickCheckAll"
             ></span>
+          </div> -->
+          <div class="num" v-if="tableBaseConfig.selectMode !== 'multipart'">
+            <svg-icon :name="'num'" class="numSvg"></svg-icon>
+          </div>
+          <div
+            class="checkbox"
+            v-if="tableBaseConfig.selectMode === 'multipart' && !checkAll"
+            @click="onClickCheckAll"
+          >
+            <svg-icon :name="'checkbox'" class="checkboxSvg"></svg-icon>
+          </div>
+          <div
+            class="checkboxAfter"
+            v-if="tableBaseConfig.selectMode === 'multipart' && checkAll"
+            @click="onClickCheckAll"
+          >
+            <svg-icon
+              :name="'checkboxAfter'"
+              class="checkboxAfterSvg"
+            ></svg-icon>
           </div>
         </template>
         <template v-slot="{ row, rowIndex }">
@@ -71,11 +95,8 @@
             "
             >{{ rowIndex + 1 }}</span
           >
-          <div
-            v-if="
-              tableBaseConfig.selectMode === 'multipart' ||
-                tableBaseConfig.selectMode === 'single'
-            "
+          <!-- <div
+            v-if="tableBaseConfig.selectMode === 'multipart'"
             class="seq-cell"
             :class="{ checked: row.$__checked }"
           >
@@ -85,6 +106,46 @@
               @click="onCheckRow(row, rowIndex)"
               :class="{ 'is--checked': row.$__checked }"
             ></span>
+          </div> -->
+          <div
+            v-if="tableBaseConfig.selectMode === 'multipart'"
+            class="seq-cell"
+          >
+            <span v-if="!row.$__showRadio">{{ rowIndex + 1 }}</span>
+            <div
+              class="checkbox"
+              v-if="row.$__showRadio && !row.$__checked"
+              @click="onCheckRow(row, rowIndex)"
+            >
+              <svg-icon :name="'checkbox'" class="checkboxSvg"></svg-icon>
+            </div>
+            <div
+              class="checkboxAfter"
+              v-if="row.$__showRadio && row.$__checked"
+              @click="onCheckRow(row, rowIndex)"
+            >
+              <svg-icon
+                :name="'checkboxAfter'"
+                class="checkboxAfterSvg"
+              ></svg-icon>
+            </div>
+          </div>
+          <div v-if="tableBaseConfig.selectMode === 'single'" class="seq-cell">
+            <span v-if="!row.$__showRadio">{{ rowIndex + 1 }}</span>
+            <div
+              class="radio"
+              v-if="!row.$__checked && row.$__showRadio"
+              @click="onCheckRow(row, rowIndex)"
+            >
+              <svg-icon class="radioSvg" :name="'radio'"></svg-icon>
+            </div>
+            <div
+              class="radioAfter"
+              v-if="row.$__checked && row.$__showRadio"
+              @click="onCheckRow(row, rowIndex)"
+            >
+              <svg-icon class="radioAfterSvg" :name="'radioAfter'"></svg-icon>
+            </div>
           </div>
         </template>
         <template v-slot:footer>
@@ -124,6 +185,7 @@
       </template>
     </vxe-table>
     <vxe-pager
+      border
       v-if="tableBaseConfig.tablePage"
       size="medium"
       :loading="tableBaseConfig.loading"
@@ -131,14 +193,16 @@
       :page-sizes="tableBaseConfig.tablePage.pageSizes"
       :page-size="tableBaseConfig.tablePage.pageSize"
       :total="tableBaseConfig.tablePage.totalResult"
-      :layouts="[
-        'PrevPage',
-        'JumpNumber',
-        'NextPage',
-        'FullJump',
-        'Sizes',
-        'Total'
-      ]"
+      :layouts="tableBaseConfig.tablePage.layouts ?
+        tableBaseConfig.tablePage.layouts :
+        [
+          'PrevPage',
+          'JumpNumber',
+          'NextPage',
+          'FullJump',
+          'Sizes',
+          'Total'
+        ]"
       @page-change="handlePageChange"
     >
     </vxe-pager>
@@ -352,11 +416,13 @@ export default {
         tempArr = this.tableData.slice(start, end);
         tempArr.map(item => {
           item.$__checked = this.checkAll;
+          item.$__showRadio = this.checkAll;
         });
         this.$emit("update:tableData", Object.assign([], this.tableData));
       } else {
         this.tableData.map(item => {
           item.$__checked = this.checkAll;
+          item.$__showRadio = this.checkAll;
         });
         this.$emit("update:tableData", Object.assign([], this.tableData));
         tempArr = this.tableData;
@@ -452,6 +518,18 @@ export default {
       } else {
         return JSON.stringify(a) === JSON.stringify(b);
       }
+    },
+    cellMouseenterEvent({ row }) {
+      row.$__showRadio = true;
+      this.$emit("update:tableData", Object.assign([], this.tableData));
+    },
+    cellMouseleaveEvent({ row }) {
+      if (row.$__checked) {
+        row.$__showRadio = true;
+      } else {
+        row.$__showRadio = false;
+      }
+      this.$emit("update:tableData", Object.assign([], this.tableData));
     }
   }
 };

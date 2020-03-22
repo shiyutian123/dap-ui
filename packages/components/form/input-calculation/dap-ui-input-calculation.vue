@@ -2,12 +2,14 @@
  * @Author: Trevor
  * @Email: wei.tang@definesys.com
  * @Date: 2020-03-10 14:13:17
- * @LastEditTime: 2020-03-10 22:57:36
+ * @LastEditTime: 2020-03-20 16:11:29
  * @LastEditors: your name
  * @Description: file content
  -->
 <template>
-  <div class="dap-ui-input-calculation dap-ui-form-item dap-ui-form-input">
+  <div
+    class="dap-ui-input-calculation dap-ui-form-item dap-ui-form-input dap-ui-input-colum"
+  >
     <a-form-item
       :label-col="labelCol"
       :wrapper-col="wrapperCol"
@@ -20,7 +22,9 @@
       <template v-slot:label>
         <span :style="{color: labelColor}">{{label}}</span>
       </template>
-      <a-input 
+      <div v-if="viewable" class="ant-input no-border text-ellipsis">{{ value }}</div>
+      <a-input
+        v-else
         :value="value"
         @input="$formEventEmit('change', $event.target.value)"
         :placeholder="placeholder" 

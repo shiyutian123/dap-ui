@@ -1,12 +1,14 @@
 <!--
  * @Author: DevinShi
  * @Date: 2020-02-06 10:37:47
- * @LastEditors: DevinShi
- * @LastEditTime: 2020-02-18 11:01:33
+ * @LastEditors: your name
+ * @LastEditTime: 2020-03-20 16:01:54
  * @Description: file content description
  -->
 <template>
-  <div class="dap-ui-person-select dap-ui-form-item dap-ui-form-input">
+  <div
+    class="dap-ui-person-select dap-ui-form-item dap-ui-form-input dap-ui-input-colum"
+  >
     <a-form-item
       :label-col="labelCol"
       :wrapper-col="wrapperCol"
@@ -19,7 +21,13 @@
       <template v-slot:label>
         <span :style="{color: labelColor}">{{label}}</span>
       </template>
-      <div 
+      <div v-if="viewable" ref="displayBlock" class="ant-input no-border text-ellipsis">
+        <template v-for="user in calcSelectedArray">
+          <dap-ui-person :info="user" :key="user.empId"></dap-ui-person>
+        </template>
+      </div>
+      <div
+        v-else
         ref="displayBlock" 
         class="display-block" 
         :class="{'display-block-error': validateStatus === 'error'}" 
@@ -115,8 +123,30 @@ export default {
   watch: {
     "value": {
       handler(newVal, oldVal) {
-        if (newVal && this.extraProp.selectedArray.length === 0) {
-          this.$formEventEmit("query-user-info", this.value);
+        // TODO: 处理临时数据
+        if (newVal && JSON.stringify(newVal) !== JSON.stringify(oldVal)) {
+          if (Array.isArray(newVal)) {
+            //TODO: 替换数据  
+            const queryValue = newVal.map(item => {
+              if (item.indexOf("(") !== -1) {
+                return item.substr(0, item.indexOf("("));
+              } else {
+                return item;
+              }
+            })
+            if (queryValue.length !== 0) {
+              this.$formEventEmit("query-user-info", queryValue);
+            }
+          } else {
+            if (newVal !== '') {
+              if (newVal.indexOf("(") !== -1) {
+                this.$formEventEmit("query-user-info", newVal.substr(0, newVal.indexOf("(")));
+              } else {
+                this.$formEventEmit("query-user-info", newVal);
+              }
+              
+            }
+          }
         } else if (!newVal) {
           this.extraProp.selectedArray = []
         }
@@ -135,7 +165,6 @@ export default {
     }
   },
   mounted() {
-    console.log(this.extraProp);
     // TODO 不合适的方案
     // 表格宽度计算在这之后
     setTimeout(() => {
@@ -152,9 +181,9 @@ export default {
     },
     emitValueChange() {
       if (this.extraProp.selectType === "single") {
-        this.$formEventEmit("change", this.extraProp.selectedArray.map(user => user.empId)[0] || "")
-      } else if (this.extraProp.selectType === "mult") {
-        this.$formEventEmit("change", this.extraProp.selectedArray.map(user => user.empId))
+        this.$formEventEmit("change", this.extraProp.selectedArray[0].map(user => `${user.empId}(${user.name})`))
+      } else {
+        this.$formEventEmit("change", this.extraProp.selectedArray.map(user => `${user.empId}(${user.name})`))
       }
     },
     handleClick() {

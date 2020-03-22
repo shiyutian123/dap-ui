@@ -1,8 +1,8 @@
 <!--
  * @Author: DevinShi
  * @Date: 2020-02-06 10:37:47
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-03-05 16:55:12
+ * @LastEditors: your name
+ * @LastEditTime: 2020-03-22 13:19:22
  * @Description: file content description
  -->
 <template>
@@ -38,13 +38,14 @@
             :uuid="itemConfig.uuid"
             :options="itemConfig.options"
             :disabled="isDisabled(itemConfig)"
+            :viewable="itemConfig.viewable"
             :placeholder="itemConfig.placeholder"
             :componentName="itemConfig.componentName"
             :columns="itemConfig.columnSet"
             :extraProp="itemConfig.extraProp"
             :colSpan="itemConfig.colSpan"
             :multi="itemConfig.multi"
-            :documentId="globalFormInfo ? globalFormInfo.documentId : undefined"
+            :isNew="globalFormInfo ? globalFormInfo.documentId : undefined"
             @formEventEmit="formEventEmit($event)"
             @updateTransValue="formValueTransChange(itemConfig.transDataCode, $event)"
             @change="formValueChange(itemConfig.dataCode, $event)"></component>
@@ -56,6 +57,8 @@
             :uuid="itemConfig.uuid"
             :componentName="itemConfig.componentName"
             :extraProp="itemConfig.extraProp"
+            :value="currentFormData[itemConfig.dataCode]"
+            :columns="itemConfig.columnSet"
             @formEventEmit="formEventEmit($event)"
             :label-color="itemConfig.labelColor"
             :colSpan="itemConfig.colSpan"></component>
@@ -76,6 +79,7 @@
             :tableData="itemConfig.tableData"
             :beforeUpload="itemConfig.beforeUpload"
             :editOnNew="itemConfig.editOnNew"
+            :viewable="itemConfig.viewable"
             @formEventEmit="formEventEmit($event)"
             @change="formValueChange(itemConfig.dataCode, $event)"
             ></component>

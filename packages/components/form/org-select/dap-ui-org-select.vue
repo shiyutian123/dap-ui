@@ -1,12 +1,14 @@
 <!--
  * @Author: DevinShi
  * @Date: 2020-02-06 10:37:47
- * @LastEditors: DevinShi
- * @LastEditTime: 2020-02-18 11:01:33
+ * @LastEditors: your name
+ * @LastEditTime: 2020-03-20 18:42:03
  * @Description: file content description
  -->
 <template>
-  <div class="dap-ui-org-select dap-ui-form-item dap-ui-form-input">
+  <div
+    class="dap-ui-org-select dap-ui-form-item dap-ui-form-input dap-ui-input-colum"
+  >
     <a-form-item
       :label-col="labelCol"
       :wrapper-col="wrapperCol"
@@ -20,7 +22,25 @@
         <span :style="{color: labelColor}">{{label}}</span>
       </template>
       <template v-if="extraProp.mode === 'modal'">
-        <div 
+        <div v-if="viewable" class="ant-input no-border text-ellipsis">
+          <template v-if="extraProp.selectType === 'single'">
+            <template v-if="extraProp.selectedArray[0]">{{ extraProp.selectedArray[0].name }}</template>
+          </template>
+          <template v-if="extraProp.selectType === 'mult'">
+            <template v-for="org in calcSelectedArray">
+              <a-tag :closable="false" :key="org.code">{{ org.name }}</a-tag>
+            </template>
+              <div class="display-block-more-item" v-if="extraProp.selectedArray.length > multCount">
+              <a-tooltip :title="'共选: ' + extraProp.selectedArray.length + '组织'">
+                <a-button shape="circle">
+                  <a-icon type="small-dash"></a-icon>
+                </a-button>
+              </a-tooltip>
+            </div>
+          </template>
+        </div>
+        <div
+          v-else
           class="display-block" 
           :class="{'display-block-error': validateStatus === 'error'}" 
           tabindex = "0" 
@@ -59,7 +79,16 @@
         </div>
       </template>
       <template v-if="extraProp.mode === 'cascade'">
+        <div v-if="viewable" class="ant-input no-border text-ellipsis">
+          <template v-if="extraProp.selectType === 'mult'">
+            <a-tag :closable="false" v-for="org in computViewValue" :key="org.code">{{ org.name }}</a-tag>
+          </template>
+          <template v-else>
+            <span v-if="computViewValue[0]">{{ computViewValue[0].name }}</span>
+          </template>
+        </div>
         <a-select
+          v-else
           ref="cascadeSelect"
           :value="value"
           @change="$formEventEmit('change', $event)"
@@ -101,6 +130,22 @@ export default {
   computed: {
     calcSelectedArray: function() {
       return this.extraProp.selectedArray.slice(0, this.multCount);
+    },
+    computViewValue: function () {
+      const result = [];
+      if (this.extraProp.options) {
+        let value = this.value;
+        if (!Array.isArray(value)) {
+          value = [value];
+        }
+        value.map(item => {
+          const temp = this.extraProp.options.filter(op => op.code === item)[0];
+          if (temp) {
+            result.push(temp);
+          }
+        });
+      }
+      return result;
     }
   },
   data() {

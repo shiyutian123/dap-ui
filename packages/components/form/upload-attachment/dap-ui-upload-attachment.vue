@@ -1,8 +1,8 @@
 <!--
  * @Author: lizhihang
  * @Date: 2020-02-06 10:37:47
- * @LastEditors: lizhihang
- * @LastEditTime: 2020-02-17 08:47:50
+ * @LastEditors: your name
+ * @LastEditTime: 2020-03-22 13:19:58
  * @Description: file content description
  -->
 <template>
@@ -17,7 +17,7 @@
         v-if="isShow()"
       >
         <span class="max-upload-size" @click="stopBubble($event)">单个文件大小不超过{{uploadSize}}M</span>
-        <a-button type="primary" :loading="showUploadProcess"> <a-icon type="file" /> 
+        <a-button v-if="!viewable" type="primary" :loading="showUploadProcess"> <a-icon type="file" /> 
           <span v-if="!showUploadProcess">{{ btnTitle}}</span>
           <span v-if="showUploadProcess">{{ uploadProcess }}%</span> </a-button>
       </a-upload>
@@ -37,7 +37,7 @@
             type="close-square"
             style="color: red; margin-left: 5px"
             @click="uploadDelete(row, rowIndex)"
-            v-if="isShow()"
+            v-if="isShow() && !viewable"
           />
         </div>
       </template>
@@ -53,6 +53,10 @@ export default {
   type: 'FORM_ATTACHMENT',
   mixins: [BasicComponentMixin, AttachmentComponentMixin],
   props: {
+    viewable: {
+      type: Boolean,
+      default: false
+    }
   },
   data() {
     return {

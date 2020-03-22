@@ -1,12 +1,12 @@
 <!--
  * @Author: DevinShi
  * @Date: 2020-02-06 10:37:47
- * @LastEditors: your name
- * @LastEditTime: 2020-03-10 18:12:04
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-03-19 16:10:47
  * @Description: file content description
  -->
 <template>
-  <div class="dap-ui-collapse-layout dap-ui-form-item">
+  <div class="dap-ui-collapse-layout dap-ui-form-item dap-ui-collapse-column">
     <a-collapse v-model="activeKey">
       <a-collapse-panel v-for="(childLayout, index) in layoutConfig.children" :key="index">
         <template v-slot:header>

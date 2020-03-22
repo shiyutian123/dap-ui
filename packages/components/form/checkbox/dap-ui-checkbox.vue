@@ -1,8 +1,8 @@
 <!--
  * @Author: DevinShi
  * @Date: 2020-02-06 10:37:47
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-02-27 16:25:57
+ * @LastEditors: your name
+ * @LastEditTime: 2020-03-20 16:30:42
  * @Description: file content description
  -->
 <template>
@@ -19,7 +19,9 @@
       <template v-slot:label>
         <span :style="{color: labelColor}">{{label}}</span>
       </template>
-      <a-checkbox-group 
+      <div v-if="viewable" class="ant-input no-border text-ellipsis">{{ value }}</div>
+      <a-checkbox-group
+        v-else
         :disabled="disabled"
         :defaultValue="defaultValue ? defaultValue : []"
         @change="change($event)"

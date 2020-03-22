@@ -27,6 +27,9 @@
       :footer="footer"
       @cancel="handleCancel">
       <slot></slot>
+      <template slot="title">
+        <slot name="title"></slot>
+      </template>
       <template slot="footer">
         <slot name="footer"></slot>
       </template>
@@ -39,8 +42,7 @@ export default {
   name: "DapUiModal",
   props: {
     title: {
-      type: String,
-      required: true
+      type: String
     },
     visible: {
       type: Boolean,
@@ -57,7 +59,7 @@ export default {
       }
     },
     size: {
-      type: String, // 'large' || 'medium' || 'small',
+      type: String, // 'large' || 'medium' || 'small' || 'other',
       default: function() {
         return "medium";
       }

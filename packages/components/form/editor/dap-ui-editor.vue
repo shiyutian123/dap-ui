@@ -1,17 +1,17 @@
 <!--
  * @Author: DevinShi
  * @Date: 2020-02-06 10:37:47
- * @LastEditors: DevinShi
- * @LastEditTime: 2020-02-18 11:01:33
+ * @LastEditors: your name
+ * @LastEditTime: 2020-03-22 13:13:21
  * @Description: file content description
  -->
 <template>
   <div class="dap-ui-editor dap-ui-form-item dap-ui-form-input">
     <div class="app-design-editor" :style="{'border-color' : validateStatus === 'error' ? '#f5222d' : '#e8e8e8'}">
       <header class="app-design-editor-header"><label v-if="required" class="ant-form-item-required"></label>{{ label }}</header>
-      <article class="app-design-editor-article">
+      <div v-if="viewable" class="ant-input no-border text-ellipsis" :html="value" style="height: height: 240px; white-space: normal; overflow: auto;"></div>
+      <article v-else class="app-design-editor-article">
           <div :class="{'editor': !disabled, 'editor-disabled': disabled}" :ref="vmData.editorId"></div>
-          
       </article> 
     </div>
     <div class="editor-error" v-if="validateStatus === 'error'">{{help}}</div>

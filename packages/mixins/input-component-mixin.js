@@ -2,7 +2,7 @@
  * @Author: DevinShi
  * @Date: 2020-02-11 06:49:10
  * @LastEditors: your name
- * @LastEditTime: 2020-03-10 16:31:12
+ * @LastEditTime: 2020-03-22 13:57:19
  * @Description: file content description
  */
 export default {
@@ -75,11 +75,16 @@ export default {
             type: Number,
             default: 1
         },
-        documentId: {}
+        documentId: {},
+        viewable: {
+            type: Boolean,
+            default: false
+        },
+        isNew: {}
     },
     created() {
-        if (this.defaultValue !== undefined && this.defaultValue !== "") {
-          this.$formEventEmit('change', this.defaultValue);
+        if (this.defaultValue !== undefined && this.defaultValue !== "" && !this.value && !this.isNew) {
+            this.$formEventEmit('change', this.defaultValue);
         }
     },
 }
