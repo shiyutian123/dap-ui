@@ -1,8 +1,8 @@
 <!--
  * @Author: DevinShi
  * @Date: 2020-02-06 10:37:47
- * @LastEditors: DevinShi
- * @LastEditTime: 2020-02-18 11:01:33
+ * @LastEditors: your name
+ * @LastEditTime: 2020-03-22 14:04:27
  * @Description: file content description
  -->
 <template>
@@ -173,9 +173,11 @@ export default {
     },
     emitValueChange() {
       if (this.extraProp.selectType === "single") {
-        this.$formEventEmit("change", this.extraProp.selectedArray[0].map(user => `${user.empId}(${user.name})`))
-      } else {
-        this.$formEventEmit("change", this.extraProp.selectedArray.map(user => `${user.empId}(${user.name})`))
+        this.$formEventEmit("change", this.extraProp.selectedArray.map(user =>  user.name + "(" + user.empId + ")")[0] || "")
+        this.$formEventEmit('updateTransValue', this.extraProp.selectedArray.map(user =>  user.empId)[0]);
+      } else if (this.extraProp.selectType === "mult") {
+        this.$formEventEmit("change", this.extraProp.selectedArray.map(user => user.name + "(" + user.empId + ")"))
+        this.$formEventEmit('updateTransValue', this.extraProp.selectedArray.map(user =>  user.empId));
       }
     },
     handleClick() {
