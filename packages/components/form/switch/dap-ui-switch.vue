@@ -1,8 +1,8 @@
 <!--
  * @Author: DevinShi
  * @Date: 2020-02-06 10:37:47
- * @LastEditors: DevinShi
- * @LastEditTime: 2020-02-18 11:01:33
+ * @LastEditors: your name
+ * @LastEditTime: 2020-03-22 13:33:23
  * @Description: file content description
  -->
 <template>
@@ -19,6 +19,12 @@
       <template v-slot:label>
         <span :style="{color: labelColor}">{{label}}</span>
       </template>
+      <div v-if="viewable" class="ant-input no-border text-ellipsis">
+        <a-switch
+          :checked="value"
+          :disabled="true">
+        </a-switch>
+      </div>
       <a-switch
         :checked="value"
         :disabled="disabled"

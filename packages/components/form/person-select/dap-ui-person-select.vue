@@ -1,8 +1,8 @@
 <!--
  * @Author: DevinShi
  * @Date: 2020-02-06 10:37:47
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-03-19 17:40:27
+ * @LastEditors: your name
+ * @LastEditTime: 2020-03-20 16:01:54
  * @Description: file content description
  -->
 <template>
@@ -21,7 +21,13 @@
       <template v-slot:label>
         <span :style="{color: labelColor}">{{label}}</span>
       </template>
-      <div 
+      <div v-if="viewable" ref="displayBlock" class="ant-input no-border text-ellipsis">
+        <template v-for="user in calcSelectedArray">
+          <dap-ui-person :info="user" :key="user.empId"></dap-ui-person>
+        </template>
+      </div>
+      <div
+        v-else
         ref="displayBlock" 
         class="display-block" 
         :class="{'display-block-error': validateStatus === 'error'}" 

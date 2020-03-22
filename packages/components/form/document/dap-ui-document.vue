@@ -1,8 +1,8 @@
 <!--
  * @Author: DevinShi
  * @Date: 2020-02-06 10:37:47
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-03-19 17:27:21
+ * @LastEditors: your name
+ * @LastEditTime: 2020-03-20 15:38:43
  * @Description: file content description
  -->
 <template>
@@ -19,7 +19,9 @@
       <template v-slot:label>
         <span :style="{color: labelColor}">{{label}}</span>
       </template>
-      <a-input 
+      <div v-if="viewable" class="ant-input no-border text-ellipsis">{{ value }}</div>
+      <a-input
+        v-else 
         :value="value"
         :disabled="true"/>
     </a-form-item>

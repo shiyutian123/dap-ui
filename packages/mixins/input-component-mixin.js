@@ -2,7 +2,7 @@
  * @Author: DevinShi
  * @Date: 2020-02-11 06:49:10
  * @LastEditors: your name
- * @LastEditTime: 2020-03-10 16:31:12
+ * @LastEditTime: 2020-03-20 15:37:29
  * @Description: file content description
  */
 export default {
@@ -75,7 +75,11 @@ export default {
             type: Number,
             default: 1
         },
-        documentId: {}
+        documentId: {},
+        viewable: {
+            type: Boolean,
+            default: false
+        }
     },
     created() {
         if (this.defaultValue !== undefined && this.defaultValue !== "") {
