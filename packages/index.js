@@ -2,7 +2,7 @@
  * @Author: DevinShi
  * @Date: 2020-02-06 03:27:31
  * @LastEditors: your name
- * @LastEditTime: 2020-03-10 18:52:47
+ * @LastEditTime: 2020-03-16 10:55:13
  * @Description: file content description
  */
 import Vuelidate from 'vuelidate'
@@ -89,6 +89,8 @@ import MomentPlugin from './plugins/moment/moment.plugin.js'
 
 import LoadResourcePlugin from './plugins/load-resource/load-resource.plugin.js';
 
+import VueBusPlugin from "./plugins/vue-bus/vue-bus.plugin.js";
+
 // 表单组件列表
 const formComponents = [ 
   DapUiButton,
@@ -147,6 +149,8 @@ const install = function(Vue) {
   Vue.use(LoadResourcePlugin);
   // 使用日期格式转换插件
   Vue.use(MomentPlugin);
+  // 使用vuebus插件
+  Vue.use(VueBusPlugin);
 
   // 遍历注册全局组件
   components.forEach(component => {

@@ -1,8 +1,8 @@
 <!--
  * @Author: your name
  * @Date: 2020-02-13 14:50:42
- * @LastEditTime: 2020-02-21 18:36:20
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-03-16 11:59:59
+ * @LastEditors: your name
  * @Description: In User Settings Edit
  * @FilePath: /dap-vue-ui/packages/components/modal/dap-ui-modal.vue
  -->
@@ -27,6 +27,9 @@
       :footer="footer"
       @cancel="handleCancel">
       <slot></slot>
+      <template slot="footer">
+        <slot name="footer"></slot>
+      </template>
     </a-modal>
   </div>
 </template>
@@ -111,7 +114,6 @@ export default {
       }
     },
     width: {
-      type: Number,
       default: 520
     },
     confirmLoading: {

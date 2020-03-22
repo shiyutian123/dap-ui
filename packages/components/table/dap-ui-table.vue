@@ -1,8 +1,8 @@
 <!--
  * @Author: your name
  * @Date: 2020-02-11 14:36:56
- * @LastEditTime: 2020-03-06 11:17:58
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-03-12 17:09:09
+ * @LastEditors: your name
  * @Description: In User Settings Edit
  * @FilePath: /lerna-dap/packages/dap-vue-ui/packages/components/table/dap-ui-table.vue
  -->
@@ -217,7 +217,7 @@ export default {
         }
         this.checkedData.map(checkedItem => {
           const tempObj = newValue.filter(
-            item => JSON.stringify(item) === JSON.stringify(checkedItem)
+            item => this.$_equals(item, checkedItem)
           )[0];
           if (tempObj) {
             tempObj.$__checked = true;
@@ -323,7 +323,6 @@ export default {
       const data = {
         selection: this.getChekced()
       };
-      this.$emit("select-change", data);
       // 组件实例记录选中的数据
       if (this.tableBaseConfig.selectMode === "multipart") {
         if (row.$__checked) {
@@ -338,6 +337,7 @@ export default {
           this.checkedData = [];
         }
       }
+      this.$emit("select-change", data);
     },
     onClickCheckAll() {
       this.indeterminate = false;
@@ -365,13 +365,13 @@ export default {
       const data = {
         selection: this.getChekced()
       };
-      this.$emit("select-change", data);
       // 组件实例记录选中的数据
       if (this.checkAll) {
         this.$_takeCheckedData(tempArr);
       } else {
         this.$_takeUncheckedData(tempArr);
       }
+      this.$emit("select-change", data);
     },
     $_setHeaderSeqCheckStatus() {
       let tempArr;
@@ -414,6 +414,9 @@ export default {
         return this.tableData.filter(item => item.$__checked);
       }
     },
+    clearChecked() {
+      this.checkedData = [];
+    },
     scrollToRow(row) {
       setTimeout(() => {
         this.$refs.table.scrollToRow(row);
@@ -426,7 +429,7 @@ export default {
       checkedArr.map(checkedItem => {
         if (
           this.checkedData.filter(
-            item => JSON.stringify(item) === JSON.stringify(checkedItem)
+            item => this.$_equals(item, checkedItem)
           ).length === 0
         ) {
           this.checkedData.push(checkedItem);
@@ -436,12 +439,19 @@ export default {
     $_takeUncheckedData(uncheckedArr) {
       uncheckedArr.map(uncheckedItem => {
         const tempArr = this.checkedData.filter(
-          item => JSON.stringify(item) === JSON.stringify(uncheckedItem)
+          item => this.$_equals(item, uncheckedItem)
         );
         if (tempArr.length > 0) {
           this.checkedData.splice(this.checkedData.indexOf(tempArr[0]), 1);
         }
       });
+    },
+    $_equals(a, b) {
+      if (this.tableBaseConfig.rowId) {
+        return a[this.tableBaseConfig.rowId] === b[this.tableBaseConfig.rowId];
+      } else {
+        return JSON.stringify(a) === JSON.stringify(b);
+      }
     }
   }
 };

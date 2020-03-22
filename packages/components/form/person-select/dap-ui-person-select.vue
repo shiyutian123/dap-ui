@@ -134,9 +134,13 @@ export default {
       }
     }
   },
-  created() {
+  mounted() {
     console.log(this.extraProp);
-    this.calcMultCount()
+    // TODO 不合适的方案
+    // 表格宽度计算在这之后
+    setTimeout(() => {
+      this.calcMultCount();
+    }, 100);
   },
   methods: {
     removeUser(user) {
@@ -148,9 +152,11 @@ export default {
     },
     emitValueChange() {
       if (this.extraProp.selectType === "single") {
-        this.$formEventEmit("change", this.extraProp.selectedArray.map(user => user.empId)[0] || "")
+        this.$formEventEmit("change", this.extraProp.selectedArray.map(user =>  user.name + "(" + user.empId + ")")[0] || "")
+        this.$formEventEmit('updateTransValue', this.extraProp.selectedArray.map(user =>  user.empId)[0]);
       } else if (this.extraProp.selectType === "mult") {
-        this.$formEventEmit("change", this.extraProp.selectedArray.map(user => user.empId))
+        this.$formEventEmit("change", this.extraProp.selectedArray.map(user => user.name + "(" + user.empId + ")"))
+        this.$formEventEmit('updateTransValue', this.extraProp.selectedArray.map(user =>  user.empId));
       }
     },
     handleClick() {
