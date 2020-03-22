@@ -45,7 +45,7 @@
             :extraProp="itemConfig.extraProp"
             :colSpan="itemConfig.colSpan"
             :multi="itemConfig.multi"
-            :documentId="globalFormInfo ? globalFormInfo.documentId : undefined"
+            :isNew="globalFormInfo ? globalFormInfo.documentId : undefined"
             @formEventEmit="formEventEmit($event)"
             @updateTransValue="formValueTransChange(itemConfig.transDataCode, $event)"
             @change="formValueChange(itemConfig.dataCode, $event)"></component>

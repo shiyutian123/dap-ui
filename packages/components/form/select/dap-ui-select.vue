@@ -55,6 +55,8 @@ export default {
   mixins: [InputComponentMixin, BasicComponentMixin],
   props: {
   },
+  computed: {
+  },
   methods: {
     // filterOption(input, option) {
     //   return option.componentOptions.propsData.title && option.componentOptions.propsData.title.indexOf(input) !== -1;

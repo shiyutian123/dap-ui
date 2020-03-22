@@ -119,7 +119,13 @@ export default {
     },
     computedValue: function() {
       if (this.extraProp.selectMode === 'multipart') {
-        return Array.isArray(this.value) ? this.value : [this.value];
+        if (value === '' || !value) {
+          return []
+        } else {
+          return Array.isArray(this.value) ? this.value : [this.value];
+        }
+      } else {
+        return value;
       }
     }
   },
@@ -161,6 +167,8 @@ export default {
             return { [this.extraProp.dataCode]: item };
           });
           this.$refs.lov.setCheckedData(checkedData);
+        } else {
+          this.$refs.lov.clearCheckedData();
         }
         this.$formEventEmit('query-lov-data', {
           currentPage: this.$refs.lov.lovTableBaseConfig.tablePage.currentPage,
