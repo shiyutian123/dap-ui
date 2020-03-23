@@ -1,8 +1,8 @@
 /*
  * @Author: DevinShi
  * @Date: 2020-02-06 03:27:31
- * @LastEditors: your name
- * @LastEditTime: 2020-03-19 18:14:02
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-03-20 10:44:55
  * @Description: file content description
  */
 import Vuelidate from 'vuelidate'
@@ -94,10 +94,12 @@ import LoadResourcePlugin from './plugins/load-resource/load-resource.plugin.js'
 
 import VueBusPlugin from "./plugins/vue-bus/vue-bus.plugin.js";
 
+import "./global.less";
+
 // 表单组件列表
-const formComponents = [ 
+const formComponents = [
   DapUiButton,
-  DapUiInput, 
+  DapUiInput,
   DapUiSelect, 
   DapUiRadio, 
   DapUiCheckbox, 
