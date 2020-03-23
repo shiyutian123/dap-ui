@@ -1,8 +1,8 @@
 <!--
  * @Author: DevinShi
  * @Date: 2020-02-06 10:37:47
- * @LastEditors: DevinShi
- * @LastEditTime: 2020-02-18 11:01:33
+ * @LastEditors: your name
+ * @LastEditTime: 2020-03-22 13:23:13
  * @Description: file content description
  -->
 <template>
@@ -19,7 +19,18 @@
       <template v-slot:label>
         <span >{{label}}</span>
       </template>
+      <div v-if="viewable" class="ant-input no-border text-ellipsis">
+        <a-rate
+          :style="{color: labelColor}"
+          :value="getValue()"
+          :disabled="true"
+          :defaultValue="getDefaultValue()"
+          allowHalf
+          :allowClear="false">
+        </a-rate>
+      </div>
       <a-rate
+        v-else
         :style="{color: labelColor}"
         :value="getValue()"
         :disabled="disabled"

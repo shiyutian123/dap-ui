@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-02-21 16:38:40
- * @LastEditTime: 2020-03-20 09:42:07
+ * @LastEditTime: 2020-03-22 20:38:28
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dap-vue-ui/packages/components/form/lov/dap-ui-lov.vue
@@ -26,7 +26,9 @@
       v-if="extraProp.selectMode !== 'multipart'"
       @click="onClickLovInput">
         <a-tooltip :title="computTooltip">
+          <div v-if="viewable" class="ant-input no-border text-ellipsis">{{ value }}</div>
           <a-input
+          v-else
           class="lov-input"
           :readonly="true"
           :disabled="disabled"
@@ -43,7 +45,12 @@
         <span class="lov-input ant-input-group-wrapper">
           <span class="ant-input-wrapper ant-input-group">
             <a-tooltip :title="computTooltip">
-              <div class="ant-input lov-input" style="border-radius: 4px; display: flex; position: absolute;">
+              <div v-if="viewable" class="ant-input no-border text-ellipsis">
+                <div class="tags" v-if="Array.isArray(value)">
+                  <a-tag v-for="(item, index) in value" :visible="true" :closable="false" :key="index">{{ item }}</a-tag>
+                </div>
+              </div>
+              <div v-else class="ant-input lov-input" style="border-radius: 4px; display: flex; position: absolute;">
                 <div class="tags" v-if="Array.isArray(value)">
                   <a-tag v-for="(item, index) in value" :visible="true" :closable="!disabled" :key="index" @close="handlerCloseTag(item, index)">{{ item }}</a-tag>
                 </div>
@@ -112,7 +119,13 @@ export default {
     },
     computedValue: function() {
       if (this.extraProp.selectMode === 'multipart') {
-        return Array.isArray(this.value) ? this.value : [this.value];
+        if (value === '' || !value) {
+          return []
+        } else {
+          return Array.isArray(this.value) ? this.value : [this.value];
+        }
+      } else {
+        return value;
       }
     }
   },
@@ -154,6 +167,8 @@ export default {
             return { [this.extraProp.dataCode]: item };
           });
           this.$refs.lov.setCheckedData(checkedData);
+        } else {
+          this.$refs.lov.clearCheckedData();
         }
         this.$formEventEmit('query-lov-data', {
           currentPage: this.$refs.lov.lovTableBaseConfig.tablePage.currentPage,

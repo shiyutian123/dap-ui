@@ -1,8 +1,8 @@
 <!--
  * @Author: DevinShi
  * @Date: 2020-02-06 10:37:47
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-03-19 18:11:58
+ * @LastEditors: your name
+ * @LastEditTime: 2020-03-20 16:24:19
  * @Description: file content description
  -->
 <template>
@@ -19,7 +19,10 @@
       <template v-slot:label>
         <span :style="{color: labelColor}">{{label}}</span>
       </template>
-      <a-textarea class="textarea"
+      <div v-if="viewable" class="textarea ant-input no-border text-ellipsis">{{ value }}</div>
+      <a-textarea
+        v-else
+        class="textarea"
         :value="value"
         @input="$formEventEmit('change', $event.target.value)"
         :placeholder="placeholder" 

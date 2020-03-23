@@ -1,8 +1,8 @@
 <!--
  * @Author: DevinShi
  * @Date: 2020-02-06 10:37:47
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-03-19 17:28:58
+ * @LastEditors: your name
+ * @LastEditTime: 2020-03-20 16:28:32
  * @Description: file content description
  -->
 <template>
@@ -21,7 +21,10 @@
       <template v-slot:label>
         <span :style="{color: labelColor}">{{label}}</span>
       </template>
-      <a-date-picker class="input-date"
+      <div v-if="viewable" class="textarea ant-input no-border text-ellipsis">{{ value }}</div>
+      <a-date-picker
+        v-else
+        class="input-date"
         :value="getDate(value)"
         @change="onChange"
         :placeholder="placeholder" 

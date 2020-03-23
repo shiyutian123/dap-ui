@@ -2,7 +2,7 @@
  * @Author: DevinShi
  * @Date: 2020-02-06 10:37:47
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-03-20 10:45:39
+ * @LastEditTime: 2020-03-22 20:37:42
  * @Description: file content description
  -->
 <template>
@@ -21,7 +21,9 @@
       <template v-slot:label>
         <span :style="{color: labelColor}">{{label}}</span>
       </template>
+      <div v-if="viewable" class="ant-input no-border text-ellipsis">{{ value }}</div>
       <a-input 
+        v-else
         :value="value"
         @input="$formEventEmit('change', $event.target.value)"
         :placeholder="placeholder" 

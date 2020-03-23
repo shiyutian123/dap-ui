@@ -2,8 +2,8 @@
  * @Author: Trevor
  * @Email: wei.tang@definesys.com
  * @Date: 2020-03-10 14:13:17
- * @LastEditTime: 2020-03-19 18:03:13
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-03-20 16:11:29
+ * @LastEditors: your name
  * @Description: file content
  -->
 <template>
@@ -22,7 +22,9 @@
       <template v-slot:label>
         <span :style="{color: labelColor}">{{label}}</span>
       </template>
-      <a-input 
+      <div v-if="viewable" class="ant-input no-border text-ellipsis">{{ value }}</div>
+      <a-input
+        v-else
         :value="value"
         @input="$formEventEmit('change', $event.target.value)"
         :placeholder="placeholder" 
