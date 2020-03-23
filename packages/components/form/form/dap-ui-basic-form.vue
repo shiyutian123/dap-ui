@@ -1,13 +1,13 @@
 <!--
  * @Author: DevinShi
  * @Date: 2020-02-06 10:37:47
- * @LastEditors: your name
- * @LastEditTime: 2020-03-22 13:19:22
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-03-22 20:37:31
  * @Description: file content description
  -->
 <template>
   <!-- 表单渲染，支持JSON Schema格式的渲染方式 -->
-  <div class="dap-ui-basic-form dap-ui-form">
+  <div class="dap-ui-basic-form dap-ui-form dap-ui-global-form">
       <component
         :is="formItemName"
         :rowSpan="itemConfig.rowSpan"
