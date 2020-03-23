@@ -54,7 +54,6 @@ import DapUiStaticTips from "./components/form/static-tips/dap-ui-static-tips.vu
 import DapUiStaticSplit from "./components/form/static-split/dap-ui-static-split.vue";
 // 占位符组件
 import DapUiStaticPlaceholder from "./components/form/static-placeholder/dap-ui-static-placeholder.vue";
-
 // 网页组件
 import  DapUiWeb  from "./components/form/web/dap-ui-web.vue";
 
@@ -130,7 +129,7 @@ const formComponents = [
   DapUiStaticSplit,
   DapUiPersonSelect,
   DapUiOrgSelect,
-  DapUiAssociateForm
+  DapUiAssociateForm,
 ];
 
 // 所有组件列表
