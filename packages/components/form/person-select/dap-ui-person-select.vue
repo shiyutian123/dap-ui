@@ -181,17 +181,11 @@ export default {
     },
     emitValueChange() {
       if (this.extraProp.selectType === "single") {
-<<<<<<< HEAD
-        this.$formEventEmit("change", this.extraProp.selectedArray.map(user => `${user.empId}(${user.name})`)[0])
-      } else {
-        this.$formEventEmit("change", this.extraProp.selectedArray.map(user => `${user.empId}(${user.name})`))
-=======
         this.$formEventEmit("change", this.extraProp.selectedArray.map(user =>  user.name + "(" + user.empId + ")")[0] || "")
         this.$formEventEmit('updateTransValue', this.extraProp.selectedArray.map(user =>  user.empId)[0]);
       } else if (this.extraProp.selectType === "mult") {
         this.$formEventEmit("change", this.extraProp.selectedArray.map(user => user.name + "(" + user.empId + ")"))
         this.$formEventEmit('updateTransValue', this.extraProp.selectedArray.map(user =>  user.empId));
->>>>>>> 8aea5857f50347eab096e52d2ba32446dad27be2
       }
     },
     handleClick() {
