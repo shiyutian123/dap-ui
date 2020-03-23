@@ -173,7 +173,7 @@ export default {
     },
     emitValueChange() {
       if (this.extraProp.selectType === "single") {
-        this.$formEventEmit("change", this.extraProp.selectedArray[0].map(user => `${user.empId}(${user.name})`))
+        this.$formEventEmit("change", this.extraProp.selectedArray.map(user => `${user.empId}(${user.name})`)[0])
       } else {
         this.$formEventEmit("change", this.extraProp.selectedArray.map(user => `${user.empId}(${user.name})`))
       }
