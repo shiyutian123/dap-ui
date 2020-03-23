@@ -1,12 +1,14 @@
 <!--
  * @Author: DevinShi
  * @Date: 2020-02-06 10:37:47
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-02-27 15:37:08
+ * @LastEditors: your name
+ * @LastEditTime: 2020-03-20 16:28:32
  * @Description: file content description
  -->
 <template>
-  <div class="dap-ui-input-date dap-ui-form-item dap-ui-form-input">
+  <div
+    class="dap-ui-input-date dap-ui-form-item dap-ui-form-input dap-ui-input-colum"
+  >
     <a-form-item
       :label-col="labelCol"
       :wrapper-col="wrapperCol"
@@ -19,7 +21,10 @@
       <template v-slot:label>
         <span :style="{color: labelColor}">{{label}}</span>
       </template>
-      <a-date-picker class="input-date"
+      <div v-if="viewable" class="textarea ant-input no-border text-ellipsis">{{ value }}</div>
+      <a-date-picker
+        v-else
+        class="input-date"
         :value="getDate(value)"
         @change="onChange"
         :placeholder="placeholder" 

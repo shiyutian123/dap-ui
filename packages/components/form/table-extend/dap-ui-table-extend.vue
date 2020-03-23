@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-02-20 10:13:07
- * @LastEditTime: 2020-03-13 17:16:08
+ * @LastEditTime: 2020-03-22 13:37:13
  * @LastEditors: your name
  * @Description: In User Settings Edit
  * @FilePath: /dap-vue-ui/packages/components/form/table-extend/dap-ui-table-extend.vue
@@ -21,9 +21,11 @@
             :value="item.value"
           >{{ item.label }}</a-radio>
         </a-radio-group>
-        <a-button v-if="!readOnly" type="primary" size="small" @click="onClickAdd">新建记录</a-button>
-        <a-button v-if="!readOnly" style="margin-left: 1rem;" type="primary" size="small" @click="onClickCopy">复制新建</a-button>
-        <a-button v-if="!readOnly" style="margin-left: 1rem;" type="default" size="small" @click="onClickDelete">删除</a-button>
+        <template v-if="!viewable">
+          <a-button v-if="!readOnly" type="primary" size="small" @click="onClickAdd">新建记录</a-button>
+          <a-button v-if="!readOnly" style="margin-left: 1rem;" type="primary" size="small" @click="onClickCopy">复制新建</a-button>
+          <a-button v-if="!readOnly" style="margin-left: 1rem;" type="default" size="small" @click="onClickDelete">删除</a-button>
+        </template>
       </div>
     </div>
     <dap-ui-table
@@ -45,6 +47,7 @@
           :uuid="column.uuid"
           :options="column.options"
           :disabled="column.disabled"
+          :viewable="viewable"
           :placeholder="column.placeholder"
           :componentName="column.componentName"
           :columns="column.columnSet"
@@ -91,6 +94,7 @@
                 :uuid="column.uuid"
                 :options="column.options"
                 :disabled="column.disabled"
+                :viewable="viewable"
                 :placeholder="column.placeholder"
                 :componentName="column.componentName"
                 :columns="column.columnSet"
@@ -189,14 +193,19 @@ export default {
             { field: "_", title: "", slotName: "customColumn" }
           ]; // 纵向表格
           // readonly
-          const flag = newValue.every(item => item.readOnly);
-          this.readOnly = flag;
-          if (flag) {
+          if (this.viewable) {
             this.tableBaseConfig.selectMode = "";
             this.verticalTableBaseConfig.selectMode = "";
           } else {
-            this.tableBaseConfig.selectMode = "multipart";
-            this.verticalTableBaseConfig.selectMode = "multipart";
+            const flag = newValue.every(item => item.readOnly);
+            this.readOnly = flag;
+            if (flag) {
+              this.tableBaseConfig.selectMode = "";
+              this.verticalTableBaseConfig.selectMode = "";
+            } else {
+              this.tableBaseConfig.selectMode = "multipart";
+              this.verticalTableBaseConfig.selectMode = "multipart";
+            }
           }
         }
       },

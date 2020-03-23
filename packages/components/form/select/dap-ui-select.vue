@@ -1,12 +1,14 @@
 <!--
  * @Author: DevinShi
  * @Date: 2020-02-06 10:37:47
- * @LastEditors: DevinShi
- * @LastEditTime: 2020-02-25 14:42:16
+ * @LastEditors: your name
+ * @LastEditTime: 2020-03-22 14:37:39
  * @Description: file content description
  -->
 <template>
-  <div class="dap-ui-select dap-ui-form-item dap-ui-form-input">
+  <div
+    class="dap-ui-select dap-ui-form-item dap-ui-form-input dap-ui-input-column"
+  >
     <!-- multi ? 'multiple' : 'default' -->
     <a-form-item
       :label-col="labelCol"
@@ -20,7 +22,9 @@
       <template v-slot:label>
         <span :style="{color: labelColor}">{{label}}</span>
       </template>
+        <div v-if="viewable" class="ant-input no-border text-ellipsis">{{ computViewValue }}</div>
         <a-select 
+            v-else
             :allowClear="allowClear"
             :disabled="disabled"
             :defaultValue="defaultValue" 
@@ -52,6 +56,13 @@ export default {
   props: {
   },
   computed: {
+    computViewValue: function() {
+      if (Array.isArray(this.value)) {
+        return this.value.join(',');
+      } else {
+        return this.value;
+      }
+    }
   },
   methods: {
     // filterOption(input, option) {

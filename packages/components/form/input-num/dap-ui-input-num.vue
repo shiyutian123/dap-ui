@@ -1,12 +1,14 @@
 <!--
  * @Author: DevinShi
  * @Date: 2020-02-06 10:37:47
- * @LastEditors: DevinShi
- * @LastEditTime: 2020-02-22 17:22:40
+ * @LastEditors: your name
+ * @LastEditTime: 2020-03-20 16:10:30
  * @Description: file content description
  -->
 <template>
-  <div class="dap-ui-input-num dap-ui-form-item dap-ui-form-input">
+  <div
+    class="dap-ui-input-num dap-ui-form-item dap-ui-form-input dap-ui-input-colum"
+  >
     <a-form-item
       :label-col="labelCol"
       :wrapper-col="wrapperCol"
@@ -19,7 +21,9 @@
       <template v-slot:label>
         <span :style="{color: labelColor}">{{label}}</span>
       </template>
-      <a-input 
+      <div v-if="viewable" class="ant-input no-border text-ellipsis">{{ value }}</div>
+      <a-input
+        v-else
         :value="value"
         @input="dataChangeEvent($event)"
         :placeholder="placeholder" 

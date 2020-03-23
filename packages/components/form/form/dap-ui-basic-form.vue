@@ -2,12 +2,12 @@
  * @Author: DevinShi
  * @Date: 2020-02-06 10:37:47
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-03-05 16:55:12
+ * @LastEditTime: 2020-03-22 20:37:31
  * @Description: file content description
  -->
 <template>
   <!-- 表单渲染，支持JSON Schema格式的渲染方式 -->
-  <div class="dap-ui-basic-form dap-ui-form">
+  <div class="dap-ui-basic-form dap-ui-form dap-ui-global-form">
       <component
         :is="formItemName"
         :rowSpan="itemConfig.rowSpan"
@@ -38,6 +38,7 @@
             :uuid="itemConfig.uuid"
             :options="itemConfig.options"
             :disabled="isDisabled(itemConfig)"
+            :viewable="itemConfig.viewable"
             :placeholder="itemConfig.placeholder"
             :componentName="itemConfig.componentName"
             :columns="itemConfig.columnSet"
@@ -56,6 +57,8 @@
             :uuid="itemConfig.uuid"
             :componentName="itemConfig.componentName"
             :extraProp="itemConfig.extraProp"
+            :value="currentFormData[itemConfig.dataCode]"
+            :columns="itemConfig.columnSet"
             @formEventEmit="formEventEmit($event)"
             :label-color="itemConfig.labelColor"
             :colSpan="itemConfig.colSpan"></component>
@@ -76,6 +79,7 @@
             :tableData="itemConfig.tableData"
             :beforeUpload="itemConfig.beforeUpload"
             :editOnNew="itemConfig.editOnNew"
+            :viewable="itemConfig.viewable"
             @formEventEmit="formEventEmit($event)"
             @change="formValueChange(itemConfig.dataCode, $event)"
             ></component>

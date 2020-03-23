@@ -1,13 +1,15 @@
 <!--
  * @Author: your name
  * @Date: 2020-02-21 16:38:40
- * @LastEditTime: 2020-03-12 19:07:39
- * @LastEditors: your name
+ * @LastEditTime: 2020-03-22 20:38:28
+ * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dap-vue-ui/packages/components/form/lov/dap-ui-lov.vue
  -->
 <template>
-  <div class="dap-ui-lov dap-ui-form-item dap-ui-form-input">
+  <div
+    class="dap-ui-lov dap-ui-form-item dap-ui-form-input dap-ui-input-column"
+  >
     <a-form-item
       :label-col="labelCol"
       :wrapper-col="wrapperCol"
@@ -24,7 +26,9 @@
       v-if="extraProp.selectMode !== 'multipart'"
       @click="onClickLovInput">
         <a-tooltip :title="computTooltip">
+          <div v-if="viewable" class="ant-input no-border text-ellipsis">{{ value }}</div>
           <a-input
+          v-else
           class="lov-input"
           :readonly="true"
           :disabled="disabled"
@@ -41,7 +45,12 @@
         <span class="lov-input ant-input-group-wrapper">
           <span class="ant-input-wrapper ant-input-group">
             <a-tooltip :title="computTooltip">
-              <div class="ant-input lov-input" style="border-radius: 4px; display: flex; position: absolute;">
+              <div v-if="viewable" class="ant-input no-border text-ellipsis">
+                <div class="tags" v-if="Array.isArray(value)">
+                  <a-tag v-for="(item, index) in value" :visible="true" :closable="false" :key="index">{{ item }}</a-tag>
+                </div>
+              </div>
+              <div v-else class="ant-input lov-input" style="border-radius: 4px; display: flex; position: absolute;">
                 <div class="tags" v-if="Array.isArray(value)">
                   <a-tag v-for="(item, index) in value" :visible="true" :closable="!disabled" :key="index" @close="handlerCloseTag(item, index)">{{ item }}</a-tag>
                 </div>
@@ -52,7 +61,16 @@
         </span>
       </div>
     </a-form-item>
-    <dap-ui-modal
+    <lov
+    ref="lov"
+    :visible="modalConfig.visible"
+    :extraProp="extraProp"
+    :placeholder="placeholder"
+    @lov-ok="handleOk"
+    @lov-cancel="handleCancel"
+    @query-lov-data="queryLovData"
+    ></lov>
+    <!-- <dap-ui-modal
     v-bind="modalConfig"
     @ok="handleOk"
     @cancel="handleCancel">
@@ -77,7 +95,7 @@
           </div>
         </a-card>
       </div>
-    </dap-ui-modal>
+    </dap-ui-modal> -->
   </div>
 </template>
 
@@ -138,41 +156,45 @@ export default {
     this.lovTableBaseConfig.selectMode = this.extraProp.selectMode;
   },
   methods: {
+    queryLovData(e) {
+      this.$formEventEmit('query-lov-data', e);
+    },
     onClickLovInput(e) {
       if (!this.disabled) {
         this.modalConfig.visible = true;
         if (this.extraProp.selectMode === 'multipart' && Array.isArray(this.value)) {
-          this.checkedData = this.value.map(item => {
+          const checkedData = this.value.map(item => {
             return { [this.extraProp.dataCode]: item };
           });
-          setTimeout(() => {
-            this.$refs.dapUiTable.checkedData = this.checkedData;
-          }, 100);
+          this.$refs.lov.setCheckedData(checkedData);
+        } else {
+          this.$refs.lov.clearCheckedData();
         }
         this.$formEventEmit('query-lov-data', {
-          currentPage: this.lovTableBaseConfig.tablePage.currentPage,
-          pageSize: this.lovTableBaseConfig.tablePage.pageSize,
+          currentPage: this.$refs.lov.lovTableBaseConfig.tablePage.currentPage,
+          pageSize: this.$refs.lov.lovTableBaseConfig.tablePage.pageSize,
           value: this.value
         });
         // 计算表格高度
         setTimeout(() => {
-          const height = document.querySelector('.dap-ui-lov-modal .lov-choose-block').clientHeight - 88;
-          this.lovTableBaseConfig.maxHeight = `${height}px`;
+          // const height = document.querySelector('.dap-ui-lov-modal .lov-choose-block').clientHeight - 88;
+          // this.lovTableBaseConfig.maxHeight = `${height}px`;
         }, 60);
       }
     },
     handleOk(e) {
-      this.extraProp.tableData = [];
-      this.resetTablePage();
-      this.$refs.dapUiTable.clearChecked();
+      // this.extraProp.tableData = [];
+      // this.resetTablePage();
+      // this.$refs.dapUiTable.clearChecked();
+      // this.modalConfig.visible = false;
+      // const data = {
+      //   selection: this.checkedData
+      // };
       this.modalConfig.visible = false;
-      const data = {
-        selection: this.checkedData
-      };
-      this.$formEventEmit('lov-ok', data)
+      this.$formEventEmit('lov-ok', e);
     },
     handleCancel(e) {
-      this.resetTablePage();
+      // this.resetTablePage();
       this.modalConfig.visible = false;
       this.$formEventEmit('lov-cancel', e)
     },

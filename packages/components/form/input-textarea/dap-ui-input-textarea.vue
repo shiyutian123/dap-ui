@@ -1,12 +1,12 @@
 <!--
  * @Author: DevinShi
  * @Date: 2020-02-06 10:37:47
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-02-25 18:11:09
+ * @LastEditors: your name
+ * @LastEditTime: 2020-03-20 16:24:19
  * @Description: file content description
  -->
 <template>
-  <div class="dap-ui-input-textarea dap-ui-form-item dap-ui-form-input">
+  <div class="dap-ui-input-textarea dap-ui-form-item dap-ui-form-input dap-ui-textarea-column">
     <a-form-item
       :label-col="labelCol"
       :wrapper-col="wrapperCol"
@@ -19,7 +19,10 @@
       <template v-slot:label>
         <span :style="{color: labelColor}">{{label}}</span>
       </template>
-      <a-textarea class="textarea"
+      <div v-if="viewable" class="textarea ant-input no-border text-ellipsis">{{ value }}</div>
+      <a-textarea
+        v-else
+        class="textarea"
         :value="value"
         @input="$formEventEmit('change', $event.target.value)"
         :placeholder="placeholder" 

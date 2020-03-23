@@ -1,13 +1,13 @@
 <!--
  * @Author: your name
  * @Date: 2020-02-13 14:50:42
- * @LastEditTime: 2020-03-16 11:59:59
- * @LastEditors: your name
+ * @LastEditTime: 2020-03-22 15:46:00
+ * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dap-vue-ui/packages/components/modal/dap-ui-modal.vue
  -->
 <template>
-  <div class="dap-ui-modal">
+  <div class="dap-ui-modal dap-ui-global-form">
     <a-modal
       style="top: 1rem;"
       :class="computClassName"
@@ -27,6 +27,9 @@
       :footer="footer"
       @cancel="handleCancel">
       <slot></slot>
+      <template slot="title">
+        <slot name="title"></slot>
+      </template>
       <template slot="footer">
         <slot name="footer"></slot>
       </template>
@@ -39,8 +42,7 @@ export default {
   name: "DapUiModal",
   props: {
     title: {
-      type: String,
-      required: true
+      type: String
     },
     visible: {
       type: Boolean,
@@ -57,7 +59,7 @@ export default {
       }
     },
     size: {
-      type: String, // 'large' || 'medium' || 'small',
+      type: String, // 'large' || 'medium' || 'small' || 'other',
       default: function() {
         return "medium";
       }
